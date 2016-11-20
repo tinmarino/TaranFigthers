@@ -16,5 +16,6 @@ public class MainGdx extends ApplicationAdapter {
 	@Override
 	public void render () {
 		currentScreen.render(Gdx.graphics.getDeltaTime());
+		Gdx.app.log("Main", "delta " +  Gdx.graphics.getDeltaTime());
 	}
 }
