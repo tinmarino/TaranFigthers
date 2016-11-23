@@ -17,6 +17,23 @@ public class Iul extends Character{
 	public float x=0 ,y=0;
 	public float size=2; 
 
+	public void setX(float x){
+		this.x = x;
+		spriteChanging.setX( (x-size/2) * G.world2pixel);
+		body.setTransform(x, y-0.5f, 0f);
+	}
+
+	public void setY(float y){
+		this.y = y;
+		spriteChanging.setY( (y-size/2) * G.world2pixel);
+		body.setTransform(x, y-0.5f, 0f);
+	}
+	
+	public void setXY(float x, float y){
+		setX(x);
+		setY(y);
+	}
+
 	public Iul(World world){
 		this.world = world;
 		init();
@@ -59,7 +76,7 @@ public class Iul extends Character{
 			
 	// BodyShape 
 		PolygonShape bodyShape = new PolygonShape();
-		bodyShape.setAsBox(2, 2);
+		bodyShape.setAsBox(size/8, size/4);
 		
 
 	// BodyFixture 

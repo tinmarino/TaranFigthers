@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class CombatScreen implements Screen, InputProcessor {
@@ -23,14 +24,15 @@ public class CombatScreen implements Screen, InputProcessor {
     TiledMap tiledMap;
     OrthographicCamera camera;
     OrthogonalTiledMapRenderer tiledMapRenderer;
-	Character char1, char2;
+	Iul char1, char2;
 	Sprite testSprite; 
 	World world;
+	Box2DDebugRenderer  debugRenderer;
 	
 	@Override
 	public void show() {
 		world = new World(new Vector2(0, -10), true);
-
+		debugRenderer = new Box2DDebugRenderer();
 
 		camera = new OrthographicCamera();
 		camera.position.x = 0;
@@ -65,7 +67,9 @@ public class CombatScreen implements Screen, InputProcessor {
 		tiledMapRenderer.getBatch().begin();
 			char1.draw((SpriteBatch) tiledMapRenderer.getBatch(), delta);
 		tiledMapRenderer.getBatch().end();
-
+		
+		// DEBUG
+		debugRenderer.render(world, camera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
 	}
 
 	@Override
@@ -101,13 +105,23 @@ public class CombatScreen implements Screen, InputProcessor {
 	@Override
 	public boolean keyDown(int keycode) {
         if(keycode == Input.Keys.LEFT)
-            camera.translate(-128,0);
+		{
+			char1.setX(char1.x-1);
+		}
+			
         if(keycode == Input.Keys.RIGHT)
-            camera.translate(128,0);
+		{
+			char1.setX(char1.x+1);
+		}
         if(keycode == Input.Keys.UP)
-            camera.translate(0,-128);
+		{
+			char1.setY(char1.y+1);
+		}
         if(keycode == Input.Keys.DOWN)
-            camera.translate(0,128);
+		{
+			char1.setY(char1.y-1);
+		}
+
         if(keycode == Input.Keys.NUM_1)
             tiledMap.getLayers().get(0).setVisible(!tiledMap.getLayers().get(0).isVisible());
         if(keycode == Input.Keys.NUM_2)
