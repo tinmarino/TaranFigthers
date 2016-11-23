@@ -10,4 +10,9 @@ public class TextureTime{
 		this.texture = texture;
 		this.time = time;
 	}
+
+	public TextureTime(String string, float time){
+		this.texture = new Texture(string);
+		this.time = time;
+	}
 }

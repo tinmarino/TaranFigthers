@@ -1,31 +1,31 @@
 package com.mygdx.taranfighters;
 
-import com.badlogic.gdx.graphics.Texture;
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Iul extends Character{
+	ArrayList<TextureTime> walkList;
 
 	public Iul(){
 		super();
-		show();
-	}
+		
+		// Walk list 
+		walkList = new ArrayList<TextureTime>();
+		walkList.add(new TextureTime( "iul/iul_walk1.png" , 0.3f ));
+		walkList.add(new TextureTime( "iul/iul_walk2.png" , 0.3f ));
+		walkList.add(new TextureTime( "iul/iul_walk3.png" , 0.3f ));
 
-	public void show(){
-		initSpriteChanging();
+		spriteChanging.currentList = walkList;
 	}
 
 	@Override
 	public void draw(SpriteBatch batch, float delta){
-		
 		spriteChanging.draw(batch, delta);
-
 	}
 
 
 	public void initSpriteChanging(){
-		spriteChanging.currentList.add(new TextureTime( new Texture("iul/iul_walk1.png") , 0.3f ));
-		spriteChanging.currentList.add(new TextureTime( new Texture("iul/iul_walk2.png") , 0.3f ));
-		spriteChanging.currentList.add(new TextureTime( new Texture("iul/iul_walk3.png") , 0.3f ));
 	}
 
 

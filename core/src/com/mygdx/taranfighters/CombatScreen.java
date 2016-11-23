@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector3;
 
 public class CombatScreen implements Screen, InputProcessor {
 	SpriteBatch batch;
@@ -37,12 +38,11 @@ public class CombatScreen implements Screen, InputProcessor {
         Gdx.input.setInputProcessor(this);
 
 		char1 = new Iul();
-		testSprite = new Sprite(new Texture("iul/iul_walk1.png"));
 
 		camera.position.x = 0;
 		camera.position.y = 0;
-		camera.viewportWidth = 300;
-		camera.viewportHeight = 300;
+		camera.viewportWidth = 3000;
+		camera.viewportHeight = 3000;
 	}
 
 	@Override
@@ -58,10 +58,7 @@ public class CombatScreen implements Screen, InputProcessor {
 
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-			
-			testSprite.setSize(128 , 128);
-			Gdx.app.log("CombatScreen", "Caemra " + camera.position  + "Sprite " + testSprite.getX()   +   testSprite.getY()   );
-			testSprite.draw(batch);
+			char1.draw(batch, delta);
 		batch.end();
 
 	}
@@ -112,7 +109,8 @@ public class CombatScreen implements Screen, InputProcessor {
             tiledMap.getLayers().get(1).setVisible(!tiledMap.getLayers().get(1).isVisible());
 
 
-		testSprite.setPosition(camera.position.x-testSprite.getWidth()/2, camera.position.y-testSprite.getHeight()/2);
+		//char1.spriteChanging.setPosition(camera.position.x-char1.spriteChanging.getWidth()/2, camera.position.y-char1.spriteChanging.getHeight()/2);
+		Gdx.app.log("COmbat", " " +  char1.spriteChanging.getY() +" " +   char1.spriteChanging.getX());
 		return false;
 	}
 
@@ -136,19 +134,25 @@ public class CombatScreen implements Screen, InputProcessor {
 
 	@Override
 	public boolean scrolled(int arg0) {
+		// Zoom when scorll up 
+		Gdx.app.log("MouseScrolled" , " " +arg0);
+		if (arg0 == -1){ camera.zoom += 0.2f;}
+		else{camera.zoom -= 0.2f;}
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean touchDown(int arg0, int arg1, int arg2, int arg3) {
-		// TODO Auto-generated method stub
+	public boolean touchDown (int screenX, int screenY, int pointer, int button){
+		Vector3 worldVect  = new Vector3(screenX, screenY, 0);
+		Vector3 cameraVect = camera.project(worldVect);
+		Gdx.app.log("CombatScreen", "TouchDown at screen  " + screenX +","+ screenY );
+		Gdx.app.log("CombatScreen", "TouchDown at cam  " + cameraVect.x +","+ cameraVect.y );
 		return false;
 	}
 
 	@Override
 	public boolean touchDragged(int arg0, int arg1, int arg2) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
