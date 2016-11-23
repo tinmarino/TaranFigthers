@@ -10,10 +10,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class CombatScreen implements Screen, InputProcessor {
 	SpriteBatch batch;
@@ -21,28 +22,31 @@ public class CombatScreen implements Screen, InputProcessor {
 	float iTimeCounter=0;
     TiledMap tiledMap;
     OrthographicCamera camera;
-    TiledMapRenderer tiledMapRenderer;
+    OrthogonalTiledMapRenderer tiledMapRenderer;
 	Character char1, char2;
 	Sprite testSprite; 
+	World world;
 	
 	@Override
 	public void show() {
-		batch = new SpriteBatch();
+		world = new World(new Vector2(0, -10), true);
 
 
 		camera = new OrthographicCamera();
 		camera.position.x = 0;
 		camera.position.y = 0;
+
         tiledMap = new TmxMapLoader().load("map/castleArena1.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+
         Gdx.input.setInputProcessor(this);
 
-		char1 = new Iul();
+		char1 = new Iul(world);
 
 		camera.position.x = 0;
 		camera.position.y = 0;
-		camera.viewportWidth = 3000;
-		camera.viewportHeight = 3000;
+		camera.viewportWidth = 1000;
+		camera.viewportHeight = 1000;
 	}
 
 	@Override
@@ -50,16 +54,17 @@ public class CombatScreen implements Screen, InputProcessor {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+    	world.step(G.timestep, G.velocity_iterations, G.position_iterations);
+
 
         camera.update();
 
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
 
-		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
-			char1.draw(batch, delta);
-		batch.end();
+		tiledMapRenderer.getBatch().begin();
+			char1.draw((SpriteBatch) tiledMapRenderer.getBatch(), delta);
+		tiledMapRenderer.getBatch().end();
 
 	}
 

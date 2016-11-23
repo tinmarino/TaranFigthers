@@ -12,11 +12,8 @@ public class SpriteChanging extends Sprite{
 	public int currentIndex = 0;
 	public float time = 0;
 
-	SpriteChanging(){
-		super(new Texture("iul/iul_walk1.png"));
-		this.setSize(128 , 128);
-		this.setPosition(0,0);
-		this.setTexture(new Texture("iul/iul_walk1.png"));
+	SpriteChanging(String string){
+		super(new Texture(string));
 	}
 
 
