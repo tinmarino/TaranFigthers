@@ -16,7 +16,7 @@ public class Iul extends Character{
 	ArrayList<TextureTime> punchList;
 	World world;
 	// in meters 
-	public float x=0 ,y=0;
+	public float x=2 ,y=0;
 	public float size=2; 
 	public float maxSpeed = 1f;
 

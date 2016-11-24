@@ -96,6 +96,7 @@ set history=100000
 set hlsearch
 set incsearch
 set mouse=a
+set path=~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources
 set printoptions=paper:a4
 set ruler
 set runtimepath=~/.vim,~/.vim/bundle/L9,~/.vim/bundle/Vundle.vim,~/.vim/bundle/YouCompleteMe,~/.vim/bundle/command-t,~/.vim/bundle/nerdtree,~/.vim/bundle/python-mode,~/.vim/bundle/sparkup,~/.vim/bundle/tabular,~/.vim/bundle/vim-colorscheme-switcher,~/.vim/bundle/vim-fugitive,~/.vim/bundle/vim-misc,~/.vim/bundle/vis,/var/lib/vim/addons,/usr/share/vim/vimfiles,/usr/share/vim/vim74,/usr/share/vim/vimfiles/after,/var/lib/vim/addons/after,~/.vim/bundle/python-mode/after,~/.vim/after,~/.vim/eclim,~/.vim/eclim/after
@@ -107,11 +108,11 @@ set tabstop=4
 set title
 set undodir=~/.vim/undo
 set undofile
-set undolevels=-1
+set undolevels=100000
 set updatetime=2000
 set wildcharm=26
 set wildmenu
-set window=44
+set window=54
 set nowritebackup
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
@@ -121,20 +122,27 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +17 core/src/com/mygdx/taranfighters/MainGdx.java
-badd +106 core/src/com/mygdx/taranfighters/CombatScreen.java
+badd +19 core/src/com/mygdx/taranfighters/MainGdx.java
+badd +113 core/src/com/mygdx/taranfighters/CombatScreen.java
 badd +19 .classpath
-badd +12 core/src/com/mygdx/taranfighters/Iul.java
-badd +11 core/src/com/mygdx/taranfighters/Character.java
-badd +1 core/src/com/mygdx/taranfighters/SpriteChanging.java
-badd +15 core/src/com/mygdx/taranfighters/TextureTime.java
+badd +38 core/src/com/mygdx/taranfighters/Iul.java
+badd +7 core/src/com/mygdx/taranfighters/Character.java
+badd +14 core/src/com/mygdx/taranfighters/SpriteChanging.java
+badd +7 core/src/com/mygdx/taranfighters/TextureTime.java
+badd +19 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/Sprite.java
+badd +52 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/InputProcessor.java
+badd +85 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/Texture.java
+badd +9 core/src/com/mygdx/taranfighters/G.java
+badd +16 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/TiledMapRenderer.java
+badd +55 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/renderers/OrthogonalTiledMapRenderer.java
+badd +65 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/renderers/BatchTiledMapRenderer.java
+badd +31 core/src/com/mygdx/taranfighters/Level.java
+badd +27 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/math/Vector2.java
+badd +109 core/src/com/mygdx/taranfighters/MapBodyBuilder.java
+badd +28 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/MapObjects.java
 args core/src/com/mygdx/taranfighters/MainGdx.java
-edit core/src/com/mygdx/taranfighters/SpriteChanging.java
+edit core/src/com/mygdx/taranfighters/Iul.java
 set splitbelow splitright
-wincmd _ | wincmd |
-split
-1wincmd k
-wincmd w
 wincmd _ | wincmd |
 vsplit
 1wincmd h
@@ -147,13 +155,131 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe '1resize ' . ((&lines * 2 + 22) / 45)
-exe '2resize ' . ((&lines * 40 + 22) / 45)
-exe 'vert 2resize ' . ((&columns * 89 + 89) / 178)
-exe '3resize ' . ((&lines * 17 + 22) / 45)
-exe 'vert 3resize ' . ((&columns * 88 + 89) / 178)
-exe '4resize ' . ((&lines * 22 + 22) / 45)
-exe 'vert 4resize ' . ((&columns * 88 + 89) / 178)
+exe 'vert 1resize ' . ((&columns * 89 + 92) / 185)
+exe '2resize ' . ((&lines * 9 + 27) / 55)
+exe 'vert 2resize ' . ((&columns * 95 + 92) / 185)
+exe '3resize ' . ((&lines * 43 + 27) / 55)
+exe 'vert 3resize ' . ((&columns * 95 + 92) / 185)
+argglobal
+inoreabbr <buffer> logger logger=eclim#java#logging#LoggingInit("logger")
+inoreabbr <buffer> log log=eclim#java#logging#LoggingInit("log")
+setlocal keymap=
+setlocal noarabic
+setlocal autoindent
+setlocal balloonexpr=
+setlocal nobinary
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal cindent
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinoptions=j1
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
+setlocal commentstring=//%s
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=youcompleteme#Complete
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+set cursorline
+setlocal cursorline
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=%E%f:%l:\ %m,%-Z%p^,%-C%.%#,%-G%.%#
+setlocal noexpandtab
+if &filetype != 'java'
+setlocal filetype=java
+endif
+setlocal foldcolumn=0
+setlocal foldenable
+set foldexpr=FoldMethod(v:lnum)
+setlocal foldexpr=FoldMethod(v:lnum)
+setlocal foldignore=#
+setlocal foldlevel=30
+setlocal foldmarker={{{,}}}
+set foldmethod=expr
+setlocal foldmethod=expr
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=croql
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal grepprg=
+setlocal iminsert=2
+setlocal imsearch=2
+setlocal include=^s*import
+setlocal includeexpr=substitute(v:fname,'\\.','/','g')
+setlocal indentexpr=GetJavaIndent()
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e,0=extends,0=implements
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal nolist
+setlocal makeprg=javac
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=octal,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=eclim#java#complete#CodeComplete
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=4
+setlocal noshortname
+setlocal nosmartindent
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=
+setlocal suffixesadd=.java
+setlocal noswapfile
+setlocal synmaxcol=3000
+if &syntax != 'java'
+setlocal syntax=java
+endif
+setlocal tabstop=4
+setlocal tags=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal undofile
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+15
+normal! zo
+73
+normal! zo
+108
+normal! zo
+let s:l = 61 - ((29 * winheight(0) + 26) / 53)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+61
+normal! 053|
+wincmd w
 argglobal
 enew
 setlocal keymap=
@@ -262,120 +388,6 @@ setlocal wrap
 setlocal wrapmargin=0
 wincmd w
 argglobal
-inoreabbr <buffer> logger logger=eclim#java#logging#LoggingInit("logger")
-inoreabbr <buffer> log log=eclim#java#logging#LoggingInit("log")
-setlocal keymap=
-setlocal noarabic
-setlocal autoindent
-setlocal balloonexpr=
-setlocal nobinary
-setlocal bufhidden=
-setlocal buflisted
-setlocal buftype=
-setlocal cindent
-setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
-setlocal cinoptions=j1
-setlocal cinwords=if,else,while,do,for,switch
-setlocal colorcolumn=
-setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
-setlocal commentstring=//%s
-setlocal complete=.,w,b,u,t,i
-setlocal concealcursor=
-setlocal conceallevel=0
-setlocal completefunc=youcompleteme#Complete
-setlocal nocopyindent
-setlocal cryptmethod=
-setlocal nocursorbind
-setlocal nocursorcolumn
-set cursorline
-setlocal cursorline
-setlocal define=
-setlocal dictionary=
-setlocal nodiff
-setlocal equalprg=
-setlocal errorformat=%E%f:%l:\ %m,%-Z%p^,%-C%.%#,%-G%.%#
-setlocal noexpandtab
-if &filetype != 'java'
-setlocal filetype=java
-endif
-setlocal foldcolumn=0
-setlocal foldenable
-set foldexpr=FoldMethod(v:lnum)
-setlocal foldexpr=FoldMethod(v:lnum)
-setlocal foldignore=#
-setlocal foldlevel=30
-setlocal foldmarker={{{,}}}
-set foldmethod=expr
-setlocal foldmethod=expr
-setlocal foldminlines=1
-setlocal foldnestmax=20
-setlocal foldtext=foldtext()
-setlocal formatexpr=
-setlocal formatoptions=croql
-setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-setlocal grepprg=
-setlocal iminsert=2
-setlocal imsearch=2
-setlocal include=^s*import
-setlocal includeexpr=substitute(v:fname,'\\.','/','g')
-setlocal indentexpr=GetJavaIndent()
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e,0=extends,0=implements
-setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=
-setlocal nolinebreak
-setlocal nolisp
-setlocal nolist
-setlocal makeprg=javac
-setlocal matchpairs=(:),{:},[:]
-setlocal modeline
-setlocal modifiable
-setlocal nrformats=octal,hex
-set number
-setlocal number
-setlocal numberwidth=4
-setlocal omnifunc=eclim#java#complete#CodeComplete
-setlocal path=.,/usr/include,,
-setlocal nopreserveindent
-setlocal nopreviewwindow
-setlocal quoteescape=\\
-setlocal noreadonly
-setlocal norelativenumber
-setlocal norightleft
-setlocal rightleftcmd=search
-setlocal noscrollbind
-setlocal shiftwidth=4
-setlocal noshortname
-setlocal nosmartindent
-setlocal softtabstop=0
-setlocal nospell
-setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
-setlocal spelllang=en
-setlocal statusline=
-setlocal suffixesadd=.java
-setlocal noswapfile
-setlocal synmaxcol=3000
-if &syntax != 'java'
-setlocal syntax=java
-endif
-setlocal tabstop=4
-setlocal tags=
-setlocal textwidth=0
-setlocal thesaurus=
-setlocal undofile
-setlocal nowinfixheight
-setlocal nowinfixwidth
-setlocal wrap
-setlocal wrapmargin=0
-let s:l = 14 - ((13 * winheight(0) + 20) / 40)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-14
-normal! 026|
-wincmd w
-argglobal
 edit core/src/com/mygdx/taranfighters/CombatScreen.java
 inoreabbr <buffer> logger logger=eclim#java#logging#LoggingInit("logger")
 inoreabbr <buffer> log log=eclim#java#logging#LoggingInit("log")
@@ -450,7 +462,7 @@ set number
 setlocal number
 setlocal numberwidth=4
 setlocal omnifunc=eclim#java#complete#CodeComplete
-setlocal path=.,/usr/include,,
+setlocal path=
 setlocal nopreserveindent
 setlocal nopreviewwindow
 setlocal quoteescape=\\
@@ -487,138 +499,20 @@ setlocal wrapmargin=0
 normal! zo
 49
 normal! zo
-97
+104
 normal! zo
-let s:l = 106 - ((7 * winheight(0) + 8) / 17)
+let s:l = 55 - ((21 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-106
-normal! 083|
+55
+normal! 029|
 wincmd w
-argglobal
-edit core/src/com/mygdx/taranfighters/SpriteChanging.java
-inoreabbr <buffer> logger logger=eclim#java#logging#LoggingInit("logger")
-inoreabbr <buffer> log log=eclim#java#logging#LoggingInit("log")
-setlocal keymap=
-setlocal noarabic
-setlocal autoindent
-setlocal balloonexpr=
-setlocal nobinary
-setlocal bufhidden=
-setlocal buflisted
-setlocal buftype=
-setlocal cindent
-setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
-setlocal cinoptions=j1
-setlocal cinwords=if,else,while,do,for,switch
-setlocal colorcolumn=
-setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
-setlocal commentstring=//%s
-setlocal complete=.,w,b,u,t,i
-setlocal concealcursor=
-setlocal conceallevel=0
-setlocal completefunc=youcompleteme#Complete
-setlocal nocopyindent
-setlocal cryptmethod=
-setlocal nocursorbind
-setlocal nocursorcolumn
-set cursorline
-setlocal cursorline
-setlocal define=
-setlocal dictionary=
-setlocal nodiff
-setlocal equalprg=
-setlocal errorformat=%E%f:%l:\ %m,%-Z%p^,%-C%.%#,%-G%.%#
-setlocal noexpandtab
-if &filetype != 'java'
-setlocal filetype=java
-endif
-setlocal foldcolumn=0
-setlocal foldenable
-set foldexpr=FoldMethod(v:lnum)
-setlocal foldexpr=FoldMethod(v:lnum)
-setlocal foldignore=#
-setlocal foldlevel=30
-setlocal foldmarker={{{,}}}
-set foldmethod=expr
-setlocal foldmethod=expr
-setlocal foldminlines=1
-setlocal foldnestmax=20
-setlocal foldtext=foldtext()
-setlocal formatexpr=
-setlocal formatoptions=croql
-setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-setlocal grepprg=
-setlocal iminsert=2
-setlocal imsearch=2
-setlocal include=^s*import
-setlocal includeexpr=substitute(v:fname,'\\.','/','g')
-setlocal indentexpr=GetJavaIndent()
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e,0=extends,0=implements
-setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=
-setlocal nolinebreak
-setlocal nolisp
-setlocal nolist
-setlocal makeprg=javac
-setlocal matchpairs=(:),{:},[:]
-setlocal modeline
-setlocal modifiable
-setlocal nrformats=octal,hex
-set number
-setlocal number
-setlocal numberwidth=4
-setlocal omnifunc=eclim#java#complete#CodeComplete
-setlocal path=.,/usr/include,,
-setlocal nopreserveindent
-setlocal nopreviewwindow
-setlocal quoteescape=\\
-setlocal noreadonly
-setlocal norelativenumber
-setlocal norightleft
-setlocal rightleftcmd=search
-setlocal noscrollbind
-setlocal shiftwidth=4
-setlocal noshortname
-setlocal nosmartindent
-setlocal softtabstop=0
-setlocal nospell
-setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
-setlocal spelllang=en
-setlocal statusline=
-setlocal suffixesadd=.java
-setlocal noswapfile
-setlocal synmaxcol=3000
-if &syntax != 'java'
-setlocal syntax=java
-endif
-setlocal tabstop=4
-setlocal tags=
-setlocal textwidth=0
-setlocal thesaurus=
-setlocal undofile
-setlocal nowinfixheight
-setlocal nowinfixwidth
-setlocal wrap
-setlocal wrapmargin=0
-let s:l = 18 - ((8 * winheight(0) + 11) / 22)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-18
-normal! 013|
-wincmd w
-2wincmd w
-exe '1resize ' . ((&lines * 2 + 22) / 45)
-exe '2resize ' . ((&lines * 40 + 22) / 45)
-exe 'vert 2resize ' . ((&columns * 89 + 89) / 178)
-exe '3resize ' . ((&lines * 17 + 22) / 45)
-exe 'vert 3resize ' . ((&columns * 88 + 89) / 178)
-exe '4resize ' . ((&lines * 22 + 22) / 45)
-exe 'vert 4resize ' . ((&columns * 88 + 89) / 178)
+exe 'vert 1resize ' . ((&columns * 89 + 92) / 185)
+exe '2resize ' . ((&lines * 9 + 27) / 55)
+exe 'vert 2resize ' . ((&columns * 95 + 92) / 185)
+exe '3resize ' . ((&lines * 43 + 27) / 55)
+exe 'vert 3resize ' . ((&columns * 95 + 92) / 185)
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
