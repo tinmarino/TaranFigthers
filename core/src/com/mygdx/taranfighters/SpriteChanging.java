@@ -2,7 +2,6 @@ package com.mygdx.taranfighters;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -29,7 +28,7 @@ public class SpriteChanging extends Sprite{
 				currentIndex += 1;
 			}
 			this.setTexture(currentList.get(currentIndex).texture);
-			Gdx.app.log("changing", "" + currentIndex +","+ delta + "time" + time);
+			//Gdx.app.log("changing", "" + currentIndex +","+ delta + "time" + time);
 		}
 	}
 

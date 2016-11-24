@@ -9,9 +9,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -21,34 +18,30 @@ public class CombatScreen implements Screen, InputProcessor {
 	SpriteBatch batch;
 	Texture img, img1, img2, img3;
 	float iTimeCounter=0;
-    TiledMap tiledMap;
     OrthographicCamera camera;
-    OrthogonalTiledMapRenderer tiledMapRenderer;
 	Iul char1, char2;
 	Sprite testSprite; 
 	World world;
 	Box2DDebugRenderer  debugRenderer;
+	Level level;
 	
 	@Override
 	public void show() {
-		world = new World(new Vector2(0, -10), true);
+		world = new World(new Vector2(0f, -10f), true);
 		debugRenderer = new Box2DDebugRenderer();
+		level = new Level("", world);
 
 		camera = new OrthographicCamera();
 		camera.position.x = 0;
 		camera.position.y = 0;
+		camera.viewportWidth = 1000;
+		camera.viewportHeight = 1000;
 
-        tiledMap = new TmxMapLoader().load("map/castleArena1.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
         Gdx.input.setInputProcessor(this);
 
 		char1 = new Iul(world);
 
-		camera.position.x = 0;
-		camera.position.y = 0;
-		camera.viewportWidth = 1000;
-		camera.viewportHeight = 1000;
 	}
 
 	@Override
@@ -59,14 +52,18 @@ public class CombatScreen implements Screen, InputProcessor {
     	world.step(G.timestep, G.velocity_iterations, G.position_iterations);
 
 
+		camera.position.x = char1.x * G.world2pixel;
+		camera.position.y = char1.y * G.world2pixel;
         camera.update();
 
-        tiledMapRenderer.setView(camera);
-        tiledMapRenderer.render();
+        level.tiledMapRenderer.setView(camera);
+        level.tiledMapRenderer.render();
+		
+		SpriteBatch batch = (SpriteBatch) level.tiledMapRenderer.getBatch();
 
-		tiledMapRenderer.getBatch().begin();
-			char1.draw((SpriteBatch) tiledMapRenderer.getBatch(), delta);
-		tiledMapRenderer.getBatch().end();
+		batch.begin();
+			char1.draw(batch, delta);
+		batch.end();
 		
 		// DEBUG
 		debugRenderer.render(world, camera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
@@ -104,28 +101,12 @@ public class CombatScreen implements Screen, InputProcessor {
 
 	@Override
 	public boolean keyDown(int keycode) {
-        if(keycode == Input.Keys.LEFT)
-		{
-			char1.setX(char1.x-1);
-		}
-			
-        if(keycode == Input.Keys.RIGHT)
-		{
-			char1.setX(char1.x+1);
-		}
-        if(keycode == Input.Keys.UP)
-		{
-			char1.setY(char1.y+1);
-		}
-        if(keycode == Input.Keys.DOWN)
-		{
-			char1.setY(char1.y-1);
-		}
+		if (char1.keyDown(keycode)){return true;}
 
         if(keycode == Input.Keys.NUM_1)
-            tiledMap.getLayers().get(0).setVisible(!tiledMap.getLayers().get(0).isVisible());
+            level.tiledMap.getLayers().get(0).setVisible(!level.tiledMap.getLayers().get(0).isVisible());
         if(keycode == Input.Keys.NUM_2)
-            tiledMap.getLayers().get(1).setVisible(!tiledMap.getLayers().get(1).isVisible());
+            level.tiledMap.getLayers().get(1).setVisible(!level.tiledMap.getLayers().get(1).isVisible());
 
 
 		//char1.spriteChanging.setPosition(camera.position.x-char1.spriteChanging.getWidth()/2, camera.position.y-char1.spriteChanging.getHeight()/2);

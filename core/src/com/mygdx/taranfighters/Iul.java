@@ -2,7 +2,9 @@ package com.mygdx.taranfighters;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -16,22 +18,12 @@ public class Iul extends Character{
 	// in meters 
 	public float x=0 ,y=0;
 	public float size=2; 
+	public float maxSpeed = 1f;
 
-	public void setX(float x){
-		this.x = x;
-		spriteChanging.setX( (x-size/2) * G.world2pixel);
-		body.setTransform(x, y-0.5f, 0f);
-	}
 
-	public void setY(float y){
-		this.y = y;
-		spriteChanging.setY( (y-size/2) * G.world2pixel);
-		body.setTransform(x, y-0.5f, 0f);
-	}
-	
-	public void setXY(float x, float y){
-		setX(x);
-		setY(y);
+
+
+	public void ImpulseX(float imp){
 	}
 
 	public Iul(World world){
@@ -44,6 +36,21 @@ public class Iul extends Character{
 		init();
 	}
 		
+	@Override
+	public void draw(SpriteBatch batch, float delta){
+		x = body.getPosition().x;
+		y = body.getPosition().y;
+		
+		// SPRITE 
+		spriteChanging.setX( (x-size/2) * G.world2pixel);
+		spriteChanging.setY( (y-1f/4* size) * G.world2pixel);
+		spriteChanging.draw(batch, delta);
+
+		scaleVelocity(maxSpeed);
+
+	}
+
+
 	public void init(){
 		// Body 
 		createBody();
@@ -60,12 +67,15 @@ public class Iul extends Character{
 		spriteChanging.currentList = walkList;
 	}
 
-	@Override
-	public void draw(SpriteBatch batch, float delta){
-		spriteChanging.draw(batch, delta);
+
+
+	private void scaleVelocity(float scaleSpeed){
+		Vector2 vel = body.getLinearVelocity();
+		float speed = vel.len2();
+		if (speed > scaleSpeed){
+			body.setLinearVelocity( vel.limit( scaleSpeed) );
+		}
 	}
-
-
 
 
 	public void createBody(){
@@ -82,7 +92,7 @@ public class Iul extends Character{
 	// BodyFixture 
 		FixtureDef bodyFix = new FixtureDef();
 		bodyFix.shape = bodyShape;
-		bodyFix.restitution = 1;
+		bodyFix.restitution = 0;
 		bodyFix.friction = 0;
 		
 	// Create Body 
@@ -94,6 +104,32 @@ public class Iul extends Character{
 	}
 
 
+	public boolean keyDown(int keycode){
+        if(keycode == Input.Keys.LEFT)
+		{
+			body.applyForceToCenter( -1000, 0, true);
+			return true;
+		}
+			
+        if(keycode == Input.Keys.RIGHT)
+		{
+			body.applyForceToCenter( 1000, 0, true);
+			return true;
+		}
+        if(keycode == Input.Keys.UP)
+		{
+			body.applyForceToCenter(0, 1000, true);
+			return true;
+		}
+        if(keycode == Input.Keys.DOWN)
+		{
+			body.applyForceToCenter(0, -1000, true);
+			return true;
+		}
+
+		scaleVelocity(maxSpeed);
+		return false; 
+	}
 //
 //
 //
