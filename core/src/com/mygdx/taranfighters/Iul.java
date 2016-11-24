@@ -108,17 +108,20 @@ public class Iul extends Character{
         if(keycode == Input.Keys.LEFT)
 		{
 			body.applyForceToCenter( -1000, 0, true);
+			spriteChanging.setFlip(true, false);
 			return true;
 		}
 			
         if(keycode == Input.Keys.RIGHT)
 		{
 			body.applyForceToCenter( 1000, 0, true);
+			spriteChanging.setFlip(false, false);
 			return true;
 		}
         if(keycode == Input.Keys.UP)
 		{
 			body.applyForceToCenter(0, 1000, true);
+			spriteChanging.flip(true, false);
 			return true;
 		}
         if(keycode == Input.Keys.DOWN)
