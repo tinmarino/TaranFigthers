@@ -18,7 +18,7 @@ public class Iul extends Character{
 	// in meters 
 	public float x=2 ,y=0;
 	public float size=2; 
-	public float maxSpeed = 1f;
+	public Vector2 maxSpeed = new Vector2(3f, 7f);
 
 
 
@@ -69,12 +69,25 @@ public class Iul extends Character{
 
 
 
-	private void scaleVelocity(float scaleSpeed){
+	private void scaleVelocity(Vector2 scaleSpeed){
 		Vector2 vel = body.getLinearVelocity();
-		float speed = vel.len2();
-		if (speed > scaleSpeed){
-			body.setLinearVelocity( vel.limit( scaleSpeed) );
+
+		// Scale X
+		if (vel.x > scaleSpeed.x){
+			vel.x = scaleSpeed.x;
 		}
+		else if (vel.x < -scaleSpeed.x){
+			vel.x = -scaleSpeed.x;
+		}
+
+		// Scale Y
+		if (vel.y > scaleSpeed.y){
+			vel.y = scaleSpeed.y;
+		}
+		else if (vel.y < -scaleSpeed.y){
+			vel.y = -scaleSpeed.y;
+		}
+		body.setLinearVelocity(vel);
 	}
 
 
@@ -121,7 +134,6 @@ public class Iul extends Character{
         if(keycode == Input.Keys.UP)
 		{
 			body.applyForceToCenter(0, 1000, true);
-			spriteChanging.flip(true, false);
 			return true;
 		}
         if(keycode == Input.Keys.DOWN)
