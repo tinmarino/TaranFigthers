@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -14,6 +16,13 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Iul extends Character{
 	ArrayList<TextureTime> walkList;
 	ArrayList<TextureTime> punchList;
+	ArrayList<TextureTime> kickList;
+
+	Body leg;
+	FixtureDef legFix;
+	Fixture legFixture;
+
+	
 
 
 
@@ -25,6 +34,17 @@ public class Iul extends Character{
 	@Override
 	public void draw(SpriteBatch batch, float delta){
 		super.draw(batch, delta);
+
+		if (willChangeSprite){
+			timeLeftChangeSprite -= delta;
+			if (timeLeftChangeSprite < 0 ){
+				spriteChanging.setList(walkList);
+				willChangeSprite = false;
+				body.destroyFixture(legFixture);
+
+				
+			}
+		}
 	}
 
 
@@ -38,19 +58,39 @@ public class Iul extends Character{
 		// Body 
 		createBody();
 
+		// Leg 
+		createLeg();
+
 		// Walk list 
 		walkList = new ArrayList<TextureTime>();
 		walkList.add(new TextureTime( "iul/iul_walk1.png" , 0.3f ));
 		walkList.add(new TextureTime( "iul/iul_walk2.png" , 0.3f ));
 		walkList.add(new TextureTime( "iul/iul_walk3.png" , 0.3f ));
 
+
+		// Kick list 
+		kickList = new ArrayList<TextureTime>();
+		kickList.add(new TextureTime( "iul/kick/iul_kick1.png" , 0.1f ));
+		kickList.add(new TextureTime( "iul/kick/iul_kick2.png" , 0.1f ));
+		kickList.add(new TextureTime( "iul/kick/iul_kick3.png" , 0.1f ));
+		kickList.add(new TextureTime( "iul/kick/iul_kick4.png" , 0.1f ));
+		kickList.add(new TextureTime( "iul/kick/iul_kick5.png" , 0.1f ));
+		kickList.add(new TextureTime( "iul/kick/iul_kick6.png" , 0.1f ));
+
+
 		spriteChanging = new SpriteChanging("iul/iul_walk1.png");
 		spriteChanging.setSize(size*G.world2pixel, size*G.world2pixel);
 		spriteChanging.setOrigin(size*G.world2pixel/2, size*G.world2pixel/2); // to resize and rotate around the origin, here center of the sprite
-		spriteChanging.currentList = walkList;
+		spriteChanging.setList(walkList);
 	}
 
 
+	public void kick(){
+		spriteChanging.setList(kickList);
+		willChangeSprite = true;
+		timeLeftChangeSprite = kickList.size() *  0.1f;
+		legFixture = body.createFixture(legFix);
+	}
 
 
 
@@ -60,23 +100,41 @@ public class Iul extends Character{
 		bodyDef.type = BodyType.DynamicBody;
 		bodyDef.position.set(x, y); // in meter position of the center 
 			
-	// BodyShape 
+		// BodyShape 
 		PolygonShape bodyShape = new PolygonShape();
 		bodyShape.setAsBox(size/8, size/4);
 		
-
-	// BodyFixture 
+		// BodyFixture 
 		FixtureDef bodyFix = new FixtureDef();
 		bodyFix.shape = bodyShape;
 		bodyFix.restitution = 0;
 		bodyFix.friction = 0;
-		
-	// Create Body 
+
+		// Create Body 
 		body = world.createBody(bodyDef);
 		body.createFixture(bodyFix);
 		
-	// Add Body Sprite 
+		// Add Body Sprite 
 		body.setUserData(spriteChanging); 
+	}
+
+
+	public void createLeg(){
+		Vector2[] vertices = new Vector2[3];
+		vertices[0] = new Vector2(0, 0);
+		vertices[1] = new Vector2(1, 1);
+		vertices[2] = new Vector2(1, -1);
+
+		// LegShape 
+		PolygonShape bodyShape = new PolygonShape();
+		bodyShape.set(vertices);
+		
+		// BodyFixture 
+		legFix = new FixtureDef();
+		legFix.shape = bodyShape;
+		legFix.restitution = 0;
+		legFix.friction = 0;
+		legFix.filter.maskBits = 0;
 	}
 
 
@@ -104,6 +162,11 @@ public class Iul extends Character{
 			body.applyForceToCenter(0, -1000, true);
 			return true;
 		}
+
+		if (keycode == Input.Keys.L){
+			kick();
+		}
+
 
 		scaleVelocity(maxSpeed);
 		return false; 

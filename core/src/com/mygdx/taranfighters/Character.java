@@ -16,6 +16,9 @@ public class Character{
 	public Vector2 maxSpeed = new Vector2(3f, 7f);
 	public Vector2 spriteOffset = new Vector2(-size/2, -1f/4 *size);
 
+	public boolean willChangeSprite;
+	public float timeLeftChangeSprite;
+
 
 
 	public Character(World world){

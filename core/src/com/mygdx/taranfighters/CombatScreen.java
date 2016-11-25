@@ -9,9 +9,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class CombatScreen implements Screen, InputProcessor {
@@ -42,6 +47,7 @@ public class CombatScreen implements Screen, InputProcessor {
 
 		char1 = new Iul(world);
 
+		setContactListener();
 	}
 
 	@Override
@@ -69,6 +75,28 @@ public class CombatScreen implements Screen, InputProcessor {
 		// DEBUG
 		debugRenderer.render(world, camera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
 	}
+
+
+
+	public void setContactListener(){
+        // world.setContactListener(new ContactListener() {
+        //     @Override
+        //     public void beginContact(Contact contact) {
+        //         if((contact.getFixtureA()  )
+
+        //             body.applyForceToCenter(0,MathUtils.random(20,50),true);
+        //             body2.applyForceToCenter(0, MathUtils.random(20,50), true);
+        //         }
+        //     }
+        //    	@Override
+        //     public void endContact(Contact contact) { }
+        //     @Override
+        //     public void preSolve(Contact contact, Manifold oldManifold) { }
+        //     @Override
+        //     public void postSolve(Contact contact, ContactImpulse impulse) { }
+        // });
+	}
+
 
 	@Override
 	public void dispose() {

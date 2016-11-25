@@ -52,7 +52,7 @@ public class Rat extends Character{
 		spriteChanging = new SpriteChanging("rat/rat1.png");
 		spriteChanging.setSize(size*G.world2pixel, size*G.world2pixel);
 		spriteChanging.setOrigin(size*G.world2pixel/2, size*G.world2pixel/2);
-		spriteChanging.currentList = walkList;
+		spriteChanging.setList(walkList);
 	}
 
 
@@ -72,6 +72,7 @@ public class Rat extends Character{
 		bodyFix.shape = bodyShape;
 		bodyFix.restitution = 1;
 		bodyFix.friction = 0;
+		bodyFix.filter.maskBits = 1;
 		
 		// Create Body 
 		body = world.createBody(bodyDef);

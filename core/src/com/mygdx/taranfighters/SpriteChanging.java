@@ -7,9 +7,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SpriteChanging extends Sprite{
-	public ArrayList<TextureTime> currentList = new ArrayList<TextureTime>();
+	private ArrayList<TextureTime> currentList = new ArrayList<TextureTime>();
 	public int currentIndex = 0;
 	public float time = 0;
+	
 
 	SpriteChanging(String string){
 		super(new Texture(string));
@@ -30,6 +31,11 @@ public class SpriteChanging extends Sprite{
 			this.setTexture(currentList.get(currentIndex).texture);
 			//Gdx.app.log("changing", "" + currentIndex +","+ delta + "time" + time);
 		}
+	}
+
+	public void setList(ArrayList<TextureTime> list){
+		this.currentIndex = 0;
+		this.currentList = list;
 	}
 
 

@@ -1,3 +1,6 @@
 
 Load all textures at the same place and time.
 be able to zoom better, have better debug tools -> better graphics later
+
+
+vim cabbrev for ji -> JI because user canno tmap command with lowercase
