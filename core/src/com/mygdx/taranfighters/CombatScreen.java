@@ -62,6 +62,7 @@ public class CombatScreen implements Screen, InputProcessor {
 		SpriteBatch batch = (SpriteBatch) level.tiledMapRenderer.getBatch();
 
 		batch.begin();
+			level.draw(batch, delta);
 			char1.draw(batch, delta);
 		batch.end();
 		
@@ -122,7 +123,7 @@ public class CombatScreen implements Screen, InputProcessor {
 
 	@Override
 	public boolean keyUp(int arg0) {
-		// TODO Auto-generated method stub
+		if (char1.keyUp(arg0)){return true;}
 		return false;
 	}
 

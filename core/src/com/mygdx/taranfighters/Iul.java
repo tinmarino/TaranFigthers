@@ -14,44 +14,27 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Iul extends Character{
 	ArrayList<TextureTime> walkList;
 	ArrayList<TextureTime> punchList;
-	World world;
-	// in meters 
-	public float x=2 ,y=0;
-	public float size=2; 
-	public Vector2 maxSpeed = new Vector2(3f, 7f);
 
 
-
-
-	public void ImpulseX(float imp){
-	}
 
 	public Iul(World world){
-		this.world = world;
+		super(world);
 		init();
 	}
 
-	public Iul(){
-		super();
-		init();
-	}
-		
 	@Override
 	public void draw(SpriteBatch batch, float delta){
-		x = body.getPosition().x;
-		y = body.getPosition().y;
-		
-		// SPRITE 
-		spriteChanging.setX( (x-size/2) * G.world2pixel);
-		spriteChanging.setY( (y-1f/4* size) * G.world2pixel);
-		spriteChanging.draw(batch, delta);
-
-		scaleVelocity(maxSpeed);
-
+		super.draw(batch, delta);
 	}
 
 
 	public void init(){
+		// variables 
+		x = 2;
+		y = 0.5f; 
+		size = 2;
+		maxSpeed = new Vector2(3f, 7f);
+	
 		// Body 
 		createBody();
 
@@ -69,26 +52,6 @@ public class Iul extends Character{
 
 
 
-	private void scaleVelocity(Vector2 scaleSpeed){
-		Vector2 vel = body.getLinearVelocity();
-
-		// Scale X
-		if (vel.x > scaleSpeed.x){
-			vel.x = scaleSpeed.x;
-		}
-		else if (vel.x < -scaleSpeed.x){
-			vel.x = -scaleSpeed.x;
-		}
-
-		// Scale Y
-		if (vel.y > scaleSpeed.y){
-			vel.y = scaleSpeed.y;
-		}
-		else if (vel.y < -scaleSpeed.y){
-			vel.y = -scaleSpeed.y;
-		}
-		body.setLinearVelocity(vel);
-	}
 
 
 	public void createBody(){
@@ -145,7 +108,4 @@ public class Iul extends Character{
 		scaleVelocity(maxSpeed);
 		return false; 
 	}
-//
-//
-//
 }
