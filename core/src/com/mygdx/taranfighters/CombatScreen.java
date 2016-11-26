@@ -91,6 +91,10 @@ public class CombatScreen implements Screen, InputProcessor {
 				  ||contact.getFixtureB()  == char1.rightLegFixture){
 					 Gdx.app.log("Combat", "I DEtect rigth leg");
 				 }
+
+				 if (G.isBodyContact(char1.body, contact)){
+					 char1.manageContact(contact);
+				 }
 			 }
             	@Override
              public void endContact(Contact contact) { }
@@ -100,6 +104,7 @@ public class CombatScreen implements Screen, InputProcessor {
              public void postSolve(Contact contact, ContactImpulse impulse) { }
          });
 	}
+
 
 
 	@Override

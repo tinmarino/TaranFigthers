@@ -2,12 +2,14 @@ package com.mygdx.taranfighters;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -20,6 +22,10 @@ public class Iul extends Character{
 
 	Fixture rightLegFixture;
 	Fixture leftLegFixture;
+
+	boolean isKicking=false;
+	boolean isPunching=false;
+	boolean isJumping=false;
 
 	
 
@@ -39,6 +45,9 @@ public class Iul extends Character{
 			if (timeLeftChangeSprite < 0 ){
 				spriteChanging.setList(walkList);
 				willChangeSprite = false;
+				isKicking = false;
+				isPunching = false;
+
 
 				setFixtureMask(leftLegFixture, 0);
 				setFixtureMask(rightLegFixture, 0);
@@ -86,19 +95,23 @@ public class Iul extends Character{
 
 
 	public void kick(){
+		this.isKicking = true;
 		// Sprite 
 		spriteChanging.setList(kickList);
 		willChangeSprite = true;
 		timeLeftChangeSprite = kickList.size() *  0.1f;
 
 		// Body 
-		Fixture fixture;
 		if (spriteChanging.isFlipX()){
 			setFixtureMask(leftLegFixture, 1);
 		}
 		else{
 			setFixtureMask(rightLegFixture, 1);
 		}
+	}
+
+	public void punch(){
+		this.isPunching =true;
 	}
 
 
@@ -149,6 +162,31 @@ public class Iul extends Character{
 	}
 
 
+	@Override
+	public void manageContact(Contact contact){
+		Gdx.app.log("Iul", "I contact ");
+		Body otherBody;
+		if (contact.getFixtureA().getBody() == body) {
+			otherBody = contact.getFixtureB().getBody();
+		}
+		else if (contact.getFixtureB().getBody() == body) {
+			otherBody = contact.getFixtureA().getBody();
+		}
+		else{
+			return; 
+		}
+
+		if (this.isKicking){
+			Gdx.app.log("Iul", "I kick his ass");
+			otherBody.applyForceToCenter(1000,1000, true);
+		}
+
+		if (this.isPunching){
+			Gdx.app.log("Iul", "I punch his ass");
+			otherBody.applyForceToCenter(-1000,-1000, true);
+		}
+	}
+
 	public boolean keyDown(int keycode){
         if(keycode == Input.Keys.LEFT)
 		{
@@ -178,6 +216,9 @@ public class Iul extends Character{
 			kick();
 		}
 
+		if (keycode == Input.Keys.K){
+			punch();
+		}
 
 		scaleVelocity(maxSpeed);
 		return false; 

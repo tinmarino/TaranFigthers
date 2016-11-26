@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
@@ -40,6 +41,8 @@ public class Character{
 		scaleVelocity(maxSpeed);
 	}
 
+	public void manageContact(Contact contact){
+	}
 
 	public void setPosition(float x, float y){
 		body.setTransform(x, y, body.getAngle()); 

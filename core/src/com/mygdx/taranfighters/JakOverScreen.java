@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,15 +19,23 @@ public class JakOverScreen implements Screen {
 	SpriteBatch batch;
 	float elapsedTime;
 	BitmapFont font;
+	Texture texture;
 
 	@Override
 	public void show() {
         batch = new SpriteBatch();
+
+		// Video 
 		atlas = new TextureAtlas(Gdx.files.internal("video/over/jac_over360_4.atlas"));
 		animation = new Animation(0.1f, atlas.getRegions());
 		font = new BitmapFont(Gdx.files.internal("font/zreak-nfi.fnt"));
+
+		// Font
 		font.getData().setScale(1,1);
 		font.setColor(new Color(0x8A0707ff));
+
+		// Blood
+		texture = new Texture(Gdx.files.internal("img/blood1.png"));
 	}
 
 	@Override
@@ -41,7 +50,10 @@ public class JakOverScreen implements Screen {
         batch.begin();
 			TextureRegion region = animation.getKeyFrame(elapsedTime);
 			batch.draw(region, 0, 0 ,width, height);
-			font.draw(batch, "Game Over!" , 1f/4  * width, 1f/2 * height);
+			if (elapsedTime > 2.1f){
+				font.draw(batch, "Game Over!" , 1f/4  * width, 1f/2 * height);
+				batch.draw(texture, 0, 0, width, height);
+			}
         batch.end();
 	}
 

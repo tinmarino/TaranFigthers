@@ -70,7 +70,7 @@ public class Rat extends Character{
 		// BodyFixture 
 		FixtureDef bodyFix = new FixtureDef();
 		bodyFix.shape = bodyShape;
-		bodyFix.restitution = 1;
+		bodyFix.restitution = 0.1f;
 		bodyFix.friction = 0;
 		bodyFix.filter.maskBits = 1;
 		
