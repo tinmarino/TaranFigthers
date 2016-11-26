@@ -2,7 +2,6 @@ package com.mygdx.taranfighters;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -24,7 +23,6 @@ public class Level{
 
 	public void draw(SpriteBatch batch, float delta){
 		for (Character character : charList){
-			Gdx.app.log("Level", "A character "+ delta);
 			character.draw(batch, delta);
 		}
 	}

@@ -123,11 +123,11 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +19 core/src/com/mygdx/taranfighters/MainGdx.java
-badd +113 core/src/com/mygdx/taranfighters/CombatScreen.java
+badd +37 core/src/com/mygdx/taranfighters/CombatScreen.java
 badd +19 .classpath
-badd +38 core/src/com/mygdx/taranfighters/Iul.java
-badd +7 core/src/com/mygdx/taranfighters/Character.java
-badd +14 core/src/com/mygdx/taranfighters/SpriteChanging.java
+badd +43 core/src/com/mygdx/taranfighters/Iul.java
+badd +47 core/src/com/mygdx/taranfighters/Character.java
+badd +10 core/src/com/mygdx/taranfighters/SpriteChanging.java
 badd +7 core/src/com/mygdx/taranfighters/TextureTime.java
 badd +19 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/Sprite.java
 badd +52 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/InputProcessor.java
@@ -136,12 +136,16 @@ badd +9 core/src/com/mygdx/taranfighters/G.java
 badd +16 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/TiledMapRenderer.java
 badd +55 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/renderers/OrthogonalTiledMapRenderer.java
 badd +65 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/renderers/BatchTiledMapRenderer.java
-badd +31 core/src/com/mygdx/taranfighters/Level.java
+badd +26 core/src/com/mygdx/taranfighters/Level.java
 badd +27 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/math/Vector2.java
 badd +109 core/src/com/mygdx/taranfighters/MapBodyBuilder.java
 badd +28 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/MapObjects.java
+badd +75 core/src/com/mygdx/taranfighters/Rat.java
+badd +6 todo
+badd +37 core/src/com/mygdx/taranfighters/JakOverScreen.java
+badd +1 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/TextureAtlas.java
 args core/src/com/mygdx/taranfighters/MainGdx.java
-edit core/src/com/mygdx/taranfighters/Iul.java
+edit core/src/com/mygdx/taranfighters/MainGdx.java
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -155,11 +159,11 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 89 + 92) / 185)
+exe 'vert 1resize ' . ((&columns * 92 + 92) / 185)
 exe '2resize ' . ((&lines * 9 + 27) / 55)
-exe 'vert 2resize ' . ((&columns * 95 + 92) / 185)
+exe 'vert 2resize ' . ((&columns * 92 + 92) / 185)
 exe '3resize ' . ((&lines * 43 + 27) / 55)
-exe 'vert 3resize ' . ((&columns * 95 + 92) / 185)
+exe 'vert 3resize ' . ((&columns * 92 + 92) / 185)
 argglobal
 inoreabbr <buffer> logger logger=eclim#java#logging#LoggingInit("logger")
 inoreabbr <buffer> log log=eclim#java#logging#LoggingInit("log")
@@ -231,7 +235,7 @@ setlocal modeline
 setlocal modifiable
 setlocal nrformats=octal,hex
 set number
-setlocal number
+setlocal nonumber
 setlocal numberwidth=4
 setlocal omnifunc=eclim#java#complete#CodeComplete
 setlocal path=
@@ -267,18 +271,12 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-15
-normal! zo
-73
-normal! zo
-108
-normal! zo
-let s:l = 61 - ((29 * winheight(0) + 26) / 53)
+let s:l = 19 - ((18 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-61
-normal! 053|
+19
+normal! 0
 wincmd w
 argglobal
 enew
@@ -388,9 +386,7 @@ setlocal wrap
 setlocal wrapmargin=0
 wincmd w
 argglobal
-edit core/src/com/mygdx/taranfighters/CombatScreen.java
-inoreabbr <buffer> logger logger=eclim#java#logging#LoggingInit("logger")
-inoreabbr <buffer> log log=eclim#java#logging#LoggingInit("log")
+edit todo
 setlocal keymap=
 setlocal noarabic
 setlocal autoindent
@@ -399,13 +395,13 @@ setlocal nobinary
 setlocal bufhidden=
 setlocal buflisted
 setlocal buftype=
-setlocal cindent
+setlocal nocindent
 setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
-setlocal cinoptions=j1
+setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=
-setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
-setlocal commentstring=//%s
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
+setlocal commentstring=/*%s*/
 setlocal complete=.,w,b,u,t,i
 setlocal concealcursor=
 setlocal conceallevel=0
@@ -420,10 +416,10 @@ setlocal define=
 setlocal dictionary=
 setlocal nodiff
 setlocal equalprg=
-setlocal errorformat=%E%f:%l:\ %m,%-Z%p^,%-C%.%#,%-G%.%#
+setlocal errorformat=
 setlocal noexpandtab
-if &filetype != 'java'
-setlocal filetype=java
+if &filetype != ''
+setlocal filetype=
 endif
 setlocal foldcolumn=0
 setlocal foldenable
@@ -438,22 +434,22 @@ setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldtext=foldtext()
 setlocal formatexpr=
-setlocal formatoptions=croql
+setlocal formatoptions=tcq
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal grepprg=
 setlocal iminsert=2
 setlocal imsearch=2
-setlocal include=^s*import
-setlocal includeexpr=substitute(v:fname,'\\.','/','g')
-setlocal indentexpr=GetJavaIndent()
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e,0=extends,0=implements
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
 setlocal noinfercase
 setlocal iskeyword=@,48-57,_,192-255
 setlocal keywordprg=
 setlocal nolinebreak
 setlocal nolisp
 setlocal nolist
-setlocal makeprg=javac
+setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
 setlocal modeline
 setlocal modifiable
@@ -461,7 +457,7 @@ setlocal nrformats=octal,hex
 set number
 setlocal number
 setlocal numberwidth=4
-setlocal omnifunc=eclim#java#complete#CodeComplete
+setlocal omnifunc=
 setlocal path=
 setlocal nopreserveindent
 setlocal nopreviewwindow
@@ -480,11 +476,11 @@ setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
 setlocal spelllang=en
 setlocal statusline=
-setlocal suffixesadd=.java
+setlocal suffixesadd=
 setlocal noswapfile
 setlocal synmaxcol=3000
-if &syntax != 'java'
-setlocal syntax=java
+if &syntax != ''
+setlocal syntax=
 endif
 setlocal tabstop=4
 setlocal tags=
@@ -495,24 +491,18 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-18
-normal! zo
-49
-normal! zo
-104
-normal! zo
-let s:l = 55 - ((21 * winheight(0) + 21) / 43)
+let s:l = 9 - ((8 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-55
-normal! 029|
+9
+normal! 0
 wincmd w
-exe 'vert 1resize ' . ((&columns * 89 + 92) / 185)
+exe 'vert 1resize ' . ((&columns * 92 + 92) / 185)
 exe '2resize ' . ((&lines * 9 + 27) / 55)
-exe 'vert 2resize ' . ((&columns * 95 + 92) / 185)
+exe 'vert 2resize ' . ((&columns * 92 + 92) / 185)
 exe '3resize ' . ((&lines * 43 + 27) / 55)
-exe 'vert 3resize ' . ((&columns * 95 + 92) / 185)
+exe 'vert 3resize ' . ((&columns * 92 + 92) / 185)
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

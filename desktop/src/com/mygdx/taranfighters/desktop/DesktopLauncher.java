@@ -7,6 +7,8 @@ import com.mygdx.taranfighters.MainGdx;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.width = 480 *2;
+		config.height = 320 *2;
 		new LwjglApplication(new MainGdx(), config);
 	}
 }

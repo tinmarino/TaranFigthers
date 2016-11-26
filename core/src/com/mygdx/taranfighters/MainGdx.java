@@ -1,21 +1,19 @@
 package com.mygdx.taranfighters;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 
-public class MainGdx extends ApplicationAdapter {
-	Screen currentScreen;
+public class MainGdx extends Game {
 	
 	@Override
-	public void create () {
-		currentScreen = new CombatScreen();
-		currentScreen.show();
+	public void create (){
+		G.game = this;
+		screen = new CombatScreen();
+		screen.show();
 	}
 
 	@Override
 	public void render () {
-		currentScreen.render(Gdx.graphics.getDeltaTime());
-		// Gdx.app.log("Main", "delta " +  Gdx.graphics.getDeltaTime());
+		screen.render(Gdx.graphics.getDeltaTime());
 	}
 }

@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -18,9 +18,8 @@ public class Iul extends Character{
 	ArrayList<TextureTime> punchList;
 	ArrayList<TextureTime> kickList;
 
-	Body leg;
-	FixtureDef legFix;
-	Fixture legFixture;
+	Fixture rightLegFixture;
+	Fixture leftLegFixture;
 
 	
 
@@ -40,9 +39,9 @@ public class Iul extends Character{
 			if (timeLeftChangeSprite < 0 ){
 				spriteChanging.setList(walkList);
 				willChangeSprite = false;
-				body.destroyFixture(legFixture);
 
-				
+				setFixtureMask(leftLegFixture, 0);
+				setFixtureMask(rightLegFixture, 0);
 			}
 		}
 	}
@@ -59,7 +58,8 @@ public class Iul extends Character{
 		createBody();
 
 		// Leg 
-		createLeg();
+		leftLegFixture = createLeg(-1);
+		rightLegFixture = createLeg(1);
 
 		// Walk list 
 		walkList = new ArrayList<TextureTime>();
@@ -86,10 +86,19 @@ public class Iul extends Character{
 
 
 	public void kick(){
+		// Sprite 
 		spriteChanging.setList(kickList);
 		willChangeSprite = true;
 		timeLeftChangeSprite = kickList.size() *  0.1f;
-		legFixture = body.createFixture(legFix);
+
+		// Body 
+		Fixture fixture;
+		if (spriteChanging.isFlipX()){
+			setFixtureMask(leftLegFixture, 1);
+		}
+		else{
+			setFixtureMask(rightLegFixture, 1);
+		}
 	}
 
 
@@ -119,22 +128,24 @@ public class Iul extends Character{
 	}
 
 
-	public void createLeg(){
+	public Fixture createLeg(int side){
 		Vector2[] vertices = new Vector2[3];
 		vertices[0] = new Vector2(0, 0);
-		vertices[1] = new Vector2(1, 1);
-		vertices[2] = new Vector2(1, -1);
+		vertices[1] = new Vector2(side * 0.5f, 0.6f);
+		vertices[2] = new Vector2(side * 0.5f, -0.4f);
 
 		// LegShape 
 		PolygonShape bodyShape = new PolygonShape();
 		bodyShape.set(vertices);
 		
-		// BodyFixture 
-		legFix = new FixtureDef();
+		// LegFixture 
+		FixtureDef legFix = new FixtureDef();
 		legFix.shape = bodyShape;
 		legFix.restitution = 0;
 		legFix.friction = 0;
 		legFix.filter.maskBits = 0;
+		
+		return body.createFixture(legFix);
 	}
 
 

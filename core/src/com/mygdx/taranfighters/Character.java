@@ -4,6 +4,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Character{
@@ -41,6 +43,13 @@ public class Character{
 
 	public void setPosition(float x, float y){
 		body.setTransform(x, y, body.getAngle()); 
+	}
+
+
+	public static void setFixtureMask(Fixture fixture, int mask){
+		Filter filter = fixture.getFilterData();
+		filter.maskBits = (short) mask;
+		fixture.setFilterData(filter);
 	}
 
 

@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -79,22 +78,27 @@ public class CombatScreen implements Screen, InputProcessor {
 
 
 	public void setContactListener(){
-        // world.setContactListener(new ContactListener() {
-        //     @Override
-        //     public void beginContact(Contact contact) {
-        //         if((contact.getFixtureA()  )
+        world.setContactListener(new ContactListener() {
+             @Override
+             public void beginContact(Contact contact) {
+                 if(contact.getFixtureA()  == char1.leftLegFixture 
+				  ||contact.getFixtureB()  == char1.leftLegFixture){
+					 Gdx.app.log("Combat", "I DEtect left leg");
+				 }
 
-        //             body.applyForceToCenter(0,MathUtils.random(20,50),true);
-        //             body2.applyForceToCenter(0, MathUtils.random(20,50), true);
-        //         }
-        //     }
-        //    	@Override
-        //     public void endContact(Contact contact) { }
-        //     @Override
-        //     public void preSolve(Contact contact, Manifold oldManifold) { }
-        //     @Override
-        //     public void postSolve(Contact contact, ContactImpulse impulse) { }
-        // });
+
+                 if(contact.getFixtureA()  == char1.rightLegFixture 
+				  ||contact.getFixtureB()  == char1.rightLegFixture){
+					 Gdx.app.log("Combat", "I DEtect rigth leg");
+				 }
+			 }
+            	@Override
+             public void endContact(Contact contact) { }
+             @Override
+             public void preSolve(Contact contact, Manifold oldManifold) { }
+             @Override
+             public void postSolve(Contact contact, ContactImpulse impulse) { }
+         });
 	}
 
 
@@ -136,6 +140,10 @@ public class CombatScreen implements Screen, InputProcessor {
             level.tiledMap.getLayers().get(0).setVisible(!level.tiledMap.getLayers().get(0).isVisible());
         if(keycode == Input.Keys.NUM_2)
             level.tiledMap.getLayers().get(1).setVisible(!level.tiledMap.getLayers().get(1).isVisible());
+        if(keycode == Input.Keys.A){
+			Gdx.app.log("CombatScreen", "Changing to JacOverScreen");
+			G.game.setScreen(new JakOverScreen());
+		}
 
 
 		//char1.spriteChanging.setPosition(camera.position.x-char1.spriteChanging.getWidth()/2, camera.position.y-char1.spriteChanging.getHeight()/2);
