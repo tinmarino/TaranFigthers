@@ -7,6 +7,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Character{
@@ -55,6 +57,21 @@ public class Character{
 		fixture.setFilterData(filter);
 	}
 
+	
+	public static FixtureDef createMember(Vector2[] vertices){
+		// LegShape 
+		PolygonShape bodyShape = new PolygonShape();
+		bodyShape.set(vertices);
+		
+		// LegFixture 
+		FixtureDef legFix = new FixtureDef();
+		legFix.shape = bodyShape;
+		legFix.restitution = 0;
+		legFix.friction = 0;
+		legFix.filter.maskBits = 0;
+
+		return legFix;
+	}
 
 	public void scaleVelocity(Vector2 scaleSpeed){
 		Vector2 vel = body.getLinearVelocity();

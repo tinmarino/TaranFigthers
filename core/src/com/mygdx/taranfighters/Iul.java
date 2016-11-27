@@ -23,6 +23,9 @@ public class Iul extends Character{
 	Fixture rightLegFixture;
 	Fixture leftLegFixture;
 
+	Fixture leftArmFixture;
+	Fixture rightArmFixture;
+
 	boolean isKicking=false;
 	boolean isPunching=false;
 	boolean isJumping=false;
@@ -48,9 +51,22 @@ public class Iul extends Character{
 				isKicking = false;
 				isPunching = false;
 
-
 				setFixtureMask(leftLegFixture, 0);
 				setFixtureMask(rightLegFixture, 0);
+				maxSpeed = new Vector2(3f, 7f);
+			}
+
+			if (isPunching){
+				if (spriteChanging.isFlipX()){
+					if(body.getLinearVelocity().x > -maxSpeed.x/1.3f){
+						body.applyForceToCenter(-1000, 0, true);
+					}
+				}
+				else{ 
+					if ( body.getLinearVelocity().x < maxSpeed.x/1.1f){
+						body.applyForceToCenter(1000, 0, true);
+					}
+				}
 			}
 		}
 	}
@@ -69,6 +85,8 @@ public class Iul extends Character{
 		// Leg 
 		leftLegFixture = createLeg(-1);
 		rightLegFixture = createLeg(1);
+		leftArmFixture = createArm(-1);
+		rightArmFixture = createArm(1);
 
 		// Walk list 
 		walkList = new ArrayList<TextureTime>();
@@ -86,6 +104,15 @@ public class Iul extends Character{
 		kickList.add(new TextureTime( "iul/kick/iul_kick5.png" , 0.1f ));
 		kickList.add(new TextureTime( "iul/kick/iul_kick6.png" , 0.1f ));
 
+		// Punch lisr 
+		punchList = new ArrayList<TextureTime>();
+		punchList.add(new TextureTime( "iul/iul_punch1.png" , 0.1f ));
+		punchList.add(new TextureTime( "iul/iul_punch2.png" , 0.1f ));
+		punchList.add(new TextureTime( "iul/iul_punch3.png" , 0.1f ));
+		punchList.add(new TextureTime( "iul/iul_punch4.png" , 0.1f ));
+		punchList.add(new TextureTime( "iul/iul_punch5.png" , 0.1f ));
+		punchList.add(new TextureTime( "iul/iul_punch6.png" , 0.1f ));
+		punchList.add(new TextureTime( "iul/iul_punch7.png" , 0.1f ));
 
 		spriteChanging = new SpriteChanging("iul/iul_walk1.png");
 		spriteChanging.setSize(size*G.world2pixel, size*G.world2pixel);
@@ -112,6 +139,11 @@ public class Iul extends Character{
 
 	public void punch(){
 		this.isPunching =true;
+		// Sprite 
+		spriteChanging.setList(punchList);
+		willChangeSprite = true;
+		timeLeftChangeSprite = punchList.size() * 0.1f;
+		maxSpeed = new Vector2(6f, 7f);
 	}
 
 
@@ -144,21 +176,21 @@ public class Iul extends Character{
 	public Fixture createLeg(int side){
 		Vector2[] vertices = new Vector2[3];
 		vertices[0] = new Vector2(0, 0);
-		vertices[1] = new Vector2(side * 0.5f, 0.6f);
-		vertices[2] = new Vector2(side * 0.5f, -0.4f);
+		vertices[1] = new Vector2(side * 0.7f, 0.6f);
+		vertices[2] = new Vector2(side * 0.7f, -0.4f);
 
-		// LegShape 
-		PolygonShape bodyShape = new PolygonShape();
-		bodyShape.set(vertices);
-		
-		// LegFixture 
-		FixtureDef legFix = new FixtureDef();
-		legFix.shape = bodyShape;
-		legFix.restitution = 0;
-		legFix.friction = 0;
-		legFix.filter.maskBits = 0;
-		
-		return body.createFixture(legFix);
+		FixtureDef fix = createMember(vertices);
+		return body.createFixture(fix);
+	}
+
+	public Fixture createArm(int side){
+		Vector2[] vertices = new Vector2[3];
+		vertices[0] = new Vector2(0, 0.4f);
+		vertices[1] = new Vector2(side * 1.0f, 0.5f);
+		vertices[2] = new Vector2(side * 1.0f, 0.3f);
+
+		FixtureDef fix = createMember(vertices);
+		return body.createFixture(fix);
 	}
 
 
@@ -190,6 +222,7 @@ public class Iul extends Character{
 	public boolean keyDown(int keycode){
         if(keycode == Input.Keys.LEFT)
 		{
+			if (isPunching){return true;}
 			body.applyForceToCenter( -1000, 0, true);
 			spriteChanging.setFlip(true, false);
 			return true;
@@ -197,6 +230,7 @@ public class Iul extends Character{
 			
         if(keycode == Input.Keys.RIGHT)
 		{
+			if (isPunching){return true;}
 			body.applyForceToCenter( 1000, 0, true);
 			spriteChanging.setFlip(false, false);
 			return true;
