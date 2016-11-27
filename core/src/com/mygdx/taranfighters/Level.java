@@ -32,7 +32,7 @@ public class Level{
 		this.world = world;
 
 		// Load tilemap 
-        tiledMap = new TmxMapLoader().load("map/castleArena1.tmx");
+        tiledMap = new TmxMapLoader().load("map/castleArena100.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
 		// Tilemap -> Box2d static body
