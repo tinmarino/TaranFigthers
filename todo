@@ -10,6 +10,7 @@ jac -> jak
 
 make a work small script (5 min each time...) (eclim + vim sessino + cd and 3 terminals) 
 make a moving level, like falling man fight.
+make an other Iul to test for 2 players + test camera
 
 
 
@@ -17,3 +18,8 @@ ELSE
 vim cabbrev for ji -> JI because user canno tmap command with lowercase
 cahier de brouillon  needed
 vim z1, z2, z3, + edit vimrc as commands. 
+
+
+
+DONE 
+make cammera betwwen the 2 figthers.

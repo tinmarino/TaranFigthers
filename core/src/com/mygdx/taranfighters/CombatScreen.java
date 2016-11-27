@@ -45,6 +45,8 @@ public class CombatScreen implements Screen, InputProcessor {
         Gdx.input.setInputProcessor(this);
 
 		char1 = new Iul(world);
+		char2 = new Iul(world);
+		char2.setPosition(12, 12);
 
 		setContactListener();
 	}
@@ -57,8 +59,20 @@ public class CombatScreen implements Screen, InputProcessor {
     	world.step(G.timestep, G.velocity_iterations, G.position_iterations);
 
 
-		camera.position.x = char1.x * G.world2pixel;
-		camera.position.y = char1.y * G.world2pixel;
+		Gdx.app.log("Char1, char2 position", char2.x + ":" + char1.body.getPosition() + " , " + char2.body.getPosition());
+		// CAMERA 
+		camera.position.x = (char1.x + char2.x) / 2 * G.world2pixel;
+		camera.position.y = (char1.y + char2.y) / 2 * G.world2pixel;
+
+		float width = Math.abs(char1.x - char2.x) * 1.2f ;
+		width = Math.max(10, width);
+		float height = Math.abs(char1.y - char2.y) * 1.2f ;
+		height = Math.max(10, height);
+		if (width / height > 1.5){height = width / 1.5f;}
+		else{width = height * 1.5f;}
+		camera.viewportWidth = width * G.world2pixel;
+		camera.viewportHeight = height * G.world2pixel;
+
         camera.update();
 
         level.tiledMapRenderer.setView(camera);

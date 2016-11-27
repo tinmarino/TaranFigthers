@@ -47,6 +47,8 @@ public class Character{
 	}
 
 	public void setPosition(float x, float y){
+		this.x = x;
+		this.y = y;
 		body.setTransform(x, y, body.getAngle()); 
 	}
 
