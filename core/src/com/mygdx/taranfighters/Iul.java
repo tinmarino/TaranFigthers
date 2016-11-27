@@ -53,6 +53,8 @@ public class Iul extends Character{
 
 				setFixtureMask(leftLegFixture, 0);
 				setFixtureMask(rightLegFixture, 0);
+				setFixtureMask(leftArmFixture, 0);
+				setFixtureMask(rightArmFixture, 0);
 				maxSpeed = new Vector2(3f, 7f);
 			}
 
@@ -144,6 +146,14 @@ public class Iul extends Character{
 		willChangeSprite = true;
 		timeLeftChangeSprite = punchList.size() * 0.1f;
 		maxSpeed = new Vector2(6f, 7f);
+		
+		// Body 
+		if (spriteChanging.isFlipX()){
+			setFixtureMask(leftArmFixture, 1);
+		}
+		else{
+			setFixtureMask(rightArmFixture, 1);
+		}
 	}
 
 
@@ -198,10 +208,13 @@ public class Iul extends Character{
 	public void manageContact(Contact contact){
 		Gdx.app.log("Iul", "I contact ");
 		Body otherBody;
+		Fixture thisFixture;
 		if (contact.getFixtureA().getBody() == body) {
+			thisFixture = contact.getFixtureA();
 			otherBody = contact.getFixtureB().getBody();
 		}
 		else if (contact.getFixtureB().getBody() == body) {
+			thisFixture = contact.getFixtureB();
 			otherBody = contact.getFixtureA().getBody();
 		}
 		else{
@@ -209,13 +222,19 @@ public class Iul extends Character{
 		}
 
 		if (this.isKicking){
+			if (thisFixture != leftLegFixture && thisFixture != rightLegFixture){
+				return;
+			}
 			Gdx.app.log("Iul", "I kick his ass");
-			otherBody.applyForceToCenter(1000,1000, true);
+			otherBody.applyForceToCenter(0 ,1000, true);
 		}
 
-		if (this.isPunching){
+		if (this.isPunching ){
+			if (thisFixture != leftArmFixture && thisFixture != rightArmFixture){
+				return;
+			}
 			Gdx.app.log("Iul", "I punch his ass");
-			otherBody.applyForceToCenter(-1000,-1000, true);
+			otherBody.applyForceToCenter(1000, 0, true);
 		}
 	}
 
