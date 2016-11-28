@@ -2,10 +2,10 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-inoremap <C-Space> 
-inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
-inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
 inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
+inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
+inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
+inoremap <C-Space> 
 imap <Nul> <C-Space>
 inoremap <S-Down> :let tmp=getpos('.') :m+1 : call cursor(tmp[1]+1,tmp[2]) a
 inoremap <S-Up> :let tmp=getpos('.') :m-2 : call cursor(tmp[1]-1,tmp[2]) a
@@ -112,6 +112,7 @@ set undolevels=100000
 set updatetime=2000
 set wildcharm=26
 set wildmenu
+set window=54
 set nowritebackup
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
@@ -122,10 +123,10 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +15 core/src/com/mygdx/taranfighters/MainGdx.java
-badd +45 core/src/com/mygdx/taranfighters/CombatScreen.java
+badd +71 core/src/com/mygdx/taranfighters/CombatScreen.java
 badd +19 .classpath
-badd +30 core/src/com/mygdx/taranfighters/Iul.java
-badd +66 core/src/com/mygdx/taranfighters/Character.java
+badd +46 core/src/com/mygdx/taranfighters/Iul.java
+badd +154 core/src/com/mygdx/taranfighters/Character.java
 badd +10 core/src/com/mygdx/taranfighters/SpriteChanging.java
 badd +7 core/src/com/mygdx/taranfighters/TextureTime.java
 badd +19 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/Sprite.java
@@ -140,7 +141,7 @@ badd +27 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/b
 badd +109 core/src/com/mygdx/taranfighters/MapBodyBuilder.java
 badd +28 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/MapObjects.java
 badd +69 core/src/com/mygdx/taranfighters/Rat.java
-badd +14 todo
+badd +23 todo
 badd +37 core/src/com/mygdx/taranfighters/JakOverScreen.java
 badd +2 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/TextureAtlas.java
 badd +22 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/ApplicationAdapter.java
@@ -148,6 +149,7 @@ badd +21 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/b
 badd +14 desktop/src/com/mygdx/taranfighters/desktop/DesktopLauncher.java
 badd +15 html/src/com/mygdx/taranfighters/client/HtmlLauncher.java
 badd +98 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/SpriteBatch.java
+badd +13 core/src/com/mygdx/taranfighters/Jak.java
 args core/src/com/mygdx/taranfighters/MainGdx.java
 edit core/src/com/mygdx/taranfighters/CombatScreen.java
 set splitbelow splitright
@@ -163,11 +165,11 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 103 + 90) / 180)
-exe '2resize ' . ((&lines * 10 + 25) / 51)
-exe 'vert 2resize ' . ((&columns * 76 + 90) / 180)
-exe '3resize ' . ((&lines * 38 + 25) / 51)
-exe 'vert 3resize ' . ((&columns * 76 + 90) / 180)
+exe 'vert 1resize ' . ((&columns * 100 + 92) / 185)
+exe '2resize ' . ((&lines * 3 + 27) / 55)
+exe 'vert 2resize ' . ((&columns * 84 + 92) / 185)
+exe '3resize ' . ((&lines * 49 + 27) / 55)
+exe 'vert 3resize ' . ((&columns * 84 + 92) / 185)
 argglobal
 inoreabbr <buffer> logger logger=eclim#java#logging#LoggingInit("logger")
 inoreabbr <buffer> log log=eclim#java#logging#LoggingInit("log")
@@ -277,22 +279,30 @@ setlocal wrap
 setlocal wrapmargin=0
 22
 normal! zo
-56
+62
 normal! zo
-95
+85
 normal! zo
-96
+112
 normal! zo
-98
+114
 normal! zo
-156
+175
 normal! zo
-let s:l = 81 - ((32 * winheight(0) + 24) / 49)
+240
+normal! zo
+241
+normal! zo
+243
+normal! zo
+301
+normal! zo
+let s:l = 231 - ((49 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-81
-normal! 069|
+231
+normal! 018|
 wincmd w
 argglobal
 enew
@@ -507,18 +517,23 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-let s:l = 13 - ((12 * winheight(0) + 19) / 38)
+16
+normal! zo
+16
+normal! zo
+let s:l = 19 - ((18 * winheight(0) + 24) / 49)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-13
-normal! 053|
+19
+normal! 0142|
 wincmd w
-exe 'vert 1resize ' . ((&columns * 103 + 90) / 180)
-exe '2resize ' . ((&lines * 10 + 25) / 51)
-exe 'vert 2resize ' . ((&columns * 76 + 90) / 180)
-exe '3resize ' . ((&lines * 38 + 25) / 51)
-exe 'vert 3resize ' . ((&columns * 76 + 90) / 180)
+3wincmd w
+exe 'vert 1resize ' . ((&columns * 100 + 92) / 185)
+exe '2resize ' . ((&lines * 3 + 27) / 55)
+exe 'vert 2resize ' . ((&columns * 84 + 92) / 185)
+exe '3resize ' . ((&lines * 49 + 27) / 55)
+exe 'vert 3resize ' . ((&columns * 84 + 92) / 185)
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

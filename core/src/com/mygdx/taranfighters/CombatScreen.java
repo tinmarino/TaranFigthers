@@ -164,6 +164,10 @@ public class CombatScreen implements Screen, InputProcessor {
 				rightBatch.end();
 
 				debugRenderer.render(world, rightCamera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
+
+				// Offsets
+				//leftOffset.y = leftChar.y - leftCamera.position.y/G.world2pixel;
+				//rightOffset.y = rightChar.y - rightCamera.position.y/G.world2pixel;
 			}
 
 			// Horizontal split
@@ -205,8 +209,6 @@ public class CombatScreen implements Screen, InputProcessor {
 				debugRenderer.render(world, topCamera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
 
 
-
-
 				// Bottom
 				Gdx.gl.glViewport(0, 0, screenWidth, (screenHeight - lineWidth)/2);
 				bottomCamera.position.x = (bottomChar.x - bottomOffset.x) * G.world2pixel;
@@ -224,6 +226,10 @@ public class CombatScreen implements Screen, InputProcessor {
 				bottomBatch.end();
 
 				debugRenderer.render(world, bottomCamera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
+
+				// Offsets 
+				//topOffset.x = topChar.x - topCamera.position.x/G.world2pixel;
+				//bottomOffset.x = bottomChar.x - bottomCamera.position.y/G.world2pixel;
 			}
 		}
 	}

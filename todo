@@ -16,6 +16,8 @@ Combat screen :clean all code before extending
 			make offset and width, height as vector2
 			keep calculating width 
 
+			update offsets dynamiccally when th eperson is far from camera, so he ends at the corect corner according to its relative position
+
 
 ELSE 
 vim cabbrev for ji -> JI because user canno tmap command with lowercase
