@@ -19,10 +19,9 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class CombatScreen implements Screen, InputProcessor {
-	SpriteBatch batch, leftBatch, rightBatch, topBatch, bottomBatch;
 	Texture img, img1, img2, img3;
 	float iTimeCounter=0;
-    OrthographicCamera camera;
+    OrthographicCamera camera, rightCamera, leftCamera;
 	Iul char1, char2;
 	Sprite testSprite; 
 	World world;
@@ -40,6 +39,13 @@ public class CombatScreen implements Screen, InputProcessor {
 		camera.position.y = 0;
 		camera.viewportWidth = 1000;
 		camera.viewportHeight = 1000;
+
+		rightCamera = new OrthographicCamera();
+		rightCamera.viewportWidth = 500;
+		rightCamera.viewportHeight = 500;
+		leftCamera = new OrthographicCamera();
+		leftCamera.viewportWidth = 500;
+		leftCamera.viewportHeight = 500;
 
 
         Gdx.input.setInputProcessor(this);
@@ -67,30 +73,84 @@ public class CombatScreen implements Screen, InputProcessor {
 		camera.position.y = (char1.y + char2.y) / 2 * G.world2pixel;
 
 		float width = Math.abs(char1.x - char2.x) * 1.2f ;
-		width = Math.max(10, width);
 		float height = Math.abs(char1.y - char2.y) * 1.2f ;
-		height = Math.max(10, height);
-		if (width / height > 1.5){height = width / 1.5f;}
-		else{width = height * 1.5f;}
-		camera.viewportWidth = width * G.world2pixel;
-		camera.viewportHeight = height * G.world2pixel;
 
-        camera.update();
+		Gdx.app.log("Comabt", "Width, height" + width + "," + height);
+
+		// Single Screen 
+		if (width < 10 && height < 10){
+  			Gdx.gl.glViewport( 0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight() );
+			if (width / height > 1.5){height = width / 1.5f;}
+			else{width = height * 1.5f;}
+			camera.viewportWidth = width * G.world2pixel;
+			camera.viewportHeight = height * G.world2pixel;
+
+        	camera.update();
 
 
-        level.tiledMapRenderer.setView(camera);
-        level.tiledMapRenderer.render();
-		
-		SpriteBatch batch = (SpriteBatch) level.tiledMapRenderer.getBatch();
+        	level.tiledMapRenderer.setView(camera);
+        	level.tiledMapRenderer.render();
+			
+			SpriteBatch batch = (SpriteBatch) level.tiledMapRenderer.getBatch();
 
-		batch.begin();
-			level.draw(batch, delta);
-			char1.draw(batch, delta);
-			char2.draw(batch, delta);
-		batch.end();
-		
-		// DEBUG
-		debugRenderer.render(world, camera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
+			batch.begin();
+				level.draw(batch, delta);
+				char1.draw(batch, delta);
+				char2.draw(batch, delta);
+			batch.end();
+			
+			// DEBUG
+			debugRenderer.render(world, camera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
+		}
+
+		// Dual Screen 
+		else {
+			Character leftChar;
+			Character rightChar;
+			if (char1.x < char2.x){
+				leftChar = char1;
+				rightChar = char2;
+			}
+			else{
+				leftChar = char2;
+				rightChar = char1;
+			}
+
+			// Left 
+  			Gdx.gl.glViewport( 0,0,Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight() );
+			leftCamera.position.x = leftChar.x * G.world2pixel;
+			leftCamera.position.y = leftChar.y * G.world2pixel;
+			leftCamera.update();
+			level.tiledMapRenderer.setView(leftCamera);
+			level.tiledMapRenderer.render();
+			SpriteBatch leftBatch = (SpriteBatch) level.tiledMapRenderer.getBatch();
+
+			leftBatch.begin();
+				level.draw(leftBatch, delta);
+				char1.draw(leftBatch, delta);
+				char2.draw(leftBatch, delta);
+			leftBatch.end();
+
+
+			debugRenderer.render(world, leftCamera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
+			
+
+			// Right
+			Gdx.gl.glViewport( Gdx.graphics.getWidth()/2,0,Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight() );
+			rightCamera.position.x = rightChar.x * G.world2pixel;
+			rightCamera.position.y = rightChar.y * G.world2pixel;
+			rightCamera.update();
+			level.tiledMapRenderer.setView(rightCamera);
+			level.tiledMapRenderer.render();
+			SpriteBatch rightBatch = (SpriteBatch) level.tiledMapRenderer.getBatch();
+
+			rightBatch.begin();
+				level.draw(rightBatch, delta);
+				char1.draw(rightBatch, delta);
+				char2.draw(rightBatch, delta);
+			rightBatch.end();
+			debugRenderer.render(world, rightCamera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
+		}
 	}
 
 
