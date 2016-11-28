@@ -21,12 +21,14 @@ import com.badlogic.gdx.physics.box2d.World;
 public class CombatScreen implements Screen, InputProcessor {
 	Texture img, img1, img2, img3;
 	float iTimeCounter=0;
-    OrthographicCamera camera, rightCamera, leftCamera;
+    OrthographicCamera camera, rightCamera, leftCamera, topCamera, bottomCamera;
 	Iul char1, char2;
 	Sprite testSprite; 
 	World world;
 	Box2DDebugRenderer  debugRenderer;
 	Level level;
+	Vector2 offset1 = new Vector2(-2, 0);
+	Vector2 offset2 = new Vector2(2, 0);
 	
 	@Override
 	public void show() {
@@ -41,11 +43,9 @@ public class CombatScreen implements Screen, InputProcessor {
 		camera.viewportHeight = 1000;
 
 		rightCamera = new OrthographicCamera();
-		rightCamera.viewportWidth = 500;
-		rightCamera.viewportHeight = 500;
 		leftCamera = new OrthographicCamera();
-		leftCamera.viewportWidth = 500;
-		leftCamera.viewportHeight = 500;
+		topCamera = new OrthographicCamera();
+		bottomCamera = new OrthographicCamera();
 
 
         Gdx.input.setInputProcessor(this);
@@ -59,6 +59,9 @@ public class CombatScreen implements Screen, InputProcessor {
 
 	@Override
 	public void render (float delta) {
+		int screenWidth = Gdx.graphics.getWidth();
+		int screenHeight = Gdx.graphics.getHeight();
+		int lineWidth = Gdx.graphics.getWidth()/200;
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -72,25 +75,23 @@ public class CombatScreen implements Screen, InputProcessor {
 		camera.position.x = (char1.x + char2.x) / 2 * G.world2pixel;
 		camera.position.y = (char1.y + char2.y) / 2 * G.world2pixel;
 
-		float width = Math.abs(char1.x - char2.x) * 1.2f ;
-		float height = Math.abs(char1.y - char2.y) * 1.2f ;
+		float width = Math.abs(char1.x - char2.x) * 1.4f;
+		float height = Math.abs(char1.y - char2.y) * 1.4f;
 
-		Gdx.app.log("Comabt", "Width, height" + width + "," + height);
+		Gdx.app.log("Comabt", "Width, height" + width + "," + height + "," + offset1);
 
 		// Single Screen 
-		if (width < 10 && height < 10){
-  			Gdx.gl.glViewport( 0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight() );
+		if (width < 8 && height < 8){
 			if (width / height > 1.5){height = width / 1.5f;}
 			else{width = height * 1.5f;}
-			camera.viewportWidth = width * G.world2pixel;
-			camera.viewportHeight = height * G.world2pixel;
-
+  			Gdx.gl.glViewport( 0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight() );
+			width = Math.max(8, width);
+			height = Math.max(8, height);
+			camera.viewportWidth = 8 * G.world2pixel;
+			camera.viewportHeight = 8 * G.world2pixel;
         	camera.update();
-
-
         	level.tiledMapRenderer.setView(camera);
         	level.tiledMapRenderer.render();
-			
 			SpriteBatch batch = (SpriteBatch) level.tiledMapRenderer.getBatch();
 
 			batch.begin();
@@ -98,58 +99,132 @@ public class CombatScreen implements Screen, InputProcessor {
 				char1.draw(batch, delta);
 				char2.draw(batch, delta);
 			batch.end();
-			
+
+			offset1 = new Vector2(char1.x - camera.position.x/G.world2pixel, char1.y - camera.position.y/G.world2pixel);
+			offset2 = new Vector2(char2.x - camera.position.x/G.world2pixel, char2.y - camera.position.y/G.world2pixel);
+
 			// DEBUG
 			debugRenderer.render(world, camera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
 		}
 
-		// Dual Screen 
+		// Vertical split 
 		else {
-			Character leftChar;
-			Character rightChar;
-			if (char1.x < char2.x){
-				leftChar = char1;
-				rightChar = char2;
+			if (width >= 8)
+			{
+				if (width / height > 1.5){height = width / 1.5f;}
+				else{width = height * 1.5f;}
+				Character leftChar, rightChar;
+				Vector2 leftOffset, rightOffset;
+				if (char1.x < char2.x){
+					leftChar = char1;
+					rightChar = char2;
+					leftOffset = offset1;
+					rightOffset = offset2;
+				}
+				else{
+					leftChar = char2;
+					rightChar = char1;
+					leftOffset = offset2;
+					rightOffset = offset1;
+				}
+
+				// Left 
+				Gdx.gl.glViewport(0, 0, (screenWidth-lineWidth)/2, screenHeight);
+				leftCamera.position.x = (leftChar.x - leftOffset.x - 2) * G.world2pixel;
+				leftCamera.position.y = (leftChar.y - leftOffset.y) * G.world2pixel;
+				leftCamera.viewportWidth = 4 * G.world2pixel;
+				leftCamera.viewportHeight = 8 * G.world2pixel;
+				leftCamera.update();
+				level.tiledMapRenderer.setView(leftCamera);
+				level.tiledMapRenderer.render();
+				SpriteBatch leftBatch = (SpriteBatch) level.tiledMapRenderer.getBatch();
+
+				leftBatch.begin();
+					level.draw(leftBatch, delta);
+					leftChar.draw(leftBatch, delta);
+				leftBatch.end();
+
+				debugRenderer.render(world, leftCamera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
+				
+
+				// Right
+				Gdx.gl.glViewport((screenWidth+lineWidth)/2, 0, (screenWidth-lineWidth)/2, screenHeight);
+				rightCamera.position.x = (rightChar.x - rightOffset.x + 2) * G.world2pixel;
+				rightCamera.position.y = (rightChar.y - rightOffset.y) * G.world2pixel;
+				rightCamera.viewportWidth = 4 * G.world2pixel;
+				rightCamera.viewportHeight = 8 * G.world2pixel;
+				rightCamera.update();
+				level.tiledMapRenderer.setView(rightCamera);
+				level.tiledMapRenderer.render();
+				SpriteBatch rightBatch = (SpriteBatch) level.tiledMapRenderer.getBatch();
+
+				rightBatch.begin();
+					level.draw(rightBatch, delta);
+					rightChar.draw(rightBatch, delta);
+				rightBatch.end();
+
+				debugRenderer.render(world, rightCamera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
 			}
+
+			// Horizontal split
 			else{
-				leftChar = char2;
-				rightChar = char1;
+				if (width / height > 1.5){height = width / 1.5f;}
+				else{width = height * 1.5f;}
+				Character topChar, bottomChar;
+				Vector2 topOffset, bottomOffset;
+				if (char1.y < char2.y){
+					bottomChar = char1;
+					topChar = char2;
+					bottomOffset = offset1;
+					topOffset = offset2;
+				}
+				else{
+					bottomChar = char2;
+					topChar = char1;
+					bottomOffset = offset2;
+					topOffset = offset1;
+				}
+
+
+				// Top
+				Gdx.gl.glViewport(0, (screenHeight+lineWidth)/2 , screenWidth, (screenHeight-lineWidth)/2);
+				topCamera.position.x = (topChar.x - topOffset.x) * G.world2pixel;
+				topCamera.position.y = (topChar.y - topOffset.y + 2) * G.world2pixel;
+				topCamera.viewportWidth = 8 * G.world2pixel;
+				topCamera.viewportHeight = 4 * G.world2pixel;
+				topCamera.update();
+				level.tiledMapRenderer.setView(topCamera);
+				level.tiledMapRenderer.render();
+				SpriteBatch topBatch = (SpriteBatch) level.tiledMapRenderer.getBatch();
+
+				topBatch.begin();
+					level.draw(topBatch, delta);
+					topChar.draw(topBatch, delta);
+				topBatch.end();
+
+				debugRenderer.render(world, topCamera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
+
+
+
+
+				// Bottom
+				Gdx.gl.glViewport(0, 0, screenWidth, (screenHeight - lineWidth)/2);
+				bottomCamera.position.x = (bottomChar.x - bottomOffset.x) * G.world2pixel;
+				bottomCamera.position.y = (bottomChar.y - bottomOffset.y - 2) * G.world2pixel;
+				bottomCamera.viewportWidth = 8 * G.world2pixel;
+				bottomCamera.viewportHeight = 4 * G.world2pixel;
+				bottomCamera.update();
+				level.tiledMapRenderer.setView(bottomCamera);
+				level.tiledMapRenderer.render();
+				SpriteBatch bottomBatch = (SpriteBatch) level.tiledMapRenderer.getBatch();
+
+				bottomBatch.begin();
+					level.draw(bottomBatch, delta);
+					bottomChar.draw(bottomBatch, delta);
+				bottomBatch.end();
+
+				debugRenderer.render(world, bottomCamera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
 			}
-
-			// Left 
-  			Gdx.gl.glViewport( 0,0,Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight() );
-			leftCamera.position.x = leftChar.x * G.world2pixel;
-			leftCamera.position.y = leftChar.y * G.world2pixel;
-			leftCamera.update();
-			level.tiledMapRenderer.setView(leftCamera);
-			level.tiledMapRenderer.render();
-			SpriteBatch leftBatch = (SpriteBatch) level.tiledMapRenderer.getBatch();
-
-			leftBatch.begin();
-				level.draw(leftBatch, delta);
-				char1.draw(leftBatch, delta);
-				char2.draw(leftBatch, delta);
-			leftBatch.end();
-
-
-			debugRenderer.render(world, leftCamera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
-			
-
-			// Right
-			Gdx.gl.glViewport( Gdx.graphics.getWidth()/2,0,Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight() );
-			rightCamera.position.x = rightChar.x * G.world2pixel;
-			rightCamera.position.y = rightChar.y * G.world2pixel;
-			rightCamera.update();
-			level.tiledMapRenderer.setView(rightCamera);
-			level.tiledMapRenderer.render();
-			SpriteBatch rightBatch = (SpriteBatch) level.tiledMapRenderer.getBatch();
-
-			rightBatch.begin();
-				level.draw(rightBatch, delta);
-				char1.draw(rightBatch, delta);
-				char2.draw(rightBatch, delta);
-			rightBatch.end();
-			debugRenderer.render(world, rightCamera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
 		}
 	}
 
