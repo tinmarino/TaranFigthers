@@ -3,7 +3,6 @@ package com.mygdx.taranfighters;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -26,9 +25,6 @@ public class Iul extends Character{
 	Fixture leftArmFixture;
 	Fixture rightArmFixture;
 
-	boolean isKicking=false;
-	boolean isPunching=false;
-	boolean isJumping=false;
 
 	
 
@@ -123,8 +119,9 @@ public class Iul extends Character{
 	}
 
 
+	@Override
 	public void kick(){
-		this.isKicking = true;
+		super.kick();
 		// Sprite 
 		spriteChanging.setList(kickList);
 		willChangeSprite = true;
@@ -139,8 +136,9 @@ public class Iul extends Character{
 		}
 	}
 
+	@Override
 	public void punch(){
-		this.isPunching =true;
+		super.punch();
 		// Sprite 
 		spriteChanging.setList(punchList);
 		willChangeSprite = true;
@@ -238,42 +236,4 @@ public class Iul extends Character{
 		}
 	}
 
-	public boolean keyDown(int keycode){
-        if(keycode == Input.Keys.LEFT)
-		{
-			if (isPunching){return true;}
-			body.applyForceToCenter( -1000, 0, true);
-			spriteChanging.setFlip(true, false);
-			return true;
-		}
-			
-        if(keycode == Input.Keys.RIGHT)
-		{
-			if (isPunching){return true;}
-			body.applyForceToCenter( 1000, 0, true);
-			spriteChanging.setFlip(false, false);
-			return true;
-		}
-        if(keycode == Input.Keys.UP)
-		{
-			body.applyForceToCenter(0, 1000, true);
-			return true;
-		}
-        if(keycode == Input.Keys.DOWN)
-		{
-			body.applyForceToCenter(0, -1000, true);
-			return true;
-		}
-
-		if (keycode == Input.Keys.L){
-			kick();
-		}
-
-		if (keycode == Input.Keys.K){
-			punch();
-		}
-
-		scaleVelocity(maxSpeed);
-		return false; 
-	}
 }

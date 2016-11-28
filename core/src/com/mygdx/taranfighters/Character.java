@@ -24,6 +24,11 @@ public class Character{
 	public boolean willChangeSprite;
 	public float timeLeftChangeSprite;
 
+	boolean isKicking=false;
+	boolean isPunching=false;
+	boolean isJumping=false;
+
+	int playerNumber = 1;
 
 
 	public Character(World world){
@@ -42,6 +47,17 @@ public class Character{
 
 		scaleVelocity(maxSpeed);
 	}
+
+
+
+	public void punch(){
+		this.isPunching =true;
+	}
+
+	public void kick(){
+		this.isKicking = true;
+	}
+
 
 	public void manageContact(Contact contact){
 	}
@@ -110,6 +126,49 @@ public class Character{
 
 
 	}
+
+
+	public boolean keyDown(int keycode){
+        if(keycode == Input.Keys.LEFT)
+		{
+			if (isPunching){return true;}
+			body.applyForceToCenter( -1000, 0, true);
+			spriteChanging.setFlip(true, false);
+			return true;
+		}
+			
+        if(keycode == Input.Keys.RIGHT)
+		{
+			if (isPunching){return true;}
+			body.applyForceToCenter( 1000, 0, true);
+			spriteChanging.setFlip(false, false);
+			return true;
+		}
+        if(keycode == Input.Keys.UP)
+		{
+			body.applyForceToCenter(0, 1000, true);
+			return true;
+		}
+        if(keycode == Input.Keys.DOWN)
+		{
+			body.applyForceToCenter(0, -1000, true);
+			return true;
+		}
+
+		if (keycode == Input.Keys.L){
+			kick();
+			return true;
+		}
+
+		if (keycode == Input.Keys.K){
+			punch();
+			return true;
+		}
+
+		scaleVelocity(maxSpeed);
+		return false; 
+	}
+
 }
 
 

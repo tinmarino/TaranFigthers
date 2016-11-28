@@ -112,7 +112,6 @@ set undolevels=100000
 set updatetime=2000
 set wildcharm=26
 set wildmenu
-set window=54
 set nowritebackup
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
@@ -125,8 +124,8 @@ set shortmess=aoO
 badd +15 core/src/com/mygdx/taranfighters/MainGdx.java
 badd +45 core/src/com/mygdx/taranfighters/CombatScreen.java
 badd +19 .classpath
-badd +56 core/src/com/mygdx/taranfighters/Iul.java
-badd +44 core/src/com/mygdx/taranfighters/Character.java
+badd +30 core/src/com/mygdx/taranfighters/Iul.java
+badd +66 core/src/com/mygdx/taranfighters/Character.java
 badd +10 core/src/com/mygdx/taranfighters/SpriteChanging.java
 badd +7 core/src/com/mygdx/taranfighters/TextureTime.java
 badd +19 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/Sprite.java
@@ -136,12 +135,12 @@ badd +12 core/src/com/mygdx/taranfighters/G.java
 badd +16 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/TiledMapRenderer.java
 badd +55 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/renderers/OrthogonalTiledMapRenderer.java
 badd +65 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/renderers/BatchTiledMapRenderer.java
-badd +26 core/src/com/mygdx/taranfighters/Level.java
+badd +27 core/src/com/mygdx/taranfighters/Level.java
 badd +27 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/math/Vector2.java
 badd +109 core/src/com/mygdx/taranfighters/MapBodyBuilder.java
 badd +28 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/MapObjects.java
 badd +69 core/src/com/mygdx/taranfighters/Rat.java
-badd +10 todo
+badd +14 todo
 badd +37 core/src/com/mygdx/taranfighters/JakOverScreen.java
 badd +2 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/TextureAtlas.java
 badd +22 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/ApplicationAdapter.java
@@ -150,7 +149,7 @@ badd +14 desktop/src/com/mygdx/taranfighters/desktop/DesktopLauncher.java
 badd +15 html/src/com/mygdx/taranfighters/client/HtmlLauncher.java
 badd +98 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/SpriteBatch.java
 args core/src/com/mygdx/taranfighters/MainGdx.java
-edit core/src/com/mygdx/taranfighters/Iul.java
+edit core/src/com/mygdx/taranfighters/CombatScreen.java
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -164,11 +163,11 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 92 + 92) / 185)
-exe '2resize ' . ((&lines * 27 + 27) / 55)
-exe 'vert 2resize ' . ((&columns * 92 + 92) / 185)
-exe '3resize ' . ((&lines * 25 + 27) / 55)
-exe 'vert 3resize ' . ((&columns * 92 + 92) / 185)
+exe 'vert 1resize ' . ((&columns * 103 + 90) / 180)
+exe '2resize ' . ((&lines * 10 + 25) / 51)
+exe 'vert 2resize ' . ((&columns * 76 + 90) / 180)
+exe '3resize ' . ((&lines * 38 + 25) / 51)
+exe 'vert 3resize ' . ((&columns * 76 + 90) / 180)
 argglobal
 inoreabbr <buffer> logger logger=eclim#java#logging#LoggingInit("logger")
 inoreabbr <buffer> log log=eclim#java#logging#LoggingInit("log")
@@ -211,7 +210,7 @@ setlocal foldenable
 set foldexpr=FoldMethod(v:lnum)
 setlocal foldexpr=FoldMethod(v:lnum)
 setlocal foldignore=#
-setlocal foldlevel=0
+setlocal foldlevel=30
 setlocal foldmarker={{{,}}}
 set foldmethod=expr
 setlocal foldmethod=expr
@@ -276,30 +275,24 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-19
+22
 normal! zo
-41
+56
 normal! zo
-44
+95
 normal! zo
-46
+96
 normal! zo
 98
 normal! zo
-167
+156
 normal! zo
-185
-normal! zo
-191
-normal! zo
-220
-normal! zo
-let s:l = 60 - ((22 * winheight(0) + 26) / 53)
+let s:l = 81 - ((32 * winheight(0) + 24) / 49)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-60
-normal! 01|
+81
+normal! 069|
 wincmd w
 argglobal
 enew
@@ -514,18 +507,18 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-let s:l = 8 - ((7 * winheight(0) + 12) / 25)
+let s:l = 13 - ((12 * winheight(0) + 19) / 38)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-8
-normal! 035|
+13
+normal! 053|
 wincmd w
-exe 'vert 1resize ' . ((&columns * 92 + 92) / 185)
-exe '2resize ' . ((&lines * 27 + 27) / 55)
-exe 'vert 2resize ' . ((&columns * 92 + 92) / 185)
-exe '3resize ' . ((&lines * 25 + 27) / 55)
-exe 'vert 3resize ' . ((&columns * 92 + 92) / 185)
+exe 'vert 1resize ' . ((&columns * 103 + 90) / 180)
+exe '2resize ' . ((&lines * 10 + 25) / 51)
+exe 'vert 2resize ' . ((&columns * 76 + 90) / 180)
+exe '3resize ' . ((&lines * 38 + 25) / 51)
+exe 'vert 3resize ' . ((&columns * 76 + 90) / 180)
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

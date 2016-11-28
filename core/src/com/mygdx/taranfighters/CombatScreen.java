@@ -19,7 +19,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class CombatScreen implements Screen, InputProcessor {
-	SpriteBatch batch;
+	SpriteBatch batch, leftBatch, rightBatch, topBatch, bottomBatch;
 	Texture img, img1, img2, img3;
 	float iTimeCounter=0;
     OrthographicCamera camera;
@@ -60,6 +60,8 @@ public class CombatScreen implements Screen, InputProcessor {
 
 
 		Gdx.app.log("Char1, char2 position", char2.x + ":" + char1.body.getPosition() + " , " + char2.body.getPosition());
+		
+
 		// CAMERA 
 		camera.position.x = (char1.x + char2.x) / 2 * G.world2pixel;
 		camera.position.y = (char1.y + char2.y) / 2 * G.world2pixel;
@@ -75,6 +77,7 @@ public class CombatScreen implements Screen, InputProcessor {
 
         camera.update();
 
+
         level.tiledMapRenderer.setView(camera);
         level.tiledMapRenderer.render();
 		
@@ -83,6 +86,7 @@ public class CombatScreen implements Screen, InputProcessor {
 		batch.begin();
 			level.draw(batch, delta);
 			char1.draw(batch, delta);
+			char2.draw(batch, delta);
 		batch.end();
 		
 		// DEBUG
