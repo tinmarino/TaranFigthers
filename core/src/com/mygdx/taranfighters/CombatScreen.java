@@ -58,6 +58,10 @@ public class CombatScreen implements Screen, InputProcessor {
 		char2 = new Iul(world);
 		char2.setPosition(12, 12);
 
+		// ARROW 
+		arrowSprite1.setSize(0.25f * G.world2pixel, 0.5f * G.world2pixel);
+		arrowSprite1.setOrigin(arrowSprite1.getWidth()/2, arrowSprite1.getHeight()/2);
+
 		setContactListener();
 	}
 
@@ -117,6 +121,7 @@ public class CombatScreen implements Screen, InputProcessor {
 
 		// Vertical split 
 		else {
+			camera.zoom = 1;
 			if (width >= 8)
 			{
 				if (width / height > 1.5){height = width / 1.5f;}
@@ -143,30 +148,20 @@ public class CombatScreen implements Screen, InputProcessor {
 				leftCamera.viewportWidth = 4 * G.world2pixel;
 				leftCamera.viewportHeight = 8 * G.world2pixel;
 				leftCamera.update();
-				level.tiledMapRenderer.setView(leftCamera);
-				level.tiledMapRenderer.render();
-				SpriteBatch leftBatch = (SpriteBatch) level.tiledMapRenderer.getBatch();
 
 				arrowOffset.x = G.world2pixel * rightChar.x - leftCamera.position.x;
 				arrowOffset.y = G.world2pixel * rightChar.y - leftCamera.position.y;
-				if (arrowOffset.x > screenWidth/4/1.4f){
-					arrowOffset.limit(screenWidth/4/1.4f);
-				}
-				if (arrowOffset.y > screenHeight/2/1.4f){
-					arrowOffset.limit(screenHeight/2/1.4f);
-				}
-				arrowOffset.x = Math.max(arrowOffset.x, -screenWidth/2/2f);
-				arrowOffset.x = Math.min(arrowOffset.x, screenWidth/2/2f);
-				arrowOffset.y = Math.max(arrowOffset.y, -screenHeight/2f);
-				arrowOffset.y = Math.min(arrowOffset.y, screenWidth/2f);
+				arrowOffset.limit(screenWidth/4.4f);
+				Gdx.app.log("Comabt", "Width, height" +arrowOffset +  arrowSprite1.getWidth());
 				arrowOffset.x += leftCamera.position.x;
 				arrowOffset.y += leftCamera.position.y;
-
 				Vector2 charDistance = new Vector2(rightChar.x - leftChar.x, rightChar.y- leftChar.y);
 				arrowSprite1.setRotation(charDistance.angle() - 90);
-				arrowSprite1.setPosition(arrowOffset.x, arrowOffset.y);
-				Gdx.app.log("Comabt", "Width, height" +arrowOffset);
+				arrowSprite1.setPosition(arrowOffset.x - arrowSprite1.getWidth()/2, arrowOffset.y + arrowSprite1.getHeight()/2);
 
+				level.tiledMapRenderer.setView(leftCamera);
+				level.tiledMapRenderer.render();
+				SpriteBatch leftBatch = (SpriteBatch) level.tiledMapRenderer.getBatch();
 				leftBatch.begin();
 					level.draw(leftBatch, delta);
 					leftChar.draw(leftBatch, delta);
@@ -256,9 +251,6 @@ public class CombatScreen implements Screen, InputProcessor {
 
 				debugRenderer.render(world, bottomCamera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
 
-				// Offsets 
-				//topOffset.x = -(bottomChar.x - topChar.x) ;
-				//bottomOffset.x = bottomChar.x - bottomCamera.position.y/G.world2pixel;
 			}
 		}
 	}
@@ -314,9 +306,7 @@ public class CombatScreen implements Screen, InputProcessor {
 	}
 
 	@Override
-	public void resize(int arg0, int arg1) {
-		// TODO Auto-generated method stub
-
+	public void resize(int width, int height) {
 	}
 
 	@Override
