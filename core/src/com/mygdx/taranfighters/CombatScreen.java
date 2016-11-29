@@ -69,7 +69,19 @@ public class CombatScreen implements Screen, InputProcessor {
 	public void render (float delta) {
 		int screenWidth = Gdx.graphics.getWidth();
 		int screenHeight = Gdx.graphics.getHeight();
-		int lineWidth = Gdx.graphics.getWidth()/200;
+		int screenX = 0, screenY = 0;
+		if (screenWidth < (int) (1.5f * screenHeight)){
+			screenHeight = (int) (screenWidth / 1.5f);
+			screenY = (Gdx.graphics.getHeight() - screenHeight) / 2;
+			screenX = 0;
+		}
+		else {
+			screenWidth = (int)(1.5f * screenHeight);
+			screenX = (Gdx.graphics.getWidth() - screenWidth) / 2;
+			screenY = 0;
+		}
+
+		int lineWidth = screenWidth/200;
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -98,7 +110,7 @@ public class CombatScreen implements Screen, InputProcessor {
 		if (width < 8 && height < 8){
 			if (width / height > 1.5){height = width / 1.5f;}
 			else{width = height * 1.5f;}
-  			Gdx.gl.glViewport( 0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight() );
+  			Gdx.gl.glViewport(screenX, screenY, screenWidth, screenHeight);
 			width = Math.max(8, width);
 			height = Math.max(8, height);
 			camera.viewportWidth = 8 * G.world2pixel;
@@ -121,7 +133,6 @@ public class CombatScreen implements Screen, InputProcessor {
 
 		// Vertical split 
 		else {
-			camera.zoom = 1;
 			if (width >= 8)
 			{
 				if (width / height > 1.5){height = width / 1.5f;}
@@ -142,17 +153,18 @@ public class CombatScreen implements Screen, InputProcessor {
 				}
 
 				// Left 
-				Gdx.gl.glViewport(0, 0, (screenWidth-lineWidth)/2, screenHeight);
+				Gdx.gl.glViewport(screenX, screenY, (screenWidth-lineWidth)/2, screenHeight);
 				leftCamera.position.x = (leftChar.x - leftOffset.x - 2) * G.world2pixel;
 				leftCamera.position.y = (leftChar.y - leftOffset.y) * G.world2pixel;
 				leftCamera.viewportWidth = 4 * G.world2pixel;
 				leftCamera.viewportHeight = 8 * G.world2pixel;
 				leftCamera.update();
 
+				// ARROW 
 				arrowOffset.x = G.world2pixel * rightChar.x - leftCamera.position.x;
 				arrowOffset.y = G.world2pixel * rightChar.y - leftCamera.position.y;
 				arrowOffset.limit(screenWidth/4.4f);
-				Gdx.app.log("Comabt", "Width, height" +arrowOffset +  arrowSprite1.getWidth());
+				Gdx.app.log("Comabt", "world2 pixel" +  G.world2pixel + ",,," + leftCamera.viewportWidth + "," + camera.position + "," + leftChar.x + " y " + leftChar.y);
 				arrowOffset.x += leftCamera.position.x;
 				arrowOffset.y += leftCamera.position.y;
 				Vector2 charDistance = new Vector2(rightChar.x - leftChar.x, rightChar.y- leftChar.y);
@@ -172,7 +184,7 @@ public class CombatScreen implements Screen, InputProcessor {
 				
 
 				// Right
-				Gdx.gl.glViewport((screenWidth+lineWidth)/2, 0, (screenWidth-lineWidth)/2, screenHeight);
+				Gdx.gl.glViewport(screenX + (screenWidth+lineWidth)/2, screenY, (screenWidth-lineWidth)/2, screenHeight);
 				rightCamera.position.x = (rightChar.x - rightOffset.x + 2) * G.world2pixel;
 				rightCamera.position.y = (rightChar.y - rightOffset.y) * G.world2pixel;
 				rightCamera.viewportWidth = 4 * G.world2pixel;
@@ -189,9 +201,6 @@ public class CombatScreen implements Screen, InputProcessor {
 
 				debugRenderer.render(world, rightCamera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
 
-				// Offsets
-				//leftOffset.y = leftChar.y - leftCamera.position.y/G.world2pixel;
-				//rightOffset.y = rightChar.y - rightCamera.position.y/G.world2pixel;
 			}
 
 			// Horizontal split
@@ -215,7 +224,7 @@ public class CombatScreen implements Screen, InputProcessor {
 
 
 				// Top
-				Gdx.gl.glViewport(0, (screenHeight+lineWidth)/2 , screenWidth, (screenHeight-lineWidth)/2);
+				Gdx.gl.glViewport(screenX, screenY + (screenHeight+lineWidth)/2 , screenWidth, (screenHeight-lineWidth)/2);
 				topCamera.position.x = (topChar.x - topOffset.x) * G.world2pixel;
 				topCamera.position.y = (topChar.y - topOffset.y + 2) * G.world2pixel;
 				topCamera.viewportWidth = 8 * G.world2pixel;
@@ -234,7 +243,7 @@ public class CombatScreen implements Screen, InputProcessor {
 
 
 				// Bottom
-				Gdx.gl.glViewport(0, 0, screenWidth, (screenHeight - lineWidth)/2);
+				Gdx.gl.glViewport(screenX, screenY, screenWidth, (screenHeight - lineWidth)/2);
 				bottomCamera.position.x = (bottomChar.x - bottomOffset.x) * G.world2pixel;
 				bottomCamera.position.y = (bottomChar.y - bottomOffset.y - 2) * G.world2pixel;
 				bottomCamera.viewportWidth = 8 * G.world2pixel;
