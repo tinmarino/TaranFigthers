@@ -93,14 +93,14 @@ public class CombatScreen implements Screen, InputProcessor {
 		camera.position.y = (char1.y + char2.y) / 2 * G.world2pixel;
 		offset1 = new Vector2((char1.x - char2.x)/2, (char1.y - char2.y)/2);
 		offset2 = new Vector2((char2.x - char1.x)/2, (char2.y - char1.y)/2);
-		offset1.x = Math.min(offset1.x, screenWidth/2/1.4f /G.world2pixel );
-		offset1.x = Math.max(offset1.x, -screenWidth/2/1.4f/G.world2pixel );
-		offset1.y = Math.min(offset1.y, screenWidth/2/1.4f /G.world2pixel );
-		offset1.y = Math.max(offset1.y, -screenWidth/2/1.4f/G.world2pixel );
-		offset2.x = Math.min(offset2.x, screenWidth/2/1.4f /G.world2pixel );
-		offset2.x = Math.max(offset2.x, -screenWidth/2/1.4f/G.world2pixel );
-		offset2.y = Math.min(offset2.y, screenWidth/2/1.4f /G.world2pixel );
-		offset2.y = Math.max(offset2.y, -screenWidth/2/1.4f/G.world2pixel );
+		offset1.x = Math.min(offset1.x, G.world2pixel*8/2/1.4f /G.world2pixel );
+		offset1.x = Math.max(offset1.x, -G.world2pixel*8/2/1.4f/G.world2pixel );
+		offset1.y = Math.min(offset1.y, G.world2pixel*8/2/1.4f /G.world2pixel );
+		offset1.y = Math.max(offset1.y, -G.world2pixel*8/2/1.4f/G.world2pixel );
+		offset2.x = Math.min(offset2.x, G.world2pixel*8/2/1.4f /G.world2pixel );
+		offset2.x = Math.max(offset2.x, -G.world2pixel*8/2/1.4f/G.world2pixel );
+		offset2.y = Math.min(offset2.y, G.world2pixel*8/2/1.4f /G.world2pixel );
+		offset2.y = Math.max(offset2.y, -G.world2pixel*8/2/1.4f/G.world2pixel );
 
 		float width = Math.abs(char1.x - char2.x) * 1.4f;
 		float height = Math.abs(char1.y - char2.y) * 1.4f;
@@ -163,7 +163,7 @@ public class CombatScreen implements Screen, InputProcessor {
 				// ARROW 
 				arrowOffset.x = G.world2pixel * rightChar.x - leftCamera.position.x;
 				arrowOffset.y = G.world2pixel * rightChar.y - leftCamera.position.y;
-				arrowOffset.limit(screenWidth/4.4f);
+				arrowOffset.limit(8 * G.world2pixel/4.4f);
 				Gdx.app.log("Comabt", "world2 pixel" +  G.world2pixel + ",,," + leftCamera.viewportWidth + "," + camera.position + "," + leftChar.x + " y " + leftChar.y);
 				arrowOffset.x += leftCamera.position.x;
 				arrowOffset.y += leftCamera.position.y;
