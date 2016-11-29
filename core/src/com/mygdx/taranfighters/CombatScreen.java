@@ -29,6 +29,10 @@ public class CombatScreen implements Screen, InputProcessor {
 	Level level;
 	Vector2 offset1 = new Vector2(-2, 0);
 	Vector2 offset2 = new Vector2(2, 0);
+	Vector2 arrowOffset = new Vector2(0, 0);
+	Sprite arrowSprite1 = new Sprite(new Texture("img/arrow_blue.png"));
+	Sprite arrowSprite2 = new Sprite(new Texture("img/arrow_blue.png"));
+
 	
 	@Override
 	public void show() {
@@ -68,17 +72,23 @@ public class CombatScreen implements Screen, InputProcessor {
     	world.step(G.timestep, G.velocity_iterations, G.position_iterations);
 
 
-		Gdx.app.log("Char1, char2 position", char2.x + ":" + char1.body.getPosition() + " , " + char2.body.getPosition());
-		
-
 		// CAMERA 
 		camera.position.x = (char1.x + char2.x) / 2 * G.world2pixel;
 		camera.position.y = (char1.y + char2.y) / 2 * G.world2pixel;
+		offset1 = new Vector2((char1.x - char2.x)/2, (char1.y - char2.y)/2);
+		offset2 = new Vector2((char2.x - char1.x)/2, (char2.y - char1.y)/2);
+		offset1.x = Math.min(offset1.x, screenWidth/2/1.4f /G.world2pixel );
+		offset1.x = Math.max(offset1.x, -screenWidth/2/1.4f/G.world2pixel );
+		offset1.y = Math.min(offset1.y, screenWidth/2/1.4f /G.world2pixel );
+		offset1.y = Math.max(offset1.y, -screenWidth/2/1.4f/G.world2pixel );
+		offset2.x = Math.min(offset2.x, screenWidth/2/1.4f /G.world2pixel );
+		offset2.x = Math.max(offset2.x, -screenWidth/2/1.4f/G.world2pixel );
+		offset2.y = Math.min(offset2.y, screenWidth/2/1.4f /G.world2pixel );
+		offset2.y = Math.max(offset2.y, -screenWidth/2/1.4f/G.world2pixel );
 
 		float width = Math.abs(char1.x - char2.x) * 1.4f;
 		float height = Math.abs(char1.y - char2.y) * 1.4f;
 
-		Gdx.app.log("Comabt", "Width, height" + width + "," + height + "," + offset1);
 
 		// Single Screen 
 		if (width < 8 && height < 8){
@@ -100,8 +110,6 @@ public class CombatScreen implements Screen, InputProcessor {
 				char2.draw(batch, delta);
 			batch.end();
 
-			offset1 = new Vector2(char1.x - camera.position.x/G.world2pixel, char1.y - camera.position.y/G.world2pixel);
-			offset2 = new Vector2(char2.x - camera.position.x/G.world2pixel, char2.y - camera.position.y/G.world2pixel);
 
 			// DEBUG
 			debugRenderer.render(world, camera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
@@ -139,9 +147,30 @@ public class CombatScreen implements Screen, InputProcessor {
 				level.tiledMapRenderer.render();
 				SpriteBatch leftBatch = (SpriteBatch) level.tiledMapRenderer.getBatch();
 
+				arrowOffset.x = G.world2pixel * rightChar.x - leftCamera.position.x;
+				arrowOffset.y = G.world2pixel * rightChar.y - leftCamera.position.y;
+				if (arrowOffset.x > screenWidth/4/1.4f){
+					arrowOffset.limit(screenWidth/4/1.4f);
+				}
+				if (arrowOffset.y > screenHeight/2/1.4f){
+					arrowOffset.limit(screenHeight/2/1.4f);
+				}
+				arrowOffset.x = Math.max(arrowOffset.x, -screenWidth/2/2f);
+				arrowOffset.x = Math.min(arrowOffset.x, screenWidth/2/2f);
+				arrowOffset.y = Math.max(arrowOffset.y, -screenHeight/2f);
+				arrowOffset.y = Math.min(arrowOffset.y, screenWidth/2f);
+				arrowOffset.x += leftCamera.position.x;
+				arrowOffset.y += leftCamera.position.y;
+
+				Vector2 charDistance = new Vector2(rightChar.x - leftChar.x, rightChar.y- leftChar.y);
+				arrowSprite1.setRotation(charDistance.angle() - 90);
+				arrowSprite1.setPosition(arrowOffset.x, arrowOffset.y);
+				Gdx.app.log("Comabt", "Width, height" +arrowOffset);
+
 				leftBatch.begin();
 					level.draw(leftBatch, delta);
 					leftChar.draw(leftBatch, delta);
+					arrowSprite1.draw(leftBatch);
 				leftBatch.end();
 
 				debugRenderer.render(world, leftCamera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
@@ -228,7 +257,7 @@ public class CombatScreen implements Screen, InputProcessor {
 				debugRenderer.render(world, bottomCamera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
 
 				// Offsets 
-				//topOffset.x = topChar.x - topCamera.position.x/G.world2pixel;
+				//topOffset.x = -(bottomChar.x - topChar.x) ;
 				//bottomOffset.x = bottomChar.x - bottomCamera.position.y/G.world2pixel;
 			}
 		}
