@@ -1,3 +1,9 @@
+/*
+	He can jump 4m but not 5. He can go under 3 cases
+
+*/
+
+
 package com.mygdx.taranfighters;
 
 import java.util.ArrayList;
@@ -78,7 +84,7 @@ public class Iul extends Character{
 		x = 2;
 		y = 3f; 
 		size = 1.2f;
-		defaultMaxSpeed = new Vector2(2f, 6f);
+		defaultMaxSpeed = new Vector2(2f, 6.5f);
 		maxSpeed = defaultMaxSpeed;
 		spriteOffset = new Vector2(-size, -size * 0.65f);
 	
@@ -215,7 +221,7 @@ public class Iul extends Character{
 		FixtureDef fix = new FixtureDef();
 		fix.shape = circleShape;
 		fix.restitution = 0;
-		fix.friction = 0;
+		fix.friction = 1;
 
 		body.createFixture(fix);
 		return null;
