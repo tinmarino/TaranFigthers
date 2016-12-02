@@ -217,16 +217,6 @@ public class Iul extends Character{
 
 		body.createFixture(fix);
 		return null;
-		// Vector2[] vertices = new Vector2[5];
-		// vertices[0] = new Vector2(-0.5f, -0.3f);
-		// vertices[1] = new Vector2(-0.3f, -0.5f);
-		// vertices[2] = new Vector2(-0f, -0.5f);
-		// vertices[3] = new Vector2(0.3f, -0.5f);
-		// vertices[4] = new Vector2(0.5f, -0.3f);
-
-
-		// FixtureDef fix = createMember(vertices);
-		// return body.createFixture(fix);
 	}
 
 

@@ -12,6 +12,8 @@ Combat screen :clean all code before extending
 			make offset and width, :b Gheight as vector2
 			keep calculating width 
 
+make resizezable players, all in character
+
 
 
 ELSE 

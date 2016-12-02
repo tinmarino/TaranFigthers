@@ -2,7 +2,9 @@ package com.mygdx.taranfighters;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -20,7 +22,7 @@ public class Character{
 
 	public float x=2 ,y=0;
 	public float size=2; 
-	public Vector2 maxSpeed = new Vector2(3f, 7f);
+	public Vector2 maxSpeed = new Vector2(1f, 6f);
 	public Vector2 spriteOffset = new Vector2(-size/2, -1f/4 *size);
 
 	public boolean willChangeSprite;
@@ -51,10 +53,19 @@ public class Character{
 		spriteChanging.draw(batch, delta);
 
 
-			if (isMovingLeft){
-			body.applyForceToCenter( 100, 0, true);
-			}
+		// Body Velocity 
 		scaleVelocity(maxSpeed);
+		Vector2 vel = this.body.getLinearVelocity();
+		if (Gdx.input.isKeyPressed(Keys.LEFT)  && vel.x < -0.5 * maxSpeed.x){
+			//body.applyForceToCenter( -1000, 0, true);
+			body.applyLinearImpulse(-2, 0, x, y, true);
+		}
+
+		if (Gdx.input.isKeyPressed(Keys.RIGHT)  && vel.x > 0.5 * maxSpeed.x){
+			//body.applyForceToCenter( 1000, 0, true);
+			body.applyLinearImpulse(2, 0, x, y, true);
+		}
+
 	}
 
 
