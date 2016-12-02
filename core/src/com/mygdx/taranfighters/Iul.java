@@ -75,7 +75,7 @@ public class Iul extends Character{
 	public void init(){
 		// variables 
 		x = 2;
-		y = 0.5f; 
+		y = 3f; 
 		size = 2;
 		maxSpeed = new Vector2(3f, 7f);
 	

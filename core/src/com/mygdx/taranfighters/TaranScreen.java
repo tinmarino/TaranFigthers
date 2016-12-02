@@ -23,7 +23,6 @@ public class TaranScreen implements Screen, InputProcessor {
 
 
 
-
 	@Override
 	public void show() {
 		world = new World(new Vector2(0f, -10f), true);
@@ -35,7 +34,6 @@ public class TaranScreen implements Screen, InputProcessor {
 		camera.viewportHeight = 8 * G.world2pixel;
 
         Gdx.input.setInputProcessor(this);
-
 		setContactListener();
 	}
 

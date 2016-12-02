@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -14,7 +15,6 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.utils.Array;
 
 public class Character{
@@ -40,9 +40,12 @@ public class Character{
 	ArrayList<Fixture> fixtureList;
 	Fixture bottomFixture;
 
+	BitmapFont font;
+
 
 	public Character(World world){
 		this.world = world;
+		font = new BitmapFont();
 	}
 
 
@@ -69,6 +72,11 @@ public class Character{
 			body.applyLinearImpulse(2, 0, x, y, true);
 		}
 
+		// DEbug 
+		if (G.debug){
+			font.draw(batch, "grounded: " + this.isPlayerGrounded(), (x+0.5f) * G.world2pixel, (y+0.5f) * G.world2pixel);
+		}
+
 	}
 
 
@@ -83,24 +91,28 @@ public class Character{
 
 
 	// Stolen from Mario 
-	private boolean isPlayerGrounded(float deltaTime) {				
+	private boolean isPlayerGrounded() {				
 		Array<Contact> contactList = world.getContactList();
 		for(int i = 0; i < contactList.size; i++) {
 			Contact contact = contactList.get(i);
-			if(contact.isTouching() && (contact.getFixtureA() == bottomFixture ||
-			   contact.getFixtureB() == bottomFixture)) {				
+			if(contact.isTouching()){
+			    if (contact.getFixtureA().getBody() == body ||
+			   			contact.getFixtureB().getBody() == body) {				
+						Gdx.app.log("Character", "My bottom fixture ");
 				
-				Vector2 pos = body.getPosition();
-				WorldManifold manifold = contact.getWorldManifold();
-				boolean below = true;
-				for(int j = 0; j < manifold.getNumberOfContactPoints(); j++) {
-					below &= (manifold.getPoints()[j].y < pos.y - 1.5f);
+						return true;
 				}
-				
-				if(below) {
-					return true;			
-				}
-				return false;
+				// Vector2 pos = body.getPosition();
+				// WorldManifold manifold = contact.getWorldManifold();
+				// boolean below = true;
+				// for(int j = 0; j < manifold.getNumberOfContactPoints(); j++) {
+				// 	below &= (manifold.getPoints()[j].y < pos.y - 1.5f);
+				// }
+				// 
+				// if(below) {
+				// 	return true;			
+				// }
+				// return false;
 			}
 		}
 		return false;
