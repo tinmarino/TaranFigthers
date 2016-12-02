@@ -67,7 +67,9 @@ public class TaranScreen implements Screen, InputProcessor {
 		batch.end();
 
 		// Debug render 
-		level.debugRenderer.render(world, camera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
+		if (G.debug){
+			level.debugRenderer.render(world, camera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
+		}
 	}
 
 

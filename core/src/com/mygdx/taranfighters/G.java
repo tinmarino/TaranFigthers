@@ -10,6 +10,7 @@ public class G{
 	public static int position_iterations = 3;
 	public static float world2pixel = 128;
 	public static Game game;
+	public static boolean debug = true;
 
 
 

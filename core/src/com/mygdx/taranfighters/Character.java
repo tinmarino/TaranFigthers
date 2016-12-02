@@ -14,6 +14,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
+import com.badlogic.gdx.utils.Array;
 
 public class Character{
 	public SpriteChanging spriteChanging;
@@ -36,6 +38,7 @@ public class Character{
 	int playerNumber = 1;
 
 	ArrayList<Fixture> fixtureList;
+	Fixture bottomFixture;
 
 
 	public Character(World world){
@@ -76,6 +79,31 @@ public class Character{
 
 	public void kick(){
 		this.isKicking = true;
+	}
+
+
+	// Stolen from Mario 
+	private boolean isPlayerGrounded(float deltaTime) {				
+		Array<Contact> contactList = world.getContactList();
+		for(int i = 0; i < contactList.size; i++) {
+			Contact contact = contactList.get(i);
+			if(contact.isTouching() && (contact.getFixtureA() == bottomFixture ||
+			   contact.getFixtureB() == bottomFixture)) {				
+				
+				Vector2 pos = body.getPosition();
+				WorldManifold manifold = contact.getWorldManifold();
+				boolean below = true;
+				for(int j = 0; j < manifold.getNumberOfContactPoints(); j++) {
+					below &= (manifold.getPoints()[j].y < pos.y - 1.5f);
+				}
+				
+				if(below) {
+					return true;			
+				}
+				return false;
+			}
+		}
+		return false;
 	}
 
 
@@ -185,6 +213,10 @@ public class Character{
 		if (keycode == Input.Keys.K){
 			punch();
 			return true;
+		}
+
+		if (keycode == Input.Keys.D){
+			G.debug = !G.debug;
 		}
 
 		scaleVelocity(maxSpeed);

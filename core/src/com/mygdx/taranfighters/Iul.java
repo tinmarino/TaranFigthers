@@ -26,7 +26,6 @@ public class Iul extends Character{
 	Fixture leftArmFixture;
 	Fixture rightArmFixture;
 
-	Fixture bottomFiture;
 
 
 	
@@ -88,7 +87,7 @@ public class Iul extends Character{
 		rightLegFixture = createLeg(1);
 		leftArmFixture = createArm(-1);
 		rightArmFixture = createArm(1);
-		bottomFiture = createBottom();
+		bottomFixture = createBottom();
 
 		// Walk list 
 		walkList = new ArrayList<TextureTime>();
