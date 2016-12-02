@@ -8,7 +8,7 @@ public class MainGdx extends Game {
 	@Override
 	public void create (){
 		G.game = this;
-		screen = new CombatScreen();
+		screen = new PlatformScreen();
 		screen.show();
 	}
 

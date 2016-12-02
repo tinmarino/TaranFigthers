@@ -1,12 +1,9 @@
 
 PROJECT 
-Load all textures at the same place and time.
 be able to zoom better, have better debug tools -> better graphics later
-Que ce soit credible quand ils sautent (au moins moi :)
 make some choosing screens 
 
 change willChangeList by  isKicking
-jac -> jak
 
 make a moving level, like falling man fight.
 make an other Iul to test for 2 players + test camera
@@ -15,7 +12,6 @@ Combat screen :clean all code before extending
 			make offset and width, :b Gheight as vector2
 			keep calculating width 
 
-			update offsets dynamiccally when th eperson is far from camera, so he ends at the corect corner according to its relative position
 
 
 ELSE 
@@ -29,3 +25,6 @@ vim z1, z2, z3, + edit vimrc as commands.
 DONE 
 make cammera betwwen the 2 figthers.
 make a work small script (5 min each time...) (eclim + vim sessino + cd and 3 terminals) 
+Que ce soit credible quand ils sautent (au moins moi :) (use the atttack in course)
+Load all textures at the same place and time. (each player must be clean 
+lnext lprev lopen for eclim error (locaiton list)

@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -17,6 +18,7 @@ public class Level{
 	ArrayList<Character> charList = new ArrayList<Character>();
 	World world;
     OrthogonalTiledMapRenderer tiledMapRenderer;
+	Box2DDebugRenderer debugRenderer;
     TiledMap tiledMap;
 
 
@@ -28,11 +30,14 @@ public class Level{
 	}
 
 
-	public Level(String map, World world){
+	public Level(String mapString, World world){
 		this.world = world;
 
+		// Debug Renderer
+		debugRenderer = new Box2DDebugRenderer();
+
 		// Load tilemap 
-        tiledMap = new TmxMapLoader().load("map/castleArena100.tmx");
+        tiledMap = new TmxMapLoader().load(mapString);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
 		// Tilemap -> Box2d static body

@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -24,6 +25,8 @@ public class Iul extends Character{
 
 	Fixture leftArmFixture;
 	Fixture rightArmFixture;
+
+	Fixture bottomFiture;
 
 
 	
@@ -80,11 +83,12 @@ public class Iul extends Character{
 		// Body 
 		createBody();
 
-		// Leg 
+		// Leg Arm Bottom
 		leftLegFixture = createLeg(-1);
 		rightLegFixture = createLeg(1);
 		leftArmFixture = createArm(-1);
 		rightArmFixture = createArm(1);
+		bottomFiture = createBottom();
 
 		// Walk list 
 		walkList = new ArrayList<TextureTime>();
@@ -200,6 +204,32 @@ public class Iul extends Character{
 		FixtureDef fix = createMember(vertices);
 		return body.createFixture(fix);
 	}
+
+	public Fixture createBottom(){
+		CircleShape circleShape = new CircleShape();
+		circleShape.setRadius(0.3f);
+		circleShape.setPosition(new Vector2(0, -0.5f));
+
+		FixtureDef fix = new FixtureDef();
+		fix.shape = circleShape;
+		fix.restitution = 0;
+		fix.friction = 0;
+
+		body.createFixture(fix);
+		return null;
+		// Vector2[] vertices = new Vector2[5];
+		// vertices[0] = new Vector2(-0.5f, -0.3f);
+		// vertices[1] = new Vector2(-0.3f, -0.5f);
+		// vertices[2] = new Vector2(-0f, -0.5f);
+		// vertices[3] = new Vector2(0.3f, -0.5f);
+		// vertices[4] = new Vector2(0.5f, -0.3f);
+
+
+		// FixtureDef fix = createMember(vertices);
+		// return body.createFixture(fix);
+	}
+
+
 
 
 	@Override

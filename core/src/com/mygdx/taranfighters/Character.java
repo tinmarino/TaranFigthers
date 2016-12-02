@@ -1,5 +1,7 @@
 package com.mygdx.taranfighters;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -27,8 +29,11 @@ public class Character{
 	boolean isKicking=false;
 	boolean isPunching=false;
 	boolean isJumping=false;
+	boolean isMovingLeft=false;
 
 	int playerNumber = 1;
+
+	ArrayList<Fixture> fixtureList;
 
 
 	public Character(World world){
@@ -45,6 +50,10 @@ public class Character{
 		spriteChanging.setY( (y+spriteOffset.y) * G.world2pixel);
 		spriteChanging.draw(batch, delta);
 
+
+			if (isMovingLeft){
+			body.applyForceToCenter( 100, 0, true);
+			}
 		scaleVelocity(maxSpeed);
 	}
 
@@ -119,6 +128,7 @@ public class Character{
 			Vector2 vel = body.getLinearVelocity();
 			vel.x = 0;
 			body.setLinearVelocity(vel);
+			isMovingLeft = false;
 			return true;
 		}
 
@@ -140,6 +150,7 @@ public class Character{
         if(keycode == Input.Keys.RIGHT)
 		{
 			if (isPunching){return true;}
+			isMovingLeft = true;
 			body.applyForceToCenter( 1000, 0, true);
 			spriteChanging.setFlip(false, false);
 			return true;
