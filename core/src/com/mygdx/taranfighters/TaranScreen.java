@@ -30,7 +30,7 @@ public class TaranScreen implements Screen, InputProcessor {
 		camera = new OrthographicCamera();
 		camera.position.x = 0;
 		camera.position.y = 0;
-		camera.viewportWidth = 8 * G.world2pixel;
+		camera.viewportWidth = 12 * G.world2pixel;
 		camera.viewportHeight = 8 * G.world2pixel;
 
         Gdx.input.setInputProcessor(this);

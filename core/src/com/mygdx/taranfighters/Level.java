@@ -2,10 +2,13 @@ package com.mygdx.taranfighters;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -20,6 +23,7 @@ public class Level{
     OrthogonalTiledMapRenderer tiledMapRenderer;
 	Box2DDebugRenderer debugRenderer;
     TiledMap tiledMap;
+	Music music;
 
 
 
@@ -43,7 +47,10 @@ public class Level{
 		// Tilemap -> Box2d static body
 		MapBodyBuilder.buildShapes(tiledMap, 128, world);
 		
-
+		// Music (to dispose)
+		music = Gdx.audio.newMusic(Gdx.files.internal("music/i_will_survive_full.mp3"));
+		music.play();
+		
 		// createRat for debug
 		makeRat(3, 2);
 		makeRat(6, 3);
@@ -54,6 +61,10 @@ public class Level{
 		Rat rat = new Rat(world);
 		rat.setPosition(x, y);
 		charList.add(rat);
+	}
+
+
+	public void makeMovingPlatform(Vector2 initialPosition, Vector2 finalPosition, float time){
 	}
 
 	public void debugBodies(){
@@ -77,6 +88,11 @@ public class Level{
 		Body body = world.createBody(bodyDef);
 		body.createFixture(bodyFix);
 		
+	}
+
+
+	public void dispose(){
+		G.disposeW(music);
 	}
 
 }

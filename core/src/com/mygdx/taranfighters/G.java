@@ -3,6 +3,7 @@ package com.mygdx.taranfighters;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.utils.Disposable;
 
 public class G{
    	public static float timestep = 1/60f;
@@ -22,6 +23,11 @@ public class G{
 		}
 
 		return false;
+	}
+
+
+	public static void disposeW(Disposable disposable){
+		if ( null != disposable ){disposable.dispose();}
 	}
 
 
