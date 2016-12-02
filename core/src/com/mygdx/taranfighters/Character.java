@@ -24,8 +24,8 @@ public class Character{
 
 	public float x=2 ,y=0;
 	public float size=2; 
-	public Vector2 maxSpeed = new Vector2(1f, 6f);
-	public Vector2 spriteOffset = new Vector2(-size/2, -1f/4 *size);
+	public Vector2 maxSpeed = new Vector2(1f, 6f); // WRNING DEfault values
+	public Vector2 spriteOffset = new Vector2(-size/2, -1f/4 *size);	// WARNING default values 
 
 	public boolean willChangeSprite;
 	public float timeLeftChangeSprite;
@@ -62,19 +62,21 @@ public class Character{
 		// Body Velocity 
 		scaleVelocity(maxSpeed);
 		Vector2 vel = this.body.getLinearVelocity();
-		if (Gdx.input.isKeyPressed(Keys.LEFT)  && vel.x < -0.5 * maxSpeed.x){
-			//body.applyForceToCenter( -1000, 0, true);
-			body.applyLinearImpulse(-2, 0, x, y, true);
+		if (Gdx.input.isKeyPressed(Keys.LEFT)  && vel.x > -0.99f* maxSpeed.x){
+			body.setLinearVelocity(-maxSpeed.x, body.getLinearVelocity().y);
 		}
 
-		if (Gdx.input.isKeyPressed(Keys.RIGHT)  && vel.x > 0.5 * maxSpeed.x){
-			//body.applyForceToCenter( 1000, 0, true);
-			body.applyLinearImpulse(2, 0, x, y, true);
+		if (Gdx.input.isKeyPressed(Keys.RIGHT)  && vel.x < 0.99f * maxSpeed.x){
+			body.setLinearVelocity(maxSpeed.x, body.getLinearVelocity().y);
 		}
 
 		// DEbug 
 		if (G.debug){
-			font.draw(batch, "grounded: " + this.isPlayerGrounded(), (x+0.5f) * G.world2pixel, (y+0.5f) * G.world2pixel);
+			font.draw(batch, 
+					"grounded: " + this.isPlayerGrounded() +
+					"\nMaxSpeeed: " + this.maxSpeed +
+					"\nSpeed: " + this.body.getLinearVelocity(),
+					(x+0.5f) * G.world2pixel, (y+0.5f) * G.world2pixel);
 		}
 
 	}

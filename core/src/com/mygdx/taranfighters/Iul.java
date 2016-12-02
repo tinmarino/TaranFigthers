@@ -26,6 +26,7 @@ public class Iul extends Character{
 	Fixture leftArmFixture;
 	Fixture rightArmFixture;
 
+	public Vector2 defaultMaxSpeed;
 
 
 	
@@ -53,17 +54,17 @@ public class Iul extends Character{
 				setFixtureMask(rightLegFixture, 0);
 				setFixtureMask(leftArmFixture, 0);
 				setFixtureMask(rightArmFixture, 0);
-				maxSpeed = new Vector2(3f, 7f);
+				maxSpeed = defaultMaxSpeed;
 			}
 
 			if (isPunching){
 				if (spriteChanging.isFlipX()){
-					if(body.getLinearVelocity().x > -maxSpeed.x/1.3f){
+					if(body.getLinearVelocity().x > -0.8f * maxSpeed.x){
 						body.applyForceToCenter(-1000, 0, true);
 					}
 				}
 				else{ 
-					if ( body.getLinearVelocity().x < maxSpeed.x/1.1f){
+					if ( body.getLinearVelocity().x < 0.8f * maxSpeed.x){
 						body.applyForceToCenter(1000, 0, true);
 					}
 				}
@@ -76,8 +77,10 @@ public class Iul extends Character{
 		// variables 
 		x = 2;
 		y = 3f; 
-		size = 2;
-		maxSpeed = new Vector2(3f, 7f);
+		size = 1.2f;
+		defaultMaxSpeed = new Vector2(2f, 6f);
+		maxSpeed = defaultMaxSpeed;
+		spriteOffset = new Vector2(-size, -size * 0.65f);
 	
 		// Body 
 		createBody();
@@ -116,8 +119,8 @@ public class Iul extends Character{
 		punchList.add(new TextureTime( "iul/iul_punch7.png" , 0.1f ));
 
 		spriteChanging = new SpriteChanging("iul/iul_walk1.png");
-		spriteChanging.setSize(size*G.world2pixel, size*G.world2pixel);
-		spriteChanging.setOrigin(size*G.world2pixel/2, size*G.world2pixel/2); // to resize and rotate around the origin, here center of the sprite
+		spriteChanging.setSize(2 * size * G.world2pixel, 2* size * G.world2pixel);
+		spriteChanging.setOrigin(spriteChanging.getWidth()/2 * G.world2pixel/2, spriteChanging.getHeight()/2); // to resize and rotate around the origin, here center of the sprite
 		spriteChanging.setList(walkList);
 	}
 
@@ -146,7 +149,7 @@ public class Iul extends Character{
 		spriteChanging.setList(punchList);
 		willChangeSprite = true;
 		timeLeftChangeSprite = punchList.size() * 0.1f;
-		maxSpeed = new Vector2(6f, 7f);
+		maxSpeed = new Vector2(1.7f * defaultMaxSpeed.x, defaultMaxSpeed.y);
 		
 		// Body 
 		if (spriteChanging.isFlipX()){
@@ -159,6 +162,7 @@ public class Iul extends Character{
 
 
 
+	// BODY Utils
 	public void createBody(){
 		// body definition
 		BodyDef bodyDef = new BodyDef();
@@ -167,7 +171,7 @@ public class Iul extends Character{
 			
 		// BodyShape 
 		PolygonShape bodyShape = new PolygonShape();
-		bodyShape.setAsBox(size/8, size/4);
+		bodyShape.setAsBox(0.2f * size, 0.4f * size);
 		
 		// BodyFixture 
 		FixtureDef bodyFix = new FixtureDef();
@@ -183,12 +187,11 @@ public class Iul extends Character{
 		body.setUserData(spriteChanging); 
 	}
 
-
 	public Fixture createLeg(int side){
 		Vector2[] vertices = new Vector2[3];
 		vertices[0] = new Vector2(0, 0);
-		vertices[1] = new Vector2(side * 0.7f, 0.6f);
-		vertices[2] = new Vector2(side * 0.7f, -0.4f);
+		vertices[1] = new Vector2(0.7f * side * size, 0.4f * size);
+		vertices[2] = new Vector2(0.7f * side * size, -0.4f * size);
 
 		FixtureDef fix = createMember(vertices);
 		return body.createFixture(fix);
@@ -196,9 +199,9 @@ public class Iul extends Character{
 
 	public Fixture createArm(int side){
 		Vector2[] vertices = new Vector2[3];
-		vertices[0] = new Vector2(0, 0.4f);
-		vertices[1] = new Vector2(side * 1.0f, 0.5f);
-		vertices[2] = new Vector2(side * 1.0f, 0.3f);
+		vertices[0] = new Vector2(0, 0.2f * size);
+		vertices[1] = new Vector2(side * 1.0f * size, 0.3f * size);
+		vertices[2] = new Vector2(side * 1.0f *size, 0.1f * size);
 
 		FixtureDef fix = createMember(vertices);
 		return body.createFixture(fix);
@@ -206,8 +209,8 @@ public class Iul extends Character{
 
 	public Fixture createBottom(){
 		CircleShape circleShape = new CircleShape();
-		circleShape.setRadius(0.3f);
-		circleShape.setPosition(new Vector2(0, -0.5f));
+		circleShape.setRadius(0.2f *size);
+		circleShape.setPosition(new Vector2(0, -0.4f *size));
 
 		FixtureDef fix = new FixtureDef();
 		fix.shape = circleShape;
