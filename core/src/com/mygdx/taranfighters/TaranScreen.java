@@ -25,6 +25,7 @@ public class TaranScreen implements Screen, InputProcessor {
 
 	@Override
 	public void show() {
+		G.log("TaranScreen class showing");
 		world = new World(new Vector2(0f, -10f), true);
 
 		camera = new OrthographicCamera();

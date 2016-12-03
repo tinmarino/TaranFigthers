@@ -80,6 +80,7 @@ public class Iul extends Character{
 
 
 	public void init(){
+		G.log("Iul Initing");
 		// variables 
 		x = 2;
 		y = 3f; 

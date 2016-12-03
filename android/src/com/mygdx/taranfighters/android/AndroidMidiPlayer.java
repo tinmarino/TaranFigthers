@@ -3,6 +3,7 @@ package com.mygdx.taranfighters.android;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import com.mygdx.taranfighters.G;
 import com.mygdx.taranfighters.MidiPlayer;
 
 import android.content.Context;
@@ -25,6 +26,7 @@ public class AndroidMidiPlayer implements MidiPlayer {
 	}
 	
 	public void open(String fileName) {
+		G.log("MidiPlayer opening " + fileName);
 	
 	    reset();
 	

@@ -1,6 +1,7 @@
 package com.mygdx.taranfighters;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.utils.Disposable;
@@ -32,6 +33,10 @@ public class G{
 
 	public static void disposeW(Disposable disposable){
 		if ( null != disposable ){disposable.dispose();}
+	}
+
+	public static void log(String string){
+		Gdx.app.log("Gdx TaranFigthers: ", string);
 	}
 
 

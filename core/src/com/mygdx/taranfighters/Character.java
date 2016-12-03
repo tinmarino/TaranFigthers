@@ -44,6 +44,7 @@ public class Character{
 
 
 	public Character(World world){
+		G.log("New Character created;");
 		this.world = world;
 		font = new BitmapFont();
 	}
