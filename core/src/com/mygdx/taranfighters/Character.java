@@ -95,7 +95,12 @@ public class Character{
 	public void walk(int side){
 		if (isPunching){return;}
 		body.applyForceToCenter(1000 * side, 0, true);
-		spriteChanging.setFlip(true, false);
+		if (-1 == side){
+			spriteChanging.setFlip(true, false);
+		}
+		else if(1 == side){
+			spriteChanging.setFlip(false, false);
+		}
 	}
 
 	public void jump(){
@@ -207,27 +212,25 @@ public class Character{
 
 
 	public boolean keyDown(int keycode){
-        if(keycode == Input.Keys.LEFT)
-		{
+        if(keycode == Input.Keys.LEFT) {
 			if (playerNumber != 1){return false;}
 			walk(-1);
 			return true;
 		}
 			
-        if(keycode == Input.Keys.RIGHT)
-		{
+        if(keycode == Input.Keys.RIGHT) {
 			if (playerNumber != 1){return false;}
-			walk(-1);
+			walk(1);
 			return true;
 		}
-        if(keycode == Input.Keys.UP)
-		{
+
+        if(keycode == Input.Keys.UP) {
 			if (playerNumber != 1){return false;}
 			jump();
 			return true;
 		}
-        if(keycode == Input.Keys.DOWN)
-		{
+
+        if(keycode == Input.Keys.DOWN){
 			if (playerNumber != 1){return false;}
 			jump();
 			return true;
@@ -245,12 +248,47 @@ public class Character{
 			return true;
 		}
 
-		if (keycode == Input.Keys.D){
+		if (keycode == Input.Keys.NUM_0){
 			G.debug = !G.debug;
 			return true;
 		}
 
 		return false; 
+	}
+
+	// Currently just for one player
+	public boolean touchDown (int screenX, int screenY, int pointer, int button){
+		int width = Gdx.graphics.getWidth();
+		int height = Gdx.graphics.getHeight();
+		if (playerNumber != 1) {return false;}
+
+		// MOVE left 
+		if (screenX < width / 4){
+			walk(-1);
+			return true;
+		}
+
+		// MOVE right
+		if (screenX < width / 2){
+			walk(1);
+			return true;
+		}
+
+		// JUMP Y starts at top
+		if (screenY < height / 2 ){
+			jump();
+			return true;
+		}
+
+		// PUNCH
+		if (screenX < 3.0f/4 * width){
+			punch();
+			return true;
+		}
+		
+		// KICK
+		kick();
+		return true;
 	}
 
 }

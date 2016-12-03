@@ -84,7 +84,7 @@ public class Iul extends Character{
 		// variables 
 		x = 2;
 		y = 3f; 
-		size = 1.2f;
+		size = 1f;
 		defaultMaxSpeed = new Vector2(2f, 6.5f);
 		maxSpeed = defaultMaxSpeed;
 		spriteOffset = new Vector2(-size, -size * 0.65f);

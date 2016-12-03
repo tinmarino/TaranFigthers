@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -42,9 +43,13 @@ public class Level{
 		// Load tilemap 
         tiledMap = new TmxMapLoader().load(mapString);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+		MapProperties prop = tiledMap.getProperties();
+		int tilePixelWidth = prop.get("tilewidth", Integer.class);
 
 		// Tilemap -> Box2d static body
-		MapBodyBuilder.buildShapes(tiledMap, 128, world);
+		MapBodyBuilder.buildShapes(tiledMap, tilePixelWidth, world);
+		G.log("Level I loeaded map " + mapString + " with tileSize = " + tilePixelWidth);
+		G.world2pixel = tilePixelWidth;
 		
 		// Music (to dispose)
 		
