@@ -91,6 +91,20 @@ public class Character{
 		this.isKicking = true;
 	}
 
+	public void walk(int side){
+		if (isPunching){return;}
+		body.applyForceToCenter(1000 * side, 0, true);
+		spriteChanging.setFlip(true, false);
+	}
+
+	public void jump(){
+		body.applyForceToCenter(0, 1000, true);
+	}
+
+	public void down(){
+		body.applyForceToCenter(0, -1000, true);
+	}
+
 
 	// Stolen from Mario 
 	private boolean isPlayerGrounded() {				
@@ -194,46 +208,47 @@ public class Character{
 	public boolean keyDown(int keycode){
         if(keycode == Input.Keys.LEFT)
 		{
-			if (isPunching){return true;}
-			body.applyForceToCenter( -1000, 0, true);
-			spriteChanging.setFlip(true, false);
+			if (playerNumber != 1){return false;}
+			walk(-1);
 			return true;
 		}
 			
         if(keycode == Input.Keys.RIGHT)
 		{
-			if (isPunching){return true;}
-			isMovingLeft = true;
-			body.applyForceToCenter( 1000, 0, true);
-			spriteChanging.setFlip(false, false);
+			if (playerNumber != 1){return false;}
+			walk(-1);
 			return true;
 		}
         if(keycode == Input.Keys.UP)
 		{
-			body.applyForceToCenter(0, 1000, true);
+			if (playerNumber != 1){return false;}
+			jump();
 			return true;
 		}
         if(keycode == Input.Keys.DOWN)
 		{
-			body.applyForceToCenter(0, -1000, true);
+			if (playerNumber != 1){return false;}
+			jump();
 			return true;
 		}
 
 		if (keycode == Input.Keys.L){
+			if (playerNumber != 1){return false;}
 			kick();
 			return true;
 		}
 
 		if (keycode == Input.Keys.K){
+			if (playerNumber != 1){return false;}
 			punch();
 			return true;
 		}
 
 		if (keycode == Input.Keys.D){
 			G.debug = !G.debug;
+			return true;
 		}
 
-		scaleVelocity(maxSpeed);
 		return false; 
 	}
 

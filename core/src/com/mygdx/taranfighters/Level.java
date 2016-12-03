@@ -2,7 +2,6 @@ package com.mygdx.taranfighters;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -48,8 +47,12 @@ public class Level{
 		MapBodyBuilder.buildShapes(tiledMap, 128, world);
 		
 		// Music (to dispose)
-		music = Gdx.audio.newMusic(Gdx.files.internal("music/i_will_survive_full.mp3"));
-		music.play();
+		
+		//music = Gdx.audio.newMusic(Gdx.files.internal("music/i_will_survice_full.mp3"));
+		//music.play();
+		G.midiPlayer.open("music/brajta_orchestra.mid");
+    	G.midiPlayer.setVolume(0.5f);
+		G.midiPlayer.play();
 		
 		// createRat for debug
 		makeRat(3, 2);

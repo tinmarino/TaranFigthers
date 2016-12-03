@@ -6,18 +6,19 @@ inoremap <C-Space> 
 inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
 inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
 inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
-imap <Nul> <C-Space>
+inoremap <Nul> 
 inoremap <S-Down> :let tmp=getpos('.') :m+1 : call cursor(tmp[1]+1,tmp[2]) a
 inoremap <S-Up> :let tmp=getpos('.') :m-2 : call cursor(tmp[1]-1,tmp[2]) a
 vnoremap  "+p
 nnoremap  "+p
-nnoremap  :update
 vnoremap  :update
+nnoremap  :update
 onoremap  :update
 vnoremap  "+y
 nnoremap  "+y
 vnoremap   zf
 nnoremap   za
+nnoremap ,ev :vsplit $MYVIMRC
 nnoremap ,d :YcmShowDetailedDiagnostic
 nmap ,j <Plug>(CommandTJump)
 nmap ,t <Plug>(CommandT)
@@ -51,6 +52,16 @@ map [1;5A <C-Up>
 nmap gx <Plug>NetrwBrowseX
 map xy :s/x/y/g
 map yx :s/y/x/g
+map z9 :set foldlevel=9
+map z8 :set foldlevel=8
+map z7 :set foldlevel=7
+map z6 :set foldlevel=6
+map z5 :set foldlevel=5
+map z4 :set foldlevel=4
+map z3 :set foldlevel=3
+map z2 :set foldlevel=2
+map z1 :set foldlevel=1
+map z0 :set foldlevel=0
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
 nnoremap <SNR>63_: :=v:count ? v:count : ''
 nnoremap <silent> <Plug>(CommandTJump) :CommandTJump
@@ -87,7 +98,6 @@ set backupdir=~/.vim/backup//
 set balloonexpr=eclim#util#Balloon(eclim#util#GetLineError(line('.')))
 set completefunc=youcompleteme#Complete
 set completeopt=preview,menuone
-set cpoptions=aAceFsB
 set directory=~/.vim/backup//
 set fileencodings=ucs-bom,utf-8,default,latin1
 set foldlevelstart=30
@@ -112,7 +122,7 @@ set undolevels=100000
 set updatetime=2000
 set wildcharm=26
 set wildmenu
-set window=54
+set window=51
 set nowritebackup
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
@@ -125,24 +135,24 @@ set shortmess=aoO
 badd +11 core/src/com/mygdx/taranfighters/MainGdx.java
 badd +32 core/src/com/mygdx/taranfighters/CombatScreen.java
 badd +19 .classpath
-badd +46 core/src/com/mygdx/taranfighters/Iul.java
-badd +33 core/src/com/mygdx/taranfighters/Character.java
+badd +136 core/src/com/mygdx/taranfighters/Iul.java
+badd +23 core/src/com/mygdx/taranfighters/Character.java
 badd +10 core/src/com/mygdx/taranfighters/SpriteChanging.java
 badd +7 core/src/com/mygdx/taranfighters/TextureTime.java
 badd +19 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/Sprite.java
 badd +52 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/InputProcessor.java
 badd +85 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/Texture.java
-badd +10 core/src/com/mygdx/taranfighters/G.java
+badd +29 core/src/com/mygdx/taranfighters/G.java
 badd +16 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/TiledMapRenderer.java
 badd +55 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/renderers/OrthogonalTiledMapRenderer.java
 badd +65 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/renderers/BatchTiledMapRenderer.java
-badd +34 core/src/com/mygdx/taranfighters/Level.java
+badd +44 core/src/com/mygdx/taranfighters/Level.java
 badd +27 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/math/Vector2.java
-badd +109 core/src/com/mygdx/taranfighters/MapBodyBuilder.java
+badd +54 core/src/com/mygdx/taranfighters/MapBodyBuilder.java
 badd +28 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/MapObjects.java
 badd +69 core/src/com/mygdx/taranfighters/Rat.java
 badd +14 todo
-badd +37 core/src/com/mygdx/taranfighters/JakOverScreen.java
+badd +26 core/src/com/mygdx/taranfighters/JakOverScreen.java
 badd +2 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/TextureAtlas.java
 badd +22 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/ApplicationAdapter.java
 badd +21 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/Color.java
@@ -150,8 +160,9 @@ badd +14 desktop/src/com/mygdx/taranfighters/desktop/DesktopLauncher.java
 badd +15 html/src/com/mygdx/taranfighters/client/HtmlLauncher.java
 badd +98 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/SpriteBatch.java
 badd +13 core/src/com/mygdx/taranfighters/Jak.java
-badd +18 core/src/com/mygdx/taranfighters/PlatformScreen.java
-badd +40 core/src/com/mygdx/taranfighters/TaranScreen.java
+badd +9 core/src/com/mygdx/taranfighters/PlatformScreen.java
+badd +97 core/src/com/mygdx/taranfighters/TaranScreen.java
+badd +14 .gitignore
 args core/src/com/mygdx/taranfighters/MainGdx.java
 edit core/src/com/mygdx/taranfighters/Iul.java
 set splitbelow splitright
@@ -167,11 +178,11 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 99 + 92) / 185)
-exe '2resize ' . ((&lines * 8 + 27) / 55)
-exe 'vert 2resize ' . ((&columns * 85 + 92) / 185)
-exe '3resize ' . ((&lines * 44 + 27) / 55)
-exe 'vert 3resize ' . ((&columns * 85 + 92) / 185)
+exe 'vert 1resize ' . ((&columns * 90 + 91) / 182)
+exe '2resize ' . ((&lines * 8 + 26) / 52)
+exe 'vert 2resize ' . ((&columns * 91 + 91) / 182)
+exe '3resize ' . ((&lines * 41 + 26) / 52)
+exe 'vert 3resize ' . ((&columns * 91 + 91) / 182)
 argglobal
 inoreabbr <buffer> logger logger=eclim#java#logging#LoggingInit("logger")
 inoreabbr <buffer> log log=eclim#java#logging#LoggingInit("log")
@@ -214,7 +225,8 @@ setlocal foldenable
 set foldexpr=FoldMethod(v:lnum)
 setlocal foldexpr=FoldMethod(v:lnum)
 setlocal foldignore=#
-setlocal foldlevel=30
+set foldlevel=1
+setlocal foldlevel=1
 setlocal foldmarker={{{,}}}
 set foldmethod=expr
 setlocal foldmethod=expr
@@ -222,7 +234,7 @@ setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldtext=foldtext()
 setlocal formatexpr=
-setlocal formatoptions=croql
+setlocal formatoptions=tcq
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal grepprg=
 setlocal iminsert=2
@@ -279,14 +291,12 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-18
-normal! zo
-let s:l = 72 - ((32 * winheight(0) + 26) / 53)
+let s:l = 56 - ((25 * winheight(0) + 25) / 50)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-72
-normal! 05|
+56
+normal! 01|
 wincmd w
 argglobal
 enew
@@ -438,6 +448,7 @@ setlocal foldenable
 set foldexpr=FoldMethod(v:lnum)
 setlocal foldexpr=FoldMethod(v:lnum)
 setlocal foldignore=#
+set foldlevel=1
 setlocal foldlevel=30
 setlocal foldmarker={{{,}}}
 set foldmethod=expr
@@ -505,20 +516,19 @@ setlocal wrap
 setlocal wrapmargin=0
 19
 normal! zo
-46
-normal! zo
-let s:l = 151 - ((21 * winheight(0) + 22) / 44)
+let s:l = 33 - ((19 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-151
-normal! 049|
+33
+normal! 033|
 wincmd w
-exe 'vert 1resize ' . ((&columns * 99 + 92) / 185)
-exe '2resize ' . ((&lines * 8 + 27) / 55)
-exe 'vert 2resize ' . ((&columns * 85 + 92) / 185)
-exe '3resize ' . ((&lines * 44 + 27) / 55)
-exe 'vert 3resize ' . ((&columns * 85 + 92) / 185)
+3wincmd w
+exe 'vert 1resize ' . ((&columns * 90 + 91) / 182)
+exe '2resize ' . ((&lines * 8 + 26) / 52)
+exe 'vert 2resize ' . ((&columns * 91 + 91) / 182)
+exe '3resize ' . ((&lines * 41 + 26) / 52)
+exe 'vert 3resize ' . ((&columns * 91 + 91) / 182)
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
