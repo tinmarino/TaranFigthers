@@ -7,6 +7,7 @@ public class MainGdx extends Game {
 	
 	@Override
 	public void create (){
+		Gdx.app.log("MainGdx:", "TaranFigthers Starting");
 		G.game = this;
 		screen = new PlatformScreen();
 		screen.show();

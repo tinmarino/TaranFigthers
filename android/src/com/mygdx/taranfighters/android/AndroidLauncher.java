@@ -12,7 +12,8 @@ public class AndroidLauncher extends AndroidApplication {
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		G.midiPlayer = new AndroidMidiPlayer(this);
+		//G.midiPlayer = new AndroidMidiPlayer(this);
+		G.midiPlayer = null;
 		initialize(new MainGdx(), config);
 	}
 }
