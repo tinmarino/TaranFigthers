@@ -29,7 +29,6 @@ public class SpriteChanging extends Sprite{
 				currentIndex += 1;
 			}
 			this.setTexture(currentList.get(currentIndex).texture);
-			//Gdx.app.log("changing", "" + currentIndex +","+ delta + "time" + time);
 		}
 	}
 

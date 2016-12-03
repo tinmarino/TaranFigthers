@@ -152,9 +152,9 @@ public class TaranScreen implements Screen, InputProcessor {
 	public boolean touchDown (int screenX, int screenY, int pointer, int button){
 		Vector3 screenVect  = new Vector3(screenX, screenY, 0);
 		Vector3 cameraVect = camera.project(screenVect);
-		G.log("CombatScreen TouchDown at screen  " + screenX +","+ screenY );
-		G.log("CombatScreen TouchDown at cam     " + cameraVect.x +","+ cameraVect.y );
-		G.log("CombatScreen TouchDown at world   " + cameraVect.x /G.world2pixel +","+ cameraVect.y /G.world2pixel);
+		G.log("TaranScreen TouchDown at screen  " + screenX +","+ screenY );
+		G.log("TaranScreen TouchDown at cam     " + cameraVect.x +","+ cameraVect.y );
+		G.log("TaranScreen Player Position " + char1.x +","+ char1.y);
 		if (char1.touchDown(screenX, screenY, pointer, button)){return true;}
 		return false;
 	}

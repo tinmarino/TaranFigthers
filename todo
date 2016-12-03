@@ -5,14 +5,19 @@ make some choosing screens
 
 change willChangeList by  isKicking
 
-make a moving level, like falling man fight.
-make an other Iul to test for 2 players + test camera
 
 Combat screen :clean all code before extending 
 			make offset and width, :b Gheight as vector2
 			keep calculating width 
 
 Character size and some settings are to prepare in Level (gravity, doubleJup..)
+
+
+
+
+LEVEL 
+levle where we must push oject to climb 
+make a moving level, like falling man fight.
 
 
 
@@ -33,3 +38,4 @@ Que ce soit credible quand ils sautent (au moins moi :) (use the atttack in cour
 Load all textures at the same place and time. (each player must be clean 
 lnext lprev lopen for eclim error (locaiton list)
 make resizezable players, all in character
+make an other Iul to test for 2 players + test camera

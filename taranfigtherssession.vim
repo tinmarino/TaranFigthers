@@ -11,14 +11,13 @@ inoremap <S-Down> :let tmp=getpos('.') :m+1 : call cursor(tmp[1]+1,tmp[2])
 inoremap <S-Up> :let tmp=getpos('.') :m-2 : call cursor(tmp[1]-1,tmp[2]) a
 vnoremap  "+p
 nnoremap  "+p
-vnoremap  :update
 nnoremap  :update
+vnoremap  :update
 onoremap  :update
 vnoremap  "+y
 nnoremap  "+y
 vnoremap   zf
 nnoremap   za
-nnoremap ,ev :vsplit $MYVIMRC
 nnoremap ,d :YcmShowDetailedDiagnostic
 nmap ,j <Plug>(CommandTJump)
 nmap ,t <Plug>(CommandT)
@@ -36,6 +35,7 @@ map ,g :e#
 map ,f :bn
 map ,b :bp
 map ,l :ls
+nnoremap ,ev :vsplit $MYVIMRC
 noremap <silent> ,cu :silent s/^\V=escape(b:comment_leader,'\/')//e:nohlsearch
 noremap <silent> ,cc :silent s/^/=escape(b:comment_leader,'\/')/:nohlsearch
 map ,u :s,^\(\s*\)[^# \t]\@=// ,\1,gv
@@ -98,6 +98,7 @@ set backupdir=~/.vim/backup//
 set balloonexpr=eclim#util#Balloon(eclim#util#GetLineError(line('.')))
 set completefunc=youcompleteme#Complete
 set completeopt=preview,menuone
+set cpoptions=aAceFsB
 set directory=~/.vim/backup//
 set fileencodings=ucs-bom,utf-8,default,latin1
 set foldlevelstart=30
@@ -122,7 +123,6 @@ set undolevels=100000
 set updatetime=2000
 set wildcharm=26
 set wildmenu
-set window=51
 set nowritebackup
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
@@ -135,7 +135,7 @@ set shortmess=aoO
 badd +11 core/src/com/mygdx/taranfighters/MainGdx.java
 badd +32 core/src/com/mygdx/taranfighters/CombatScreen.java
 badd +19 .classpath
-badd +136 core/src/com/mygdx/taranfighters/Iul.java
+badd +153 core/src/com/mygdx/taranfighters/Iul.java
 badd +23 core/src/com/mygdx/taranfighters/Character.java
 badd +10 core/src/com/mygdx/taranfighters/SpriteChanging.java
 badd +7 core/src/com/mygdx/taranfighters/TextureTime.java
@@ -161,10 +161,12 @@ badd +15 html/src/com/mygdx/taranfighters/client/HtmlLauncher.java
 badd +98 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/SpriteBatch.java
 badd +13 core/src/com/mygdx/taranfighters/Jak.java
 badd +9 core/src/com/mygdx/taranfighters/PlatformScreen.java
-badd +97 core/src/com/mygdx/taranfighters/TaranScreen.java
+badd +33 core/src/com/mygdx/taranfighters/TaranScreen.java
 badd +14 .gitignore
+badd +0 ~/Software/Java/Libgdx/TaranFigthers/core/src/com/mygdx/taranfighters/PixmapFactory.java
+badd +0 ~/Software/Java/Libgdx/TaranFigthers/core/src/com/mygdx/taranfighters/Platform.java
 args core/src/com/mygdx/taranfighters/MainGdx.java
-edit core/src/com/mygdx/taranfighters/Iul.java
+edit ~/Software/Java/Libgdx/TaranFigthers/core/src/com/mygdx/taranfighters/Platform.java
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -178,11 +180,11 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 90 + 91) / 182)
-exe '2resize ' . ((&lines * 8 + 26) / 52)
-exe 'vert 2resize ' . ((&columns * 91 + 91) / 182)
-exe '3resize ' . ((&lines * 41 + 26) / 52)
-exe 'vert 3resize ' . ((&columns * 91 + 91) / 182)
+exe 'vert 1resize ' . ((&columns * 89 + 90) / 180)
+exe '2resize ' . ((&lines * 8 + 25) / 50)
+exe 'vert 2resize ' . ((&columns * 90 + 90) / 180)
+exe '3resize ' . ((&lines * 39 + 25) / 50)
+exe 'vert 3resize ' . ((&columns * 90 + 90) / 180)
 argglobal
 inoreabbr <buffer> logger logger=eclim#java#logging#LoggingInit("logger")
 inoreabbr <buffer> log log=eclim#java#logging#LoggingInit("log")
@@ -226,7 +228,7 @@ set foldexpr=FoldMethod(v:lnum)
 setlocal foldexpr=FoldMethod(v:lnum)
 setlocal foldignore=#
 set foldlevel=1
-setlocal foldlevel=1
+setlocal foldlevel=30
 setlocal foldmarker={{{,}}}
 set foldmethod=expr
 setlocal foldmethod=expr
@@ -234,7 +236,7 @@ setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldtext=foldtext()
 setlocal formatexpr=
-setlocal formatoptions=tcq
+setlocal formatoptions=croql
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal grepprg=
 setlocal iminsert=2
@@ -291,12 +293,12 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-let s:l = 56 - ((25 * winheight(0) + 25) / 50)
+let s:l = 1 - ((0 * winheight(0) + 24) / 48)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-56
-normal! 01|
+1
+normal! 0
 wincmd w
 argglobal
 enew
@@ -406,7 +408,7 @@ setlocal wrap
 setlocal wrapmargin=0
 wincmd w
 argglobal
-edit core/src/com/mygdx/taranfighters/TaranScreen.java
+edit ~/Software/Java/Libgdx/TaranFigthers/core/src/com/mygdx/taranfighters/PixmapFactory.java
 inoreabbr <buffer> logger logger=eclim#java#logging#LoggingInit("logger")
 inoreabbr <buffer> log log=eclim#java#logging#LoggingInit("log")
 setlocal keymap=
@@ -449,7 +451,7 @@ set foldexpr=FoldMethod(v:lnum)
 setlocal foldexpr=FoldMethod(v:lnum)
 setlocal foldignore=#
 set foldlevel=1
-setlocal foldlevel=30
+setlocal foldlevel=1
 setlocal foldmarker={{{,}}}
 set foldmethod=expr
 setlocal foldmethod=expr
@@ -514,21 +516,18 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-19
-normal! zo
-let s:l = 33 - ((19 * winheight(0) + 20) / 41)
+let s:l = 276 - ((40 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-33
-normal! 033|
+276
+normal! 0
 wincmd w
-3wincmd w
-exe 'vert 1resize ' . ((&columns * 90 + 91) / 182)
-exe '2resize ' . ((&lines * 8 + 26) / 52)
-exe 'vert 2resize ' . ((&columns * 91 + 91) / 182)
-exe '3resize ' . ((&lines * 41 + 26) / 52)
-exe 'vert 3resize ' . ((&columns * 91 + 91) / 182)
+exe 'vert 1resize ' . ((&columns * 89 + 90) / 180)
+exe '2resize ' . ((&lines * 8 + 25) / 50)
+exe 'vert 2resize ' . ((&columns * 90 + 90) / 180)
+exe '3resize ' . ((&lines * 39 + 25) / 50)
+exe 'vert 3resize ' . ((&columns * 90 + 90) / 180)
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
