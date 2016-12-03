@@ -1,6 +1,5 @@
 package com.mygdx.taranfighters;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -36,8 +35,6 @@ public class MapBodyBuilder {
         Array<Body> bodies = new Array<Body>();
 
         for(MapObject object : objects) {
-
-			Gdx.app.log("MapBody Builder ", "oen Object ");
             if (object instanceof TextureMapObject) {
                 continue;
             }

@@ -84,8 +84,8 @@ public class Iul extends Character{
 		// variables 
 		x = 2;
 		y = 3f; 
-		size = 1f;
-		defaultMaxSpeed = new Vector2(2f, 6.5f);
+		size = 1.6f;
+		defaultMaxSpeed = new Vector2(4f, 9f);
 		maxSpeed = defaultMaxSpeed;
 		spriteOffset = new Vector2(-size, -size * 0.65f);
 	
@@ -233,7 +233,6 @@ public class Iul extends Character{
 
 	@Override
 	public void manageContact(Contact contact){
-		Gdx.app.log("Iul", "I contact ");
 		Body otherBody;
 		Fixture thisFixture;
 		if (contact.getFixtureA().getBody() == body) {

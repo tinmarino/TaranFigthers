@@ -24,10 +24,14 @@ public class Level{
 	Box2DDebugRenderer debugRenderer;
     TiledMap tiledMap;
 	Music music;
+	ArrayList<Platform> platformList;
 
 
 
 	public void draw(SpriteBatch batch, float delta){
+		for (Platform platform: platformList){
+			platform.draw(batch, delta);
+		}
 		for (Character character : charList){
 			character.draw(batch, delta);
 		}
@@ -62,6 +66,10 @@ public class Level{
 		// createRat for debug
 		makeRat(3, 2);
 		makeRat(6, 3);
+
+		platformList = new ArrayList<Platform>();
+		platformList.add(new Platform(world, new Vector2(3, 1), new Vector2(10, 10), new Vector2(50, 10), 10));
+
 	}
 
 
@@ -72,8 +80,6 @@ public class Level{
 	}
 
 
-	public void makeMovingPlatform(Vector2 initialPosition, Vector2 finalPosition, float time){
-	}
 
 	public void debugBodies(){
 		// body definition
@@ -102,5 +108,6 @@ public class Level{
 	public void dispose(){
 		G.disposeW(music);
 	}
+
 
 }

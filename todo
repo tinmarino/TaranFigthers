@@ -12,7 +12,9 @@ Combat screen :clean all code before extending
 			make offset and width, :b Gheight as vector2
 			keep calculating width 
 
-make resizezable players, all in character
+Character size and some settings are to prepare in Level (gravity, doubleJup..)
+
+
 
 
 
@@ -30,3 +32,4 @@ make a work small script (5 min each time...) (eclim + vim sessino + cd and 3 te
 Que ce soit credible quand ils sautent (au moins moi :) (use the atttack in course)
 Load all textures at the same place and time. (each player must be clean 
 lnext lprev lopen for eclim error (locaiton list)
+make resizezable players, all in character

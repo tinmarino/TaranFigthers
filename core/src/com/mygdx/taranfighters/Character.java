@@ -120,8 +120,6 @@ public class Character{
 			if(contact.isTouching()){
 			    if (contact.getFixtureA().getBody() == body ||
 			   			contact.getFixtureB().getBody() == body) {				
-						Gdx.app.log("Character", "My bottom fixture ");
-				
 						return true;
 				}
 				// Vector2 pos = body.getPosition();
@@ -232,7 +230,7 @@ public class Character{
 
         if(keycode == Input.Keys.DOWN){
 			if (playerNumber != 1){return false;}
-			jump();
+			down();
 			return true;
 		}
 
@@ -274,7 +272,7 @@ public class Character{
 			return true;
 		}
 
-		// JUMP Y starts at top
+		// JUMP (Y starts at top)
 		if (screenY < height / 2 ){
 			jump();
 			return true;
