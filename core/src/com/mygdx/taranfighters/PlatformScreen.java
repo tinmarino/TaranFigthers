@@ -8,10 +8,11 @@ public class PlatformScreen extends TaranScreen{
 		super.show();
 
 		G.log("PlatformScreen will create level)");
-		level = new Level("map/platformer1.tmx", world);
+		//level = new Level("map/platformer1.tmx", world);
+		level = new Level("map/platformer2.tmx", world);
 
 		G.log("PlatformScreen will create Iul");
-		char1 = new Iul(world);
+		char1 = new Jak(world);
 	}
 
 	@Override 

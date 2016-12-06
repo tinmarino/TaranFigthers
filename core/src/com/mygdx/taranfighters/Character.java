@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -22,9 +25,15 @@ public class Character{
 	public Body body;
 	public World world;
 
+
+	ArrayList<TextureTime> walkList;
+	ArrayList<TextureTime> punchList;
+	ArrayList<TextureTime> kickList;
+
 	public float x=2 ,y=0;
 	public float size=2; 
 	public Vector2 maxSpeed = new Vector2(1f, 6f); // WRNING DEfault values
+	public Vector2 defaultMaxSpeed = maxSpeed;
 	public Vector2 spriteOffset = new Vector2(-size/2, -1f/4 *size);	// WARNING default values 
 
 	public boolean willChangeSprite;
@@ -41,6 +50,13 @@ public class Character{
 	Fixture bottomFixture;
 
 	BitmapFont font;
+
+
+	Fixture rightLegFixture;
+	Fixture leftLegFixture;
+
+	Fixture leftArmFixture;
+	Fixture rightArmFixture;
 
 
 	public Character(World world){
@@ -80,16 +96,72 @@ public class Character{
 					(x+0.5f) * G.world2pixel, (y+0.5f) * G.world2pixel);
 		}
 
+		// Changes 
+		if (willChangeSprite){
+			timeLeftChangeSprite -= delta;
+			if (timeLeftChangeSprite < 0 ){
+				spriteChanging.setList(walkList);
+				willChangeSprite = false;
+				isKicking = false;
+				isPunching = false;
+
+				setFixtureMask(leftLegFixture, 0);
+				setFixtureMask(rightLegFixture, 0);
+				setFixtureMask(leftArmFixture, 0);
+				setFixtureMask(rightArmFixture, 0);
+				maxSpeed = defaultMaxSpeed;
+			}
+
+			if (isPunching){
+				if (spriteChanging.isFlipX()){
+					if(body.getLinearVelocity().x > -0.8f * maxSpeed.x){
+						body.applyForceToCenter(-1000, 0, true);
+					}
+				}
+				else{ 
+					if ( body.getLinearVelocity().x < 0.8f * maxSpeed.x){
+						body.applyForceToCenter(1000, 0, true);
+					}
+				}
+			}
+		}
+
 	}
 
 
 
 	public void punch(){
+		// Memory
 		this.isPunching =true;
+		
+		// Sprite 
+		spriteChanging.setList(punchList);
+		willChangeSprite = true;
+		timeLeftChangeSprite = punchList.size() * 0.1f;
+		
+		// Body 
+		if (spriteChanging.isFlipX()){
+			setFixtureMask(leftArmFixture, 1);
+		}
+		else{
+			setFixtureMask(rightArmFixture, 1);
+		}
 	}
 
 	public void kick(){
 		this.isKicking = true;
+		// Sprite 
+		spriteChanging.setList(kickList);
+		willChangeSprite = true;
+		timeLeftChangeSprite = kickList.size() *  0.1f;
+
+		// Body 
+		if (spriteChanging.isFlipX()){
+			setFixtureMask(leftLegFixture, 1);
+		}
+		else{
+			setFixtureMask(rightLegFixture, 1);
+		}
 	}
 
 	public void walk(int side){
@@ -153,6 +225,50 @@ public class Character{
 		Filter filter = fixture.getFilterData();
 		filter.maskBits = (short) mask;
 		fixture.setFilterData(filter);
+	}
+
+
+	public Fixture createBottom(){
+		CircleShape circleShape = new CircleShape();
+		circleShape.setRadius(0.2f *size);
+		circleShape.setPosition(new Vector2(0, -0.4f *size));
+
+		FixtureDef fix = new FixtureDef();
+		fix.shape = circleShape;
+		fix.restitution = 0;
+		fix.friction = 1;
+
+		body.createFixture(fix);
+		return null;
+	}
+
+	// BODY Utils calls createBottom
+	public void createBody(){
+		
+		// body definition
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.type = BodyType.DynamicBody;
+		bodyDef.position.set(x, y); // in meter position of the center 
+			
+		// BodyShape 
+		PolygonShape bodyShape = new PolygonShape();
+		bodyShape.setAsBox(0.2f * size, 0.4f * size);
+		
+		// BodyFixture 
+		FixtureDef bodyFix = new FixtureDef();
+		bodyFix.shape = bodyShape;
+		bodyFix.restitution = 0;
+		bodyFix.friction = 0;
+
+		// Create Body 
+		body = world.createBody(bodyDef);
+		body.createFixture(bodyFix);
+		
+		// Add Body Sprite 
+		body.setUserData(spriteChanging); 
+
+		// Call createBottom
+		bottomFixture = createBottom();
 	}
 
 	
