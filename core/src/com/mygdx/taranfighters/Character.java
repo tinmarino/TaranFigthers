@@ -21,15 +21,20 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 public class Character{
+	// To be setted
 	public SpriteChanging spriteChanging;
-	public Body body;
 	public World world;
-
 
 	ArrayList<TextureTime> walkList;
 	ArrayList<TextureTime> punchList;
 	ArrayList<TextureTime> kickList;
 
+	Fixture rightLegFixture;
+	Fixture leftLegFixture;
+	Fixture leftArmFixture;
+	Fixture rightArmFixture;
+
+	// Optional
 	public float x=2 ,y=0;
 	public float size=2; 
 	public Vector2 maxSpeed = new Vector2(1f, 6f); // WRNING DEfault values
@@ -47,16 +52,12 @@ public class Character{
 	int playerNumber = 1;
 
 	ArrayList<Fixture> fixtureList;
+	Body body;
 	Fixture bottomFixture;
 
 	BitmapFont font;
 
 
-	Fixture rightLegFixture;
-	Fixture leftLegFixture;
-
-	Fixture leftArmFixture;
-	Fixture rightArmFixture;
 
 
 	public Character(World world){

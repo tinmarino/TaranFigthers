@@ -8,25 +8,33 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.taranfighters.Levels.LevelPlatform1;
+import com.mygdx.taranfighters.Levels.LevelPlatform2;
+
 
 public class Level{
-	ArrayList<Character> charList = new ArrayList<Character>();
+	public ArrayList<Character> charList = new ArrayList<Character>();
+	public ArrayList<Platform> platformList = new ArrayList<Platform>();
+
+	// Disposables
 	World world;
     OrthogonalTiledMapRenderer tiledMapRenderer;
 	Box2DDebugRenderer debugRenderer;
     TiledMap tiledMap;
 	Music music;
-	ArrayList<Platform> platformList;
 
 
+	public static Level createLevel(String string, World world){
+		if (string == "platformer2"){
+			return new LevelPlatform2(world);
+		}
+		if (string == "platformer1"){
+			return new LevelPlatform1(world);
+		}
+		return null;
+	}
 
 	public void draw(SpriteBatch batch, float delta){
 		for (Platform platform: platformList){
@@ -37,6 +45,8 @@ public class Level{
 		}
 	}
 
+	public Level(World world){
+	}
 
 	public Level(String mapString, World world){
 		this.world = world;
@@ -52,7 +62,7 @@ public class Level{
 
 		// Tilemap -> Box2d static body
 		MapBodyBuilder.buildShapes(tiledMap, tilePixelWidth, world);
-		G.log("Level I loeaded map " + mapString + " with tileSize = " + tilePixelWidth);
+		G.log("Level I loaded map " + mapString + " with tileSize = " + tilePixelWidth);
 		G.world2pixel = tilePixelWidth;
 		
 		// Music (to dispose)
@@ -67,10 +77,6 @@ public class Level{
 		makeRat(3, 2);
 		makeRat(6, 3);
 
-		platformList = new ArrayList<Platform>();
-		// For 166, 6 (on 300 20) not upside down so + (0.5+ 7.75) 
-		platformList.add(new Platform(world, new Vector2(3f, 0.5f), new Vector2(166.5f, 13.75f), new Vector2(175.5f, 13.75f), 10));
-		platformList.add(new Platform(world, new Vector2(3f, 0.5f), new Vector2(181.5f, 13.75f), new Vector2(181.5f, 4.75f), 10));
 
 	}
 
@@ -83,32 +89,12 @@ public class Level{
 
 
 
-	public void debugBodies(){
-		// body definition
-		BodyDef bodyDef = new BodyDef();
-		bodyDef.type = BodyType.StaticBody;
-		bodyDef.position.set(-0.5f, -1f); // in meter position of the center 
-			
-		// BodyShape 
-		PolygonShape bodyShape = new PolygonShape();
-		bodyShape.setAsBox(1000, 1);
-		
-
-		// BodyFixture 
-		FixtureDef bodyFix = new FixtureDef();
-		bodyFix.shape = bodyShape;
-		bodyFix.restitution = 0f;
-		bodyFix.friction = 0;
-		
-		// Create Body 
-		Body body = world.createBody(bodyDef);
-		body.createFixture(bodyFix);
-		
-	}
-
-
 	public void dispose(){
+		G.log("Level dispose");
 		G.disposeW(music);
+		G.disposeW(debugRenderer);
+		G.disposeW(tiledMap);
+		G.disposeW(tiledMapRenderer);
 	}
 
 
