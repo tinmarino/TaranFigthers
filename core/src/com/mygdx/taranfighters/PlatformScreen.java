@@ -11,7 +11,7 @@ public class PlatformScreen extends TaranScreen{
 		level = Level.createLevel("platformer2", world);
 
 		G.log("PlatformScreen will create Character");
-		char1 = new Jak(world);
+		char1 = new Fix(world);
 	}
 
 	@Override 

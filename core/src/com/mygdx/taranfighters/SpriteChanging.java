@@ -12,8 +12,15 @@ public class SpriteChanging extends Sprite{
 	public float time = 0;
 	
 
+	SpriteChanging(float size){
+		super(new Texture("iul/iul_walk1.png"));
+		this.setSize(2 * size * G.world2pixel, 2* size * G.world2pixel);
+		this.setOrigin(this.getWidth()/2 * G.world2pixel/2, this.getHeight()/2); // to resize and rotate around the origin, here center of the sprite
+	}
+
 	SpriteChanging(String string){
 		super(new Texture(string));
+
 	}
 
 
