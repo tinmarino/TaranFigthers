@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 
 public class ChooseScreen implements Screen {
@@ -22,32 +23,55 @@ public class ChooseScreen implements Screen {
 	Table table;
 
 	int debugCount = 0;	
-
+	String[] arr = {"jak", "roz", "iul", "fix"}; 
+	FitViewport fitViewport;
 
 
 	@Override
 	public void show() {
-		stage = new Stage();
+		fitViewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		stage = new Stage(fitViewport);
 		Gdx.input.setInputProcessor(stage);
 
 		table = new Table();
-		table.setFillParent(true);
 
 
-		Drawable iulDrawable = PixmapFactory.drawableFromFile("iul/iul_id.png", disposableList);
-		ImageButton iulImage = new ImageButton(iulDrawable);
-		iulImage.addListener(
-			new ClickListener(){
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					super.clicked(event,x,y); 
-					routineIul(); 
-				} 
+		for (final String charString : arr){
+		
+			Drawable drawable = PixmapFactory.drawableFromFile(charString + "/" + charString + "_id.png", disposableList);
+			ImageButton imageButton = new ImageButton(drawable);
+			imageButton.setSize(140, 180);
+			imageButton.addListener(
+				new ClickListener(){
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						super.clicked(event,x,y); 
+						click(charString); 
+					} 
+				}
+			);
+			table.add(imageButton).size(140,180).pad(10);
+
+			for (int i = 0; i <10 ; i++){
+				Drawable drawable2 = PixmapFactory.drawableFromFile("img/hud/hud_" +  i + ".png", disposableList);
+				ImageButton imageButton2 = new ImageButton(drawable2);
+				imageButton2.setSize(140, 180);
+				imageButton2.addListener(
+					new ClickListener(){
+						@Override
+						public void clicked(InputEvent event, float x, float y) {
+							super.clicked(event,x,y); 
+							click(charString); 
+						} 
+					}
+				);
+				table.add(imageButton2).size(140, 180).pad(10);
 			}
-		);
+
+			table.row();
+		}
 
 
-		table.add(iulImage);
 		ScrollPane scrollPane = new ScrollPane(table);
 		scrollPane.setFillParent(true);
 		stage.addActor(scrollPane);
@@ -56,8 +80,8 @@ public class ChooseScreen implements Screen {
 	}
 
 
-	void routineIul(){
-		G.log("ChooseScreen clicking Iul " + debugCount); 
+	void click(String charString){
+		G.log("ChooseScreen clicking " + charString + " "  + debugCount); 
 		debugCount +=1;
 		if (debugCount > 5){
 			G.game.setScreen(new PlatformScreen());
@@ -94,7 +118,8 @@ public class ChooseScreen implements Screen {
 
 
 	@Override
-	public void resize(int arg0, int arg1) {
+	public void resize(int width, int height) {
+		stage.getViewport().update(width, height);
 	}
 
 	@Override
