@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.taranfighters.Levels.LevelPlatform1;
 import com.mygdx.taranfighters.Levels.LevelPlatform2;
 
@@ -91,10 +92,10 @@ public class Level{
 
 	public void dispose(){
 		G.log("Level dispose");
-		G.disposeW(music);
-		G.disposeW(debugRenderer);
-		G.disposeW(tiledMap);
-		G.disposeW(tiledMapRenderer);
+		G.disposeW((Disposable) music);
+		// G.disposeW(debugRenderer);
+		G.disposeW((Disposable) tiledMap);
+		G.disposeW((Disposable) tiledMapRenderer);
 	}
 
 

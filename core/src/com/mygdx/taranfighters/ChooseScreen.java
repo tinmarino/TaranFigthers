@@ -3,10 +3,13 @@ package com.mygdx.taranfighters;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -21,6 +24,7 @@ public class ChooseScreen implements Screen {
 	ArrayList<Disposable> disposableList = new ArrayList<Disposable>();
 	Stage stage;
 	Table table;
+	Dialog escapeDialog;
 
 	G.CHAR[] arr = {G.CHAR.JAK, G.CHAR.ROZ, G.CHAR.IUL, G.CHAR.FIX}; 
 	FitViewport fitViewport;
@@ -31,6 +35,19 @@ public class ChooseScreen implements Screen {
 		fitViewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		stage = new Stage(fitViewport);
 		Gdx.input.setInputProcessor(stage);
+
+		// Manage escape key 
+		stage.addListener(new InputListener(){
+			@Override
+			public boolean keyDown (InputEvent event, int keycode) {
+				super.keyDown(event, keycode);
+				G.log("Choose screen press " + keycode);
+				if (keycode != Input.Keys.ESCAPE){return false;}
+				// escapeDialog = new EscapeDialog()
+				G.log("Choose screen press esc ");
+				return true;
+			}
+		});
 
 		table = new Table();
 
@@ -92,8 +109,6 @@ public class ChooseScreen implements Screen {
 		ScrollPane scrollPane = new ScrollPane(table);
 		scrollPane.setFillParent(true);
 		stage.addActor(scrollPane);
-
-
 	}
 
 
