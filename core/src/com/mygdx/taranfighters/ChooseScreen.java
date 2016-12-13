@@ -22,8 +22,7 @@ public class ChooseScreen implements Screen {
 	Stage stage;
 	Table table;
 
-	int debugCount = 0;	
-	String[] arr = {"jak", "roz", "iul", "fix"}; 
+	G.CHAR[] arr = {G.CHAR.JAK, G.CHAR.ROZ, G.CHAR.IUL, G.CHAR.FIX}; 
 	FitViewport fitViewport;
 
 
@@ -36,9 +35,25 @@ public class ChooseScreen implements Screen {
 		table = new Table();
 
 
-		for (final String charString : arr){
-		
-			Drawable drawable = PixmapFactory.drawableFromFile(charString + "/" + charString + "_id.png", disposableList);
+		for (final G.CHAR charEnum : arr){
+			String charString;
+			switch (charEnum){
+				case JAK:
+					charString = "jak/jak_id.png";
+					break;
+				case ROZ:
+					charString = "roz/roz_id.png";
+					break;
+				case IUL:
+					charString = "iul/iul_id.png";
+					break;
+				case FIX:
+					charString = "fix/fix_id.png";
+					break;
+				default:
+					charString = "jak/jak_id.png";
+			}
+			Drawable drawable = PixmapFactory.drawableFromFile(charString, disposableList);
 			ImageButton imageButton = new ImageButton(drawable);
 			imageButton.setSize(140, 180);
 			imageButton.addListener(
@@ -46,14 +61,16 @@ public class ChooseScreen implements Screen {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
 						super.clicked(event,x,y); 
-						click(charString); 
+						click(charEnum , G.LEVEL.L1); 
 					} 
 				}
 			);
 			table.add(imageButton).size(140,180).pad(10);
 
-			for (int i = 0; i <10 ; i++){
-				Drawable drawable2 = PixmapFactory.drawableFromFile("img/hud/hud_" +  i + ".png", disposableList);
+			for (G.LEVEL i : G.LEVEL.values()){
+				final G.LEVEL levelEnum = i;
+				//Drawable drawable2 = PixmapFactory.drawableFromFile("img/hud/hud_" +  i + ".png", disposableList);
+				Drawable drawable2 = PixmapFactory.drawableFromFile("img/door/door_closed.png", disposableList);
 				ImageButton imageButton2 = new ImageButton(drawable2);
 				imageButton2.setSize(140, 180);
 				imageButton2.addListener(
@@ -61,7 +78,7 @@ public class ChooseScreen implements Screen {
 						@Override
 						public void clicked(InputEvent event, float x, float y) {
 							super.clicked(event,x,y); 
-							click(charString); 
+							click(charEnum, levelEnum); 
 						} 
 					}
 				);
@@ -80,12 +97,10 @@ public class ChooseScreen implements Screen {
 	}
 
 
-	void click(String charString){
-		G.log("ChooseScreen clicking " + charString + " "  + debugCount); 
-		debugCount +=1;
-		if (debugCount > 5){
-			G.game.setScreen(new PlatformScreen());
-		}
+	// TODO : -1 must be the infoScreen "?"
+	void click(G.CHAR  charEnum, G.LEVEL levelEnum){
+		G.log("ChooseScreen clicking chose char : " + charEnum + " with level : "  + levelEnum ); 
+		G.game.setScreen(new PlatformScreen(charEnum, levelEnum));
 	}
 
 
@@ -99,22 +114,13 @@ public class ChooseScreen implements Screen {
 
 
 	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
-
-	}
+	public void dispose() { }
 
 	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-
-	}
+	public void hide() { }
 
 	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-
-	}
+	public void pause() { }
 
 
 	@Override
@@ -123,8 +129,7 @@ public class ChooseScreen implements Screen {
 	}
 
 	@Override
-	public void resume() {
-	}
+	public void resume() { }
 
 
 }

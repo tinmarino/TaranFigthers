@@ -19,6 +19,10 @@ public class G{
 	public static boolean debug = true;
 
 
+	public enum CHAR{JAK, ROZ, IUL, FIX}
+
+	public enum LEVEL{L1, L2, l3, L4, l5}
+
 
 
 	public static boolean isBodyContact(Body body, Contact contact){

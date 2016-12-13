@@ -92,7 +92,6 @@ public class Platform{
 		body.setTransform(position, 0);
 		sprite.setPosition((position.x - 0.5f * size.x) * G.world2pixel , (position.y - 0.5f * size.y) * G.world2pixel );
 		sprite.draw(batch);
-		G.log("I draw");
 	}
 
 
