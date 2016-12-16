@@ -33,6 +33,9 @@ public class PlatformScreen extends TaranScreen{
 			case JAK:
 				char1 = new Jak(world);
 				break;
+			case ROZ:
+				char1 = new Roz(world);
+				break;
 			case IUL:
 				char1 = new Iul(world);
 				break;

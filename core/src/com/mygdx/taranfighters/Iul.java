@@ -29,6 +29,19 @@ public class Iul extends Character{
 	public void draw(SpriteBatch batch, float delta){
 		super.draw(batch, delta);
 
+		if (isPunching){
+			if (spriteChanging.isFlipX()){
+				if(body.getLinearVelocity().x > -0.8f * maxSpeed.x){
+					body.applyForceToCenter(-1000, 0, true);
+				}
+			}
+			else{ 
+				if ( body.getLinearVelocity().x < 0.8f * maxSpeed.x){
+					body.applyForceToCenter(1000, 0, true);
+				}
+			}
+		}
+
 	}
 
 	public void init(){
@@ -84,6 +97,7 @@ public class Iul extends Character{
 
 	@Override
 	public void punch(){
+		super.punch();
 		maxSpeed = new Vector2(1.7f * defaultMaxSpeed.x, defaultMaxSpeed.y);
 	}
 

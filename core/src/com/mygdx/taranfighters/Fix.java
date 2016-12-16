@@ -60,11 +60,14 @@ public class Fix extends Character {
 
 		// Punch list
 		punchList = new ArrayList<TextureTime>();
-		// punchList.add(new TextureTime( "fix/fix_punch1.png" , 0.1f ));
-		// punchList.add(new TextureTime( "fix/fix_punch2.png" , 0.1f ));
-		// punchList.add(new TextureTime( "fix/fix_punch3.png" , 0.1f ));
-		// punchList.add(new TextureTime( "fix/fix_punch4.png" , 0.1f ));
-		// punchList.add(new TextureTime( "fix/fix_punch5.png" , 0.1f ));
+		punchList.add(new TextureTime( "fix/fix_punch1.png" , 0.1f ));
+		punchList.add(new TextureTime( "fix/fix_punch2.png" , 0.1f ));
+		punchList.add(new TextureTime( "fix/fix_punch3.png" , 0.1f ));
+		punchList.add(new TextureTime( "fix/fix_punch4.png" , 0.1f ));
+		punchList.add(new TextureTime( "fix/fix_punch5.png" , 0.1f ));
+		punchList.add(new TextureTime( "fix/fix_punch4.png" , 0.1f ));
+		punchList.add(new TextureTime( "fix/fix_punch3.png" , 0.1f ));
+		punchList.add(new TextureTime( "fix/fix_punch2.png" , 0.1f ));
 
 
 		spriteChanging = new SpriteChanging(size);

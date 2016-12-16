@@ -113,18 +113,6 @@ public class Character{
 				maxSpeed = defaultMaxSpeed;
 			}
 
-			if (isPunching){
-				if (spriteChanging.isFlipX()){
-					if(body.getLinearVelocity().x > -0.8f * maxSpeed.x){
-						body.applyForceToCenter(-1000, 0, true);
-					}
-				}
-				else{ 
-					if ( body.getLinearVelocity().x < 0.8f * maxSpeed.x){
-						body.applyForceToCenter(1000, 0, true);
-					}
-				}
-			}
 		}
 
 	}
