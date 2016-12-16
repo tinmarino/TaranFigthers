@@ -72,6 +72,7 @@ public class Fix extends Character {
 
 		spriteChanging = new SpriteChanging(size);
 		spriteChanging.setList(walkList);
+		spriteChanging.pause();
 	}
 
 

@@ -10,6 +10,7 @@ public class SpriteChanging extends Sprite{
 	private ArrayList<TextureTime> currentList = new ArrayList<TextureTime>();
 	public int currentIndex = 0;
 	public float time = 0;
+	public boolean onPause = false;
 	
 
 	SpriteChanging(float size){
@@ -23,25 +24,36 @@ public class SpriteChanging extends Sprite{
 
 	}
 
+	public void pause(){
+		this.onPause = true;
+	}
+
+	public void play(){
+		this.onPause = false;
+	}
 
 	public void draw(SpriteBatch batch, float delta){
 		this.draw(batch);
-		time += delta;
-		if ( time > currentList.get(currentIndex).time){
-			time = 0;
-			if (currentIndex >= currentList.size()-1){
-				currentIndex = 0;
+		if (!this.onPause){
+			this.time += delta;
+			if ( this.time > this.currentList.get(this.currentIndex).time){
+				this.time = 0;
+				if (currentIndex >= this.currentList.size()-1){
+					this.currentIndex = 0;
+				}
+				else{
+					this.currentIndex += 1;
+				}
+				this.setTexture(this.currentList.get(this.currentIndex).texture);
 			}
-			else{
-				currentIndex += 1;
-			}
-			this.setTexture(currentList.get(currentIndex).texture);
 		}
 	}
 
 	public void setList(ArrayList<TextureTime> list){
+		this.play();
 		this.currentIndex = 0;
 		this.currentList = list;
+		this.setTexture(this.currentList.get(this.currentIndex).texture);
 	}
 
 

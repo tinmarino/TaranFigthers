@@ -62,6 +62,7 @@ public class Jak extends Character {
 		spriteChanging.setSize(2 * size * G.world2pixel, 2* size * G.world2pixel);
 		spriteChanging.setOrigin(spriteChanging.getWidth()/2 * G.world2pixel/2, spriteChanging.getHeight()/2); // to resize and rotate around the origin, here center of the sprite
 		spriteChanging.setList(walkList);
+		spriteChanging.pause();
 	}
 
 

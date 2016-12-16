@@ -47,7 +47,7 @@ public class Character{
 	boolean isKicking=false;
 	boolean isPunching=false;
 	boolean isJumping=false;
-	boolean isMovingLeft=false;
+	boolean isWalking=false;
 
 	int playerNumber = 1;
 
@@ -77,18 +77,20 @@ public class Character{
 		spriteChanging.draw(batch, delta);
 
 
-		// Body Velocity 
+		// Body Velocity  + defreezze
 		scaleVelocity(maxSpeed);
 		Vector2 vel = this.body.getLinearVelocity();
 		if (Gdx.input.isKeyPressed(Keys.LEFT)  && vel.x > -0.99f* maxSpeed.x){
 			body.setLinearVelocity(-maxSpeed.x, body.getLinearVelocity().y);
+			spriteChanging.play();
 		}
 
 		if (Gdx.input.isKeyPressed(Keys.RIGHT)  && vel.x < 0.99f * maxSpeed.x){
 			body.setLinearVelocity(maxSpeed.x, body.getLinearVelocity().y);
+			spriteChanging.play();
 		}
 
-		// DEbug 
+		// Debug 
 		if (G.debug){
 			font.draw(batch, 
 					"grounded: " + this.isPlayerGrounded() +
@@ -97,11 +99,12 @@ public class Character{
 					(x+0.5f) * G.world2pixel, (y+0.5f) * G.world2pixel);
 		}
 
-		// Changes 
+		// Sprite Changes 
 		if (willChangeSprite){
 			timeLeftChangeSprite -= delta;
 			if (timeLeftChangeSprite < 0 ){
 				spriteChanging.setList(walkList);
+				spriteChanging.pause();
 				willChangeSprite = false;
 				isKicking = false;
 				isPunching = false;
@@ -154,7 +157,9 @@ public class Character{
 	}
 
 	public void walk(int side){
-		if (isPunching){return;}
+		// Memory 
+		this.isWalking = true;
+		spriteChanging.play();
 		body.applyForceToCenter(1000 * side, 0, true);
 		if (-1 == side){
 			spriteChanging.setFlip(true, false);
@@ -301,10 +306,17 @@ public class Character{
 	public boolean keyUp(int keycode){
         if(keycode == Input.Keys.RIGHT || keycode == Input.Keys.LEFT)
 		{
+			this.isWalking = false;
+
 			Vector2 vel = body.getLinearVelocity();
 			vel.x = 0;
 			body.setLinearVelocity(vel);
-			isMovingLeft = false;
+
+			if (isJumping || isKicking || isPunching){
+				return true;
+			}
+
+			spriteChanging.pause();
 			return true;
 		}
 
