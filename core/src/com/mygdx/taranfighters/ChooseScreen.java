@@ -43,7 +43,8 @@ public class ChooseScreen implements Screen {
 				super.keyDown(event, keycode);
 				G.log("Choose screen press " + keycode);
 				if (keycode != Input.Keys.ESCAPE){return false;}
-				// escapeDialog = new EscapeDialog()
+				escapeDialog = new EscapeDialog();
+				escapeDialog.show(stage);
 				G.log("Choose screen press esc ");
 				return true;
 			}
