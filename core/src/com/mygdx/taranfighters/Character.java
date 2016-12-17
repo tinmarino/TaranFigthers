@@ -216,6 +216,7 @@ public class Character{
 
 
 	public static void setFixtureMask(Fixture fixture, int mask){
+		if (null == fixture){return;}
 		Filter filter = fixture.getFilterData();
 		filter.maskBits = (short) mask;
 		fixture.setFilterData(filter);

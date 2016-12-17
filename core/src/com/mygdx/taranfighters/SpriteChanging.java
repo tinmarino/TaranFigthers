@@ -21,7 +21,6 @@ public class SpriteChanging extends Sprite{
 
 	SpriteChanging(String string){
 		super(new Texture(string));
-
 	}
 
 	public void pause(){

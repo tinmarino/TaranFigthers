@@ -82,6 +82,8 @@ public class Level{
 		makeRat(3, 2);
 		makeRat(6, 3);
 
+		makeZombie(10, 20);
+		makeZombie(20, 20);
 
 	}
 
@@ -90,6 +92,12 @@ public class Level{
 		Rat rat = new Rat(world);
 		rat.setPosition(x, y);
 		charList.add(rat);
+	}
+
+	public void makeZombie(float x, float y){
+		Zombie zombie = new Zombie(world);
+		zombie.setPosition(x, y);
+		charList.add(zombie);
 	}
 
 

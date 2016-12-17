@@ -7,6 +7,8 @@ public class LevelSalon extends Level {
 
 	public LevelSalon(World world) {
 		super("map/salon.tmx" , world);
+
+
 	}
 
 }
