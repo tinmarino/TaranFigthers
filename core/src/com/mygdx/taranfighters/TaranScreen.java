@@ -14,6 +14,8 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class TaranScreen implements Screen, InputProcessor {
 	public World world;
@@ -22,6 +24,8 @@ public class TaranScreen implements Screen, InputProcessor {
 	public Level level;
 	public String charString = "iul";
 	public int levelInt = 0;
+	Stage stage;
+	EscapeDialog escapeDialog;
 
 
 
@@ -47,12 +51,26 @@ public class TaranScreen implements Screen, InputProcessor {
 
 	@Override
 	public void render(float delta){
-		// World step 
-    	world.step(G.timestep, G.velocity_iterations, G.position_iterations);
+		// Escape ??
+		if (null != stage){
+			if (escapeDialog.isDestroyed){
+				stage.dispose();
+				stage = null;
+				Gdx.input.setInputProcessor(this);
+				return;
+			}
+			stage.act(delta);
+			stage.draw();
+			return;
+		}
 
 		// Clear screen 
       	Gdx.gl.glClearColor(0, 0, 0.2f, 1);
       	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		// World step 
+    	world.step(G.timestep, G.velocity_iterations, G.position_iterations);
+
 
 		// Center Camera 
 		camera.position.x = char1.x * G.world2pixel;
@@ -123,11 +141,21 @@ public class TaranScreen implements Screen, InputProcessor {
         if(keycode == Input.Keys.NUM_2)
             level.tiledMap.getLayers().get(1).setVisible(!level.tiledMap.getLayers().get(1).isVisible());
         if(keycode == Input.Keys.A){
-			Gdx.app.log("CombatScreen", "Changing to JacOverScreen");
+			G.log("CombatScreen Changing to JacOverScreen");
 			G.game.setScreen(new JakOverScreen());
 		}
 
-		Gdx.app.log("Taran", " " +  char1.spriteChanging.getY() +" " +   char1.spriteChanging.getX());
+		if (keycode == Input.Keys.ESCAPE){
+			G.log("TaranScreen : escape dialog called");
+
+			FitViewport fitViewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			stage = new Stage(fitViewport);
+			Gdx.input.setInputProcessor(stage);
+			escapeDialog = new EscapeDialog();
+			escapeDialog.show(stage);
+		}
+
+		G.log("TaranScreen :" + " " +  char1.spriteChanging.getY() +" " +   char1.spriteChanging.getX());
 		return false;
 	}
 

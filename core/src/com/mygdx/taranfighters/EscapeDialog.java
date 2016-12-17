@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 
 public class EscapeDialog extends Dialog {
 	public static Skin skin;
+	public boolean isDestroyed = false;
 
 
 	public EscapeDialog() {
@@ -51,6 +52,7 @@ public class EscapeDialog extends Dialog {
 		// CONTINUE
 		if (object == WHAT.CONTINUE){
 			G.log("Escape Dialog : Continue");
+			this.isDestroyed = true;
 			return;
 		}
 
