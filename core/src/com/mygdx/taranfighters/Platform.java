@@ -4,6 +4,7 @@
 package com.mygdx.taranfighters;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -29,8 +30,16 @@ public class Platform{
 	float currentTime;
 	int sz;
 	Vector2 size;
+	Vector2 oldPosition = new Vector2(0, 0);
 
 
+	public Platform(World world, Vector2 size, Vector2[] vertices, float time){
+		super();
+		this.positionList = new ArrayList<Vector2>(Arrays.asList(vertices));
+		this.totalTime = time;
+		this.size = size;
+		this.create(world);
+	}
 
 	public Platform(World world, Vector2 size, Vector2 initialPosition, Vector2 finalPosition, float time){
 		super();
@@ -39,17 +48,19 @@ public class Platform{
 		this.positionList.add(initialPosition);
 		this.positionList.add(finalPosition);
 		this.positionList.add(initialPosition);
+		this.size = size;
+		this.totalTime = time;
+		this.create(world);
+	}
+
+	public void create(World world){
 		this.sz = positionList.size();
 		this.index = 0;
-		this.size = size;
-
-		// Fill totalTime
-		totalTime = time;
 
 		// body definition
 		BodyDef bodyDef = new BodyDef();
-		bodyDef.type = BodyType.StaticBody;
-		bodyDef.position.set(initialPosition); // in meter position of the center 
+		bodyDef.type = BodyType.KinematicBody;
+		bodyDef.position.set(positionList.get(0)); // in meter position of the center 
 			
 		// BodyShape 
 		PolygonShape bodyShape = new PolygonShape();
@@ -59,7 +70,7 @@ public class Platform{
 		FixtureDef bodyFix = new FixtureDef();
 		bodyFix.shape = bodyShape;
 		bodyFix.restitution = 0f;
-		bodyFix.friction = 0.6f;
+		bodyFix.friction = 100f;
 		
 		// Create Body 
 		this.body = world.createBody(bodyDef);
@@ -78,6 +89,7 @@ public class Platform{
 			currentTime = 0;
 			index = 0;
 		}
+		// POSITION
 		float normalized = currentTime / (totalTime / sz);
 		index  = (int) normalized;
 		float offset = normalized % 1; 
@@ -89,7 +101,19 @@ public class Platform{
 		baricenter.scl(offset);
 		position.add(baricenter);
 
+		// speed 
+		Vector2 speed = position.cpy();
+		speed.sub(oldPosition);
+		speed.scl(1/delta);
+		oldPosition = position;
+		G.log("Platform speed " + speed);
+		
+
+		// BODY
 		body.setTransform(position, 0);
+		body.setLinearVelocity(speed);
+
+		// SPRITE
 		sprite.setPosition((position.x - 0.5f * size.x) * G.world2pixel , (position.y - 0.5f * size.y) * G.world2pixel );
 		sprite.draw(batch);
 	}

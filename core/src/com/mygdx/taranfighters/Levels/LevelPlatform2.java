@@ -32,11 +32,12 @@ public class LevelPlatform2 extends Level {
 
 
 		// Begining diagonal
-		platformList.add(new Platform(world, new Vector2(3f, 0.5f), 
+		Vector2[] vertices1 = {
 					new Vector2(20.00f, 9.75f), 
-					// new Vector2(20.00f, 13.75f), 
+					new Vector2(20.00f, 13.75f), 
 					new Vector2(7.00f, 17.75f), 
-					7));
+		};
+		platformList.add(new Platform(world, new Vector2(3f, 0.5f), vertices1, 7));
 	}
 
 }
