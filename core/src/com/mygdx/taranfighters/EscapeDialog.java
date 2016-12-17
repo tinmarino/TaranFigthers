@@ -92,7 +92,7 @@ public class EscapeDialog extends Dialog  implements Disposable{
 
 	public static Skin getSkinPlease(){
 		skin = new Skin(Gdx.files.internal("skin/escape/escape.json"));
-		skin.getFont("escape-font").getData().setScale(0.5f,0.5f);
+		skin.getFont("escape-font").getData().setScale(0.3f,0.4f);
 		return skin;
 	}
 

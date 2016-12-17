@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Zombie extends Character {
-	int playerNumber = 10;
 	public static boolean areTextureLoaded = false;
 	public static ArrayList<TextureTime> walkListS;
 	public static ArrayList<TextureTime> dieListS;
@@ -26,6 +25,7 @@ public class Zombie extends Character {
 	public void init(){
 		G.log("Zombie : Zombie created");
 		this.kind = KIND.ZOMBIE;
+		playerNumber = 10;
 		size = 2.5f;
 		spriteOffset = new Vector2(-size, -size * 0.65f);
 		createBody();

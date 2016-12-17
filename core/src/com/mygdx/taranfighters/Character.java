@@ -19,8 +19,9 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 
-public class Character{
+public class Character implements Disposable{
 	// To be setted
 	public SpriteChanging spriteChanging;
 	public World world;
@@ -215,17 +216,6 @@ public class Character{
 			   			contact.getFixtureB().getBody() == body) {				
 						return true;
 				}
-				// Vector2 pos = body.getPosition();
-				// WorldManifold manifold = contact.getWorldManifold();
-				// boolean below = true;
-				// for(int j = 0; j < manifold.getNumberOfContactPoints(); j++) {
-				// 	below &= (manifold.getPoints()[j].y < pos.y - 1.5f);
-				// }
-				// 
-				// if(below) {
-				// 	return true;			
-				// }
-				// return false;
 			}
 		}
 		return false;
@@ -297,6 +287,7 @@ public class Character{
 		fix.friction = 1;
 
 		body.createFixture(fix);
+		circleShape.dispose();
 		return null;
 	}
 
@@ -325,6 +316,7 @@ public class Character{
 		// Create Body 
 		body = world.createBody(bodyDef);
 		body.createFixture(bodyFix);
+		bodyShape.dispose();
 		
 		// Add Ref to me to Dye and staff 
 		body.setUserData(this); 
@@ -472,6 +464,25 @@ public class Character{
 		// KICK
 		kick();
 		return true;
+	}
+
+	@Override
+	public void dispose() {
+		if (null != walkList){
+	 		for (TextureTime i : walkList){
+				G.disposeW(i.texture);
+			}
+		}
+		if (null != kickList){
+	 		for (TextureTime i : kickList){
+				G.disposeW(i.texture);
+			}
+		}
+		if (null != punchList){
+	 		for (TextureTime i : punchList){
+				G.disposeW(i.texture);
+			}
+		}
 	}
 
 }
