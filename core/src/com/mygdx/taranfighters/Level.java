@@ -112,7 +112,9 @@ public class Level{
 	public void dispose(){
 		G.log("Level dispose");
 		G.disposeW((Disposable) music);
-		// G.disposeW(debugRenderer);
+		if (debugRenderer!= null){
+			debugRenderer.dispose();
+		}
 		G.disposeW((Disposable) tiledMap);
 		G.disposeW((Disposable) tiledMapRenderer);
 	}

@@ -31,6 +31,9 @@ public class Platform{
 	int sz;
 	Vector2 size;
 	Vector2 oldPosition = new Vector2(0, 0);
+	
+	public static boolean isTextureLoaded = false;
+	public static Texture platformTexture;
 
 	public enum TYPE{ROUND_TRIP, TELEPORT, CIRCLE}
 
@@ -143,6 +146,9 @@ public class Platform{
 
 
 	public Texture createPlaform(){
+		if (isTextureLoaded){
+			return platformTexture;
+		}
 		Pixmap fullPixmap = new Pixmap(Gdx.files.internal("map/Atlas/platformer_deluxe_2space.png"));
 		Pixmap middle = PixmapFactory.cutPixmap(fullPixmap, 146, 2, 70, 40);
 		Pixmap left = PixmapFactory.cutPixmap(fullPixmap, 146, 74, 70, 40);
@@ -156,7 +162,8 @@ public class Platform{
 		left.dispose();
 		right.dispose();
 		res1.dispose();
-		return new Texture(res2);
+		platformTexture = new Texture(res2);
+		return platformTexture;
 	}
 
 }
