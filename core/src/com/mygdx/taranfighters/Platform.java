@@ -32,14 +32,38 @@ public class Platform{
 	Vector2 size;
 	Vector2 oldPosition = new Vector2(0, 0);
 
+	public enum TYPE{ROUND_TRIP, TELEPORT, CIRCLE}
 
-	public Platform(World world, Vector2 size, Vector2[] vertices, float time){
+
+
+	// Warning, vetices must contain at least 2 elt
+	public Platform(World world, Vector2 size, Vector2[] vertices, float time, Platform.TYPE type){
 		super();
-		this.positionList = new ArrayList<Vector2>(Arrays.asList(vertices));
 		this.totalTime = time;
 		this.size = size;
+
+		ArrayList<Vector2> lPositionList = new ArrayList<Vector2>(Arrays.asList(vertices));
+		switch (type){
+			case ROUND_TRIP:
+				for (int i = vertices.length - 2; i > -1; i--){
+					lPositionList.add(vertices[i]);
+				}
+				break;
+			case CIRCLE:
+				lPositionList.add(vertices[0]);
+				break;
+			default:
+				break;
+		}
+		this.positionList = lPositionList;
+
 		this.create(world);
 	}
+
+	public Platform(World world, Vector2 size, Vector2[] vertices, float time){
+		this(world, size, vertices, time, TYPE.TELEPORT);
+	}
+
 
 	public Platform(World world, Vector2 size, Vector2 initialPosition, Vector2 finalPosition, float time){
 		super();
@@ -106,7 +130,6 @@ public class Platform{
 		speed.sub(oldPosition);
 		speed.scl(1/delta);
 		oldPosition = position;
-		G.log("Platform speed " + speed);
 		
 
 		// BODY
