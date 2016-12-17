@@ -23,7 +23,7 @@ public class G{
 
 	public enum CHAR{JAK, ROZ, IUL, FIX}
 
-	public enum LEVEL{L1, L2, l3, L4, l5}
+	public enum LEVEL{L1, L2, L3, L4, l5}
 
 
 	public static BitmapFont overFont;

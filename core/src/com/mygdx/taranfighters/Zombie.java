@@ -3,10 +3,15 @@ package com.mygdx.taranfighters;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Zombie extends Character {
+	int playerNumber = 10;
 
 	public Zombie(World world) {
 		super(world);
-		// TODO Auto-generated constructor stub
+		init();
+	}
+
+
+	public void init(){
 	}
 
 }

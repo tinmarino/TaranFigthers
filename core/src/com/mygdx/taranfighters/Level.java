@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.taranfighters.Levels.LevelPlatform1;
 import com.mygdx.taranfighters.Levels.LevelPlatform2;
+import com.mygdx.taranfighters.Levels.LevelSalon;
 
 
 public class Level{
@@ -33,6 +34,9 @@ public class Level{
 		}
 		if (string == "platformer1"){
 			return new LevelPlatform1(world);
+		}
+		if (string == "salon"){
+			return new LevelSalon(world);
 		}
 		return null;
 	}

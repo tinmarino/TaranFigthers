@@ -24,6 +24,9 @@ public class PlatformScreen extends TaranScreen{
 			case L2:
 				level = Level.createLevel("platformer2", world);
 				break;
+			case L3:
+				level = Level.createLevel("salon", world);
+				break;
 			default:
 				level = Level.createLevel("platformer1", world);
 		}
@@ -45,6 +48,8 @@ public class PlatformScreen extends TaranScreen{
 			default:
 				char1 = new Iul(world);
 		}
+		char1.setPosition(5, 30);
+
 	}
 
 	@Override 
