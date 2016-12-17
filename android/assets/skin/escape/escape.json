@@ -22,12 +22,17 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 
 // WINDOW 
 com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
-	default: { titleFont: escape-font, titleFontColor: white },
+	default: { titleFont: escape-font, background:taran_icon1 , titleFontColor: white },
 },
 
 // TEXTBUTTON 
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: { down: fix_bras_gauche, up: fix_bras_gauche, font: escape-font, fontColor: white },
+	tin: { down: tin_bras_droit, up: tin_bras_droit, font: escape-font, fontColor: white },
+	iul: { down: iul_bras_gauche, up: iul_bras_gauche, font: escape-font, fontColor: white },
+	fix: { down: fix_bras_gauche, up: fix_bras_gauche, font: escape-font, fontColor: white },
+	roz: { down: roz_bras_gauche, up: roz_bras_gauche, font: escape-font, fontColor: white },
+	jak: { down: jak_bras_droit, up: jak_bras_droit, font: escape-font, fontColor: white },
 },
 
 
