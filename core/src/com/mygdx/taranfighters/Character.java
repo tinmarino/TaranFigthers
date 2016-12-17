@@ -48,6 +48,7 @@ public class Character{
 	boolean isPunching=false;
 	boolean isJumping=false;
 	boolean isWalking=false;
+	boolean isDying = false, isDead = false;
 
 	int playerNumber = 1;
 
@@ -56,6 +57,10 @@ public class Character{
 	Fixture bottomFixture;
 
 	BitmapFont font;
+
+	public enum KIND{CHAR, ZOMBIE, RAT}
+
+	public KIND kind = KIND.CHAR;
 
 
 
@@ -68,35 +73,54 @@ public class Character{
 
 
 	public void draw(SpriteBatch batch, float delta){
-		x = body.getPosition().x;
-		y = body.getPosition().y;
-		
-		// SPRITE 
-		spriteChanging.setX( (x+spriteOffset.x) * G.world2pixel);
-		spriteChanging.setY( (y+spriteOffset.y) * G.world2pixel);
-		spriteChanging.draw(batch, delta);
-
-
-		// Body Velocity  + defreezze
-		scaleVelocity(maxSpeed);
-		Vector2 vel = this.body.getLinearVelocity();
-		if (Gdx.input.isKeyPressed(Keys.LEFT)  && vel.x > -0.99f* maxSpeed.x){
-			body.setLinearVelocity(-maxSpeed.x, body.getLinearVelocity().y);
-			spriteChanging.play();
+		// Dye ?
+		if (isDying){
+			if (null != body){
+				world.destroyBody(body);
+				body = null;
+			}
+			if (timeLeftChangeSprite < 0.1f){
+				isDead = true;
+			}
 		}
 
-		if (Gdx.input.isKeyPressed(Keys.RIGHT)  && vel.x < 0.99f * maxSpeed.x){
-			body.setLinearVelocity(maxSpeed.x, body.getLinearVelocity().y);
-			spriteChanging.play();
+
+		if (!isDying){
+			x = body.getPosition().x;
+			y = body.getPosition().y;
+		}
+			
+		if (!isDead){
+			// SPRITE 
+			spriteChanging.setX( (x+spriteOffset.x) * G.world2pixel);
+			spriteChanging.setY( (y+spriteOffset.y) * G.world2pixel);
+			spriteChanging.draw(batch, delta);
 		}
 
-		// Debug 
-		if (G.debug){
-			font.draw(batch, 
-					"grounded: " + this.isPlayerGrounded() +
-					"\nMaxSpeeed: " + this.maxSpeed +
-					"\nSpeed: " + this.body.getLinearVelocity(),
-					(x+0.5f) * G.world2pixel, (y+0.5f) * G.world2pixel);
+
+		if (!isDying)
+		{
+			// Body Velocity  + defreezze
+			scaleVelocity(maxSpeed);
+			Vector2 vel = this.body.getLinearVelocity();
+			if (Gdx.input.isKeyPressed(Keys.LEFT)  && vel.x > -0.99f* maxSpeed.x){
+				body.setLinearVelocity(-maxSpeed.x, body.getLinearVelocity().y);
+				spriteChanging.play();
+			}
+
+			if (Gdx.input.isKeyPressed(Keys.RIGHT)  && vel.x < 0.99f * maxSpeed.x){
+				body.setLinearVelocity(maxSpeed.x, body.getLinearVelocity().y);
+				spriteChanging.play();
+			}
+
+			// Debug 
+			if (G.debug){
+				font.draw(batch, 
+						"grounded: " + this.isPlayerGrounded() +
+						"\nMaxSpeeed: " + this.maxSpeed +
+						"\nSpeed: " + this.body.getLinearVelocity(),
+						(x+0.5f) * G.world2pixel, (y+0.5f) * G.world2pixel);
+			}
 		}
 
 		// Sprite Changes 
@@ -118,9 +142,12 @@ public class Character{
 
 		}
 
+
 	}
 
 
+	public void die(){
+	}
 
 	public void punch(){
 		// Memory
@@ -206,6 +233,42 @@ public class Character{
 
 
 	public void manageContact(Contact contact){
+		Body otherBody;
+		Fixture thisFixture;
+		if (contact.getFixtureA().getBody() == body) {
+			thisFixture = contact.getFixtureA();
+			otherBody = contact.getFixtureB().getBody();
+		}
+		else if (contact.getFixtureB().getBody() == body) {
+			thisFixture = contact.getFixtureB();
+			otherBody = contact.getFixtureA().getBody();
+		}
+		else{
+			return; 
+		}
+
+		if (this.isKicking){
+			if (thisFixture != leftLegFixture && thisFixture != rightLegFixture){
+				return;
+			}
+			G.log("Character : I kick his ass ");
+			otherBody.applyForceToCenter(0 ,1000, true);
+			// dye 
+			if (otherBody.getUserData() instanceof Character){
+				((Character) otherBody.getUserData()).die();
+			}
+			return;
+		}
+
+		if (this.isPunching ){
+			if (thisFixture != leftArmFixture && thisFixture != rightArmFixture){
+				return;
+			}
+			G.log("Character : I punch his ass");
+			otherBody.applyForceToCenter(1000, 0, true);
+			return;
+		}
+		return;
 	}
 
 	public void setPosition(float x, float y){
@@ -239,7 +302,6 @@ public class Character{
 
 	// BODY Utils calls createBottom
 	public void createBody(){
-		
 		// body definition
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
@@ -247,7 +309,12 @@ public class Character{
 			
 		// BodyShape 
 		PolygonShape bodyShape = new PolygonShape();
-		bodyShape.setAsBox(0.2f * size, 0.4f * size);
+		if (kind == KIND.CHAR){
+			bodyShape.setAsBox(0.2f * size, 0.4f * size);
+		}
+		else{
+			bodyShape.setAsBox(0.2f * size, 0.2f * size);
+		}
 		
 		// BodyFixture 
 		FixtureDef bodyFix = new FixtureDef();
@@ -259,8 +326,8 @@ public class Character{
 		body = world.createBody(bodyDef);
 		body.createFixture(bodyFix);
 		
-		// Add Body Sprite 
-		body.setUserData(spriteChanging); 
+		// Add Ref to me to Dye and staff 
+		body.setUserData(this); 
 
 		// Call createBottom
 		bottomFixture = createBottom();

@@ -27,9 +27,13 @@ public class PlatformScreen extends TaranScreen{
 			case L3:
 				level = Level.createLevel("salon", world);
 				break;
+			case L4:
+				level = Level.createLevel("plage", world);
+				break;
 			default:
 				level = Level.createLevel("platformer1", world);
 		}
+		G.level = level;
 
 		G.log("PlatformScreen will create Character " + charEnum);
 		switch (charEnum){
@@ -48,7 +52,7 @@ public class PlatformScreen extends TaranScreen{
 			default:
 				char1 = new Iul(world);
 		}
-		char1.setPosition(5, 30);
+		char1.setPosition(level.initialPosition.x, level.initialPosition.y);
 
 	}
 

@@ -122,37 +122,4 @@ public class Iul extends Character{
 		return body.createFixture(fix);
 	}
 
-	@Override
-	public void manageContact(Contact contact){
-		Body otherBody;
-		Fixture thisFixture;
-		if (contact.getFixtureA().getBody() == body) {
-			thisFixture = contact.getFixtureA();
-			otherBody = contact.getFixtureB().getBody();
-		}
-		else if (contact.getFixtureB().getBody() == body) {
-			thisFixture = contact.getFixtureB();
-			otherBody = contact.getFixtureA().getBody();
-		}
-		else{
-			return; 
-		}
-
-		if (this.isKicking){
-			if (thisFixture != leftLegFixture && thisFixture != rightLegFixture){
-				return;
-			}
-			Gdx.app.log("Iul", "I kick his ass");
-			otherBody.applyForceToCenter(0 ,1000, true);
-		}
-
-		if (this.isPunching ){
-			if (thisFixture != leftArmFixture && thisFixture != rightArmFixture){
-				return;
-			}
-			Gdx.app.log("Iul", "I punch his ass");
-			otherBody.applyForceToCenter(1000, 0, true);
-		}
-	}
-
 }

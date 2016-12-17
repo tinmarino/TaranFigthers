@@ -22,7 +22,6 @@ public class TaranScreen implements Screen, InputProcessor {
 	public OrthographicCamera camera;
 	public Character char1, char2;
 	public Level level;
-	public String charString = "iul";
 	public int levelInt = 0;
 	Stage stage;
 	EscapeDialog escapeDialog;

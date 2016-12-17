@@ -19,11 +19,12 @@ public class G{
 	public static int position_iterations = 3;
 	public static float world2pixel = 128;
 	public static boolean debug = true;
+	public static Level level;
 
 
-	public enum CHAR{JAK, ROZ, IUL, FIX}
+	public enum CHAR{JAK, ROZ, IUL, FIX, TIN}
 
-	public enum LEVEL{L1, L2, L3, L4, l5}
+	public enum LEVEL{L1, L2, L3, L4, L5, L6, L7, L8, l9, L10}
 
 
 	public static BitmapFont overFont;

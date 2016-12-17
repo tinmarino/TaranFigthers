@@ -8,17 +8,24 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
+import com.mygdx.taranfighters.Levels.LevelPlage;
 import com.mygdx.taranfighters.Levels.LevelPlatform1;
 import com.mygdx.taranfighters.Levels.LevelPlatform2;
 import com.mygdx.taranfighters.Levels.LevelSalon;
 
 
 public class Level{
+	// To set 
+	public Vector2 initialPosition = new Vector2(2, 5);
+	
+	// Used 
 	public ArrayList<Character> charList = new ArrayList<Character>();
 	public ArrayList<Platform> platformList = new ArrayList<Platform>();
+	public ArrayList<Character> deadCharacter = new ArrayList<Character>();
 
 	// Disposables
 	World world;
@@ -38,6 +45,9 @@ public class Level{
 		if (string == "salon"){
 			return new LevelSalon(world);
 		}
+		if (string == "plage"){
+			return new LevelPlage(world);
+		}
 		return null;
 	}
 
@@ -47,7 +57,14 @@ public class Level{
 		}
 		for (Character character : charList){
 			character.draw(batch, delta);
+			if (character.isDead){
+		 		deadCharacter.add(character);
+			}
 		}
+		for (Character dead : deadCharacter){
+			charList.remove(dead);
+		}
+		deadCharacter.clear();
 	}
 
 	public Level(World world){
@@ -70,20 +87,10 @@ public class Level{
 		G.log("Level I loaded map " + mapString + " with tileSize = " + tilePixelWidth);
 		G.world2pixel = tilePixelWidth;
 		
-		// Music (to dispose)
-		
-		//music = Gdx.audio.newMusic(Gdx.files.internal("music/i_will_survice_full.mp3"));
-		//music.play();
-		//G.midiPlayer.open("music/brajta_orchestra.mid");
-    	//G.midiPlayer.setVolume(0.5f);
-		//G.midiPlayer.play();
-		
 		// createRat for debug
 		makeRat(3, 2);
 		makeRat(6, 3);
 
-		makeZombie(10, 20);
-		makeZombie(20, 20);
 
 	}
 
