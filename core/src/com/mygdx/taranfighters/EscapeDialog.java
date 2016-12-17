@@ -1,19 +1,32 @@
 package com.mygdx.taranfighters;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.utils.Disposable;
 
 
-public class EscapeDialog extends Dialog {
+public class EscapeDialog extends Dialog  implements Disposable{
 	public static Skin skin;
 	public boolean isDestroyed = false;
+	public Music music;
 
 
 	public EscapeDialog() {
 		super("", getSkinPlease());
+
+
+		this.addAction(Actions.alpha(0.2f));
+
+		// SOUND 
+		music = Gdx.audio.newMusic(Gdx.files.internal("music/hollande10.mp3"));
+		music.play();
+		music.setPosition(5);
+
 		G.log("EscapeDialog : called");
 		this.padTop(getPrefHeight()/5);
 
@@ -81,6 +94,13 @@ public class EscapeDialog extends Dialog {
 		skin = new Skin(Gdx.files.internal("skin/escape/escape.json"));
 		skin.getFont("escape-font").getData().setScale(0.5f,0.5f);
 		return skin;
+	}
+
+	@Override
+	public void dispose() {
+		music.stop();
+		music.dispose();
+		skin.dispose();
 	}
 
 }

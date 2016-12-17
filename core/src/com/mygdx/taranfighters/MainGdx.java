@@ -9,7 +9,8 @@ public class MainGdx extends Game {
 	public void create (){
 		Gdx.app.log("MainGdx:", "TaranFigthers Starting");
 		G.game = this;
-		screen = new ChooseScreen();
+		// screen = new ChooseScreen();
+		screen = new PlatformScreen(G.CHAR.IUL, G.LEVEL.L2);
 		screen.show();
 	}
 
