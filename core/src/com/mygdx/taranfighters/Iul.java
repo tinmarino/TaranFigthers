@@ -8,11 +8,8 @@ package com.mygdx.taranfighters;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
@@ -102,16 +99,8 @@ public class Iul extends Character{
 		maxSpeed = new Vector2(1.7f * defaultMaxSpeed.x, defaultMaxSpeed.y);
 	}
 
-	public Fixture createLeg(int side){
-		Vector2[] vertices = new Vector2[3];
-		vertices[0] = new Vector2(0, 0);
-		vertices[1] = new Vector2(0.7f * side * size, 0.4f * size);
-		vertices[2] = new Vector2(0.7f * side * size, -0.4f * size);
 
-		FixtureDef fix = createMember(vertices);
-		return body.createFixture(fix);
-	}
-
+	@Override
 	public Fixture createArm(int side){
 		Vector2[] vertices = new Vector2[3];
 		vertices[0] = new Vector2(0, 0.2f * size);
@@ -119,7 +108,9 @@ public class Iul extends Character{
 		vertices[2] = new Vector2(side * 1.0f *size, 0.1f * size);
 
 		FixtureDef fix = createMember(vertices);
-		return body.createFixture(fix);
+		Fixture fixture = body.createFixture(fix);
+		toDisposeShape.dispose();
+		return fixture;
 	}
 
 }

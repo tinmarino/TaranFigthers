@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
@@ -63,6 +64,7 @@ public class Character implements Disposable{
 
 	public KIND kind = KIND.CHAR;
 
+	Shape toDisposeShape;
 
 
 
@@ -326,14 +328,15 @@ public class Character implements Disposable{
 	}
 
 	
-	public static FixtureDef createMember(Vector2[] vertices){
+	public FixtureDef createMember(Vector2[] vertices){
 		// LegShape 
-		PolygonShape bodyShape = new PolygonShape();
-		bodyShape.set(vertices);
+		PolygonShape polygonShape = new PolygonShape();
+		polygonShape.set(vertices);
+		toDisposeShape = polygonShape;
 		
 		// LegFixture 
 		FixtureDef legFix = new FixtureDef();
-		legFix.shape = bodyShape;
+		legFix.shape = polygonShape;
 		legFix.restitution = 0;
 		legFix.friction = 0;
 		legFix.filter.maskBits = 0;
@@ -362,7 +365,31 @@ public class Character implements Disposable{
 		body.setLinearVelocity(vel);
 	}
 
+	public Fixture createLeg(int side){
+		Vector2[] vertices = new Vector2[3];
+		vertices[0] = new Vector2(0, 0);
+		vertices[1] = new Vector2(0.7f * side * size, 0.4f * size);
+		vertices[2] = new Vector2(0.7f * side * size, -0.4f * size);
 
+		FixtureDef fix = createMember(vertices);
+		Fixture fixture = body.createFixture(fix);
+		toDisposeShape.dispose();
+		return fixture;
+	}
+
+	public Fixture createArm(int side){
+		Vector2[] vertices = new Vector2[3];
+		vertices[0] = new Vector2(0, 0.2f * size);
+		vertices[1] = new Vector2(side * 0.5f * size, 0.3f * size);
+		vertices[2] = new Vector2(side * 0.5f * size, 0.1f * size);
+
+		FixtureDef fix = createMember(vertices);
+		Fixture fixture = body.createFixture(fix);
+		toDisposeShape.dispose();
+		return fixture;
+	}
+
+	// TOUCH 
 	public boolean keyUp(int keycode){
         if(keycode == Input.Keys.RIGHT || keycode == Input.Keys.LEFT)
 		{
