@@ -1,7 +1,9 @@
 package com.mygdx.taranfighters;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -11,12 +13,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 
 
-public class JakOverScreen implements Screen {
+public class JakOverScreen implements Screen, InputProcessor {
 	TextureAtlas atlas;
 	Animation animation;
 	SpriteBatch batch;
 	float elapsedTime;
 	Texture texture;
+	Music music;
+	boolean isMusicPlaying = false;
 
 	@Override
 	public void show() {
@@ -24,10 +28,14 @@ public class JakOverScreen implements Screen {
 
 		// Video 
 		atlas = new TextureAtlas(Gdx.files.internal("video/over/jac_over360_4.atlas"));
-		animation = new Animation(0.1f, atlas.getRegions());
+		animation = new Animation(0.05f, atlas.getRegions());
 
 		// Blood
 		texture = new Texture(Gdx.files.internal("img/blood1.png"));
+
+		// Music
+		music = G.music("music/sound/game_over.mp3");
+		music.setLooping(false);
 	}
 
 	@Override
@@ -42,9 +50,15 @@ public class JakOverScreen implements Screen {
         batch.begin();
 			TextureRegion region = animation.getKeyFrame(elapsedTime);
 			batch.draw(region, 0, 0 ,width, height);
-			if (elapsedTime > 2.1f){
+			// Animation finished ?
+			if (elapsedTime > 2.1f/ 2){
 				G.overFont.draw(batch, "Game Over!" , 1f/4  * width, 1f/2 * height);
 				batch.draw(texture, 0, 0, width, height);
+				if (!isMusicPlaying){
+					isMusicPlaying = true;
+					music.play();
+				}
+				Gdx.input.setInputProcessor(this);
 			}
         batch.end();
 	}
@@ -52,6 +66,7 @@ public class JakOverScreen implements Screen {
 	@Override
 	public void dispose() {
         atlas.dispose();
+		music.dispose();
 	}
 
 	@Override
@@ -64,7 +79,49 @@ public class JakOverScreen implements Screen {
 	public void resize(int arg0, int arg1) { }
 
 	@Override
-	public void resume() { }
+	public void resume() {
+	}
 
+	@Override
+	public boolean keyDown(int arg0) {
+		G.game.setScreen(new ChooseScreen());
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char arg0) {
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int arg0) {
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int arg0, int arg1) {
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int arg0) {
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int arg0, int arg1, int arg2, int arg3) {
+		G.game.setScreen(new ChooseScreen());
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int arg0, int arg1, int arg2) {
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int arg0, int arg1, int arg2, int arg3) {
+		return false;
+	}
 
 }
