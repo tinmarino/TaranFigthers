@@ -12,7 +12,7 @@ public class MainGdx extends Game {
 		G.init();
 		G.game = this;
 		// screen = new ChooseScreen();
-		screen = new PlatformScreen(G.CHAR.ROZ, G.LEVEL.L4);
+		screen = new PlatformScreen(G.CHAR.ROZ, G.LEVEL.L5);
 		screen.show();
 	}
 
