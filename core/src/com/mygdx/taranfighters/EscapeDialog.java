@@ -100,6 +100,7 @@ public class EscapeDialog extends Dialog  implements Disposable{
 	public void dispose() {
 		music.stop();
 		music.dispose();
+		skin.getAtlas().dispose();
 		skin.dispose();
 	}
 

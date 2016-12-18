@@ -12,15 +12,17 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
+import com.mygdx.taranfighters.Levels.LevelFreefall;
 import com.mygdx.taranfighters.Levels.LevelPlage;
 import com.mygdx.taranfighters.Levels.LevelPlatform1;
 import com.mygdx.taranfighters.Levels.LevelPlatform2;
 import com.mygdx.taranfighters.Levels.LevelSalon;
 
 
-public class Level{
+public class Level implements Disposable{
 	// To set 
 	public Vector2 initialPosition = new Vector2(2, 5);
+	public G.LEVEL levelEnum = G.LEVEL.L1;
 	
 	// Used 
 	public ArrayList<Character> charList = new ArrayList<Character>();
@@ -32,23 +34,39 @@ public class Level{
     OrthogonalTiledMapRenderer tiledMapRenderer;
 	Box2DDebugRenderer debugRenderer;
     TiledMap tiledMap;
-	Music music;
+	public Music music;
+	public Music music_quote;
+	public Music music_num;
 
 
-	public static Level createLevel(String string, World world){
-		if (string == "platformer2"){
-			return new LevelPlatform2(world);
+	public static Level createLevel(G.LEVEL levelEnum, World world){
+		Level level;
+		switch (levelEnum){
+			case L1:
+				level = new LevelPlatform1(world);
+				level.music_num = G.music("music/num/1one.mp3");
+				return level;
+			case L2:
+				level = new LevelPlatform2(world);
+				level.music_num = G.music("music/num/2two.mp3");
+				return level;
+			case L3:
+				level = new LevelSalon(world);
+				level.music_num = G.music("music/num/3three.mp3");
+				return level;
+			case L4:
+				level = new LevelPlage(world);
+				level.music_num = G.music("music/num/4four.mp3");
+				return level;
+			case L5:
+				level = new LevelFreefall(world);
+				level.music_num = G.music("music/num/5five.mp3");
+				return level;
+			default:
+				level = new LevelPlatform1(world);
+				level.music_num = G.music("music/num/1one.mp3");
+				return level;
 		}
-		if (string == "platformer1"){
-			return new LevelPlatform1(world);
-		}
-		if (string == "salon"){
-			return new LevelSalon(world);
-		}
-		if (string == "plage"){
-			return new LevelPlage(world);
-		}
-		return null;
 	}
 
 	public void draw(SpriteBatch batch, float delta){
@@ -90,8 +108,6 @@ public class Level{
 		// createRat for debug
 		makeRat(3, 2);
 		makeRat(6, 3);
-
-
 	}
 
 
@@ -117,6 +133,8 @@ public class Level{
 		}
 		G.disposeW((Disposable) tiledMap);
 		G.disposeW((Disposable) tiledMapRenderer);
+		G.disposeW(music_num);
+		G.disposeW(music_quote);
 	}
 
 

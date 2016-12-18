@@ -2,10 +2,10 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
-inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
-inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
 inoremap <C-Space> 
+inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
+inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
+inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
 imap <Nul> <C-Space>
 inoremap <S-Down> :let tmp=getpos('.') :m+1 : call cursor(tmp[1]+1,tmp[2]) a
 inoremap <S-Up> :let tmp=getpos('.') :m-2 : call cursor(tmp[1]-1,tmp[2]) a
@@ -98,7 +98,6 @@ set backupdir=~/.vim/backup//
 set balloonexpr=eclim#util#Balloon(eclim#util#GetLineError(line('.')))
 set completefunc=youcompleteme#Complete
 set completeopt=preview,menuone
-set cpoptions=aAceFsB
 set directory=~/.vim/backup//
 set fileencodings=ucs-bom,utf-8,default,latin1
 set foldlevelstart=30
@@ -123,7 +122,7 @@ set undolevels=100000
 set updatetime=2000
 set wildcharm=26
 set wildmenu
-set window=49
+set window=54
 set nowritebackup
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
@@ -133,187 +132,79 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +18 core/src/com/mygdx/taranfighters/MainGdx.java
+badd +21 core/src/com/mygdx/taranfighters/MainGdx.java
 badd +13 core/src/com/mygdx/taranfighters/CombatScreen.java
 badd +19 .classpath
-badd +31 core/src/com/mygdx/taranfighters/Iul.java
-badd +333 core/src/com/mygdx/taranfighters/Character.java
-badd +10 core/src/com/mygdx/taranfighters/SpriteChanging.java
+badd +82 core/src/com/mygdx/taranfighters/Iul.java
+badd +66 core/src/com/mygdx/taranfighters/Character.java
+badd +23 core/src/com/mygdx/taranfighters/SpriteChanging.java
 badd +7 core/src/com/mygdx/taranfighters/TextureTime.java
 badd +19 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/Sprite.java
 badd +52 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/InputProcessor.java
 badd +85 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/Texture.java
-badd +28 core/src/com/mygdx/taranfighters/G.java
+badd +27 core/src/com/mygdx/taranfighters/G.java
 badd +16 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/TiledMapRenderer.java
 badd +55 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/renderers/OrthogonalTiledMapRenderer.java
 badd +65 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/renderers/BatchTiledMapRenderer.java
-badd +46 core/src/com/mygdx/taranfighters/Level.java
+badd +30 core/src/com/mygdx/taranfighters/Level.java
 badd +27 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/math/Vector2.java
 badd +54 core/src/com/mygdx/taranfighters/MapBodyBuilder.java
 badd +28 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/MapObjects.java
-badd +69 core/src/com/mygdx/taranfighters/Rat.java
+badd +27 core/src/com/mygdx/taranfighters/Rat.java
 badd +14 todo
-badd +26 core/src/com/mygdx/taranfighters/JakOverScreen.java
+badd +22 core/src/com/mygdx/taranfighters/JakOverScreen.java
 badd +2 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/TextureAtlas.java
 badd +22 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/ApplicationAdapter.java
 badd +21 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/Color.java
-badd +14 desktop/src/com/mygdx/taranfighters/desktop/DesktopLauncher.java
+badd +19 desktop/src/com/mygdx/taranfighters/desktop/DesktopLauncher.java
 badd +15 html/src/com/mygdx/taranfighters/client/HtmlLauncher.java
 badd +98 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/SpriteBatch.java
-badd +89 core/src/com/mygdx/taranfighters/Jak.java
-badd +28 core/src/com/mygdx/taranfighters/PlatformScreen.java
-badd +26 core/src/com/mygdx/taranfighters/TaranScreen.java
+badd +66 core/src/com/mygdx/taranfighters/Jak.java
+badd +24 core/src/com/mygdx/taranfighters/PlatformScreen.java
+badd +37 core/src/com/mygdx/taranfighters/TaranScreen.java
 badd +14 .gitignore
 badd +43 core/src/com/mygdx/taranfighters/PixmapFactory.java
-badd +32 core/src/com/mygdx/taranfighters/Platform.java
-badd +17 core/src/com/mygdx/taranfighters/Levels/LevelPlatform2.java
+badd +153 core/src/com/mygdx/taranfighters/Platform.java
+badd +16 core/src/com/mygdx/taranfighters/Levels/LevelPlatform2.java
 badd +15 core/src/com/mygdx/taranfighters/Levels/LevelPlatform1.java
-badd +85 core/src/com/mygdx/taranfighters/Fix.java
-badd +14 core/src/com/mygdx/taranfighters/ChooseScreen.java
-badd +24 core/src/com/mygdx/taranfighters/EscapeDialog.java
+badd +6 core/src/com/mygdx/taranfighters/Fix.java
+badd +30 core/src/com/mygdx/taranfighters/ChooseScreen.java
+badd +101 core/src/com/mygdx/taranfighters/EscapeDialog.java
 badd +23 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/scenes/scene2d/utils/ClickListener.java
-badd +0 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/scenes/scene2d/InputListener.java
+badd +136 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/scenes/scene2d/InputListener.java
+badd +32 core/src/com/mygdx/taranfighters/Roz.java
+badd +24 android/assets/skin/escape/escape.json
+badd +26 android/AndroidManifest.xml
+badd +2 android/res/values/strings.xml
+badd +7 android/res/values/styles.xml
+badd +1 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/OrthographicCamera.java
+badd +122 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/Camera.java
+badd +26 core/src/com/mygdx/taranfighters/Zombie.java
+badd +110 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/scenes/scene2d/actions/Actions.java
+badd +11 core/src/com/mygdx/taranfighters/Levels/LevelSalon.java
+badd +15 core/src/com/mygdx/taranfighters/Levels/LevelPlage.java
+badd +57 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/Game.java
+badd +12 core/src/com/mygdx/taranfighters/Levels/LevelFreefall.java
 args core/src/com/mygdx/taranfighters/MainGdx.java
 edit core/src/com/mygdx/taranfighters/ChooseScreen.java
 set splitbelow splitright
 wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
-wincmd _ | wincmd |
 split
 1wincmd k
+wincmd w
+wincmd _ | wincmd |
+vsplit
+1wincmd h
 wincmd w
 set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 82 + 89) / 179)
-exe '2resize ' . ((&lines * 4 + 25) / 50)
-exe 'vert 2resize ' . ((&columns * 96 + 89) / 179)
-exe '3resize ' . ((&lines * 43 + 25) / 50)
-exe 'vert 3resize ' . ((&columns * 96 + 89) / 179)
-argglobal
-inoreabbr <buffer> logger logger=eclim#java#logging#LoggingInit("logger")
-inoreabbr <buffer> log log=eclim#java#logging#LoggingInit("log")
-setlocal keymap=
-setlocal noarabic
-setlocal autoindent
-setlocal balloonexpr=
-setlocal nobinary
-setlocal bufhidden=
-setlocal buflisted
-setlocal buftype=
-setlocal cindent
-setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
-setlocal cinoptions=j1
-setlocal cinwords=if,else,while,do,for,switch
-setlocal colorcolumn=
-setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
-setlocal commentstring=//%s
-setlocal complete=.,w,b,u,t,i
-setlocal concealcursor=
-setlocal conceallevel=0
-setlocal completefunc=youcompleteme#Complete
-setlocal nocopyindent
-setlocal cryptmethod=
-setlocal nocursorbind
-setlocal nocursorcolumn
-set cursorline
-setlocal cursorline
-setlocal define=
-setlocal dictionary=
-setlocal nodiff
-setlocal equalprg=
-setlocal errorformat=%E%f:%l:\ %m,%-Z%p^,%-C%.%#,%-G%.%#
-setlocal noexpandtab
-if &filetype != 'java'
-setlocal filetype=java
-endif
-setlocal foldcolumn=0
-setlocal foldenable
-set foldexpr=FoldMethod(v:lnum)
-setlocal foldexpr=FoldMethod(v:lnum)
-setlocal foldignore=#
-set foldlevel=1
-setlocal foldlevel=30
-setlocal foldmarker={{{,}}}
-set foldmethod=expr
-setlocal foldmethod=expr
-setlocal foldminlines=1
-setlocal foldnestmax=20
-setlocal foldtext=foldtext()
-setlocal formatexpr=
-setlocal formatoptions=croql
-setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-setlocal grepprg=
-setlocal iminsert=2
-setlocal imsearch=2
-setlocal include=^s*import
-setlocal includeexpr=substitute(v:fname,'\\.','/','g')
-setlocal indentexpr=GetJavaIndent()
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e,0=extends,0=implements
-setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=
-setlocal nolinebreak
-setlocal nolisp
-setlocal nolist
-setlocal makeprg=javac
-setlocal matchpairs=(:),{:},[:]
-setlocal modeline
-setlocal modifiable
-setlocal nrformats=octal,hex
-set number
-setlocal number
-setlocal numberwidth=4
-setlocal omnifunc=eclim#java#complete#CodeComplete
-setlocal path=
-setlocal nopreserveindent
-setlocal nopreviewwindow
-setlocal quoteescape=\\
-setlocal noreadonly
-setlocal norelativenumber
-setlocal norightleft
-setlocal rightleftcmd=search
-setlocal noscrollbind
-setlocal shiftwidth=4
-setlocal noshortname
-setlocal nosmartindent
-setlocal softtabstop=0
-setlocal nospell
-setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
-setlocal spelllang=en
-setlocal statusline=
-setlocal suffixesadd=.java
-setlocal noswapfile
-setlocal synmaxcol=3000
-if &syntax != 'java'
-setlocal syntax=java
-endif
-setlocal tabstop=4
-setlocal tags=
-setlocal textwidth=0
-setlocal thesaurus=
-setlocal undofile
-setlocal nowinfixheight
-setlocal nowinfixwidth
-setlocal wrap
-setlocal wrapmargin=0
-24
-normal! zo
-35
-normal! zo
-41
-normal! zo
-let s:l = 107 - ((23 * winheight(0) + 24) / 48)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-107
-normal! 0
-wincmd w
+exe '1resize ' . ((&lines * 4 + 27) / 55)
+exe '2resize ' . ((&lines * 48 + 27) / 55)
+exe 'vert 2resize ' . ((&columns * 92 + 92) / 185)
+exe '3resize ' . ((&lines * 48 + 27) / 55)
+exe 'vert 3resize ' . ((&columns * 92 + 92) / 185)
 argglobal
 enew
 setlocal keymap=
@@ -422,7 +313,172 @@ setlocal wrap
 setlocal wrapmargin=0
 wincmd w
 argglobal
-edit ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/scenes/scene2d/InputListener.java
+inoreabbr <buffer> logger logger=eclim#java#logging#LoggingInit("logger")
+inoreabbr <buffer> log log=eclim#java#logging#LoggingInit("log")
+setlocal keymap=
+setlocal noarabic
+setlocal autoindent
+setlocal balloonexpr=
+setlocal nobinary
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal cindent
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinoptions=j1
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
+setlocal commentstring=//%s
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=youcompleteme#Complete
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+set cursorline
+setlocal cursorline
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=%E%f:%l:\ %m,%-Z%p^,%-C%.%#,%-G%.%#
+setlocal noexpandtab
+if &filetype != 'java'
+setlocal filetype=java
+endif
+setlocal foldcolumn=0
+setlocal foldenable
+set foldexpr=FoldMethod(v:lnum)
+setlocal foldexpr=FoldMethod(v:lnum)
+setlocal foldignore=#
+set foldlevel=1
+setlocal foldlevel=1
+setlocal foldmarker={{{,}}}
+set foldmethod=expr
+setlocal foldmethod=expr
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=croql
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal grepprg=
+setlocal iminsert=2
+setlocal imsearch=2
+setlocal include=^s*import
+setlocal includeexpr=substitute(v:fname,'\\.','/','g')
+setlocal indentexpr=GetJavaIndent()
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e,0=extends,0=implements
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal nolist
+setlocal makeprg=javac
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=octal,hex
+set number
+setlocal nonumber
+setlocal numberwidth=4
+setlocal omnifunc=eclim#java#complete#CodeComplete
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=4
+setlocal noshortname
+setlocal nosmartindent
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=
+setlocal suffixesadd=.java
+setlocal noswapfile
+setlocal synmaxcol=3000
+if &syntax != 'java'
+setlocal syntax=java
+endif
+setlocal tabstop=4
+setlocal tags=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal undofile
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+23
+normal! zo
+44
+normal! zo
+50
+normal! zo
+52
+normal! zo
+66
+normal! zo
+68
+normal! zo
+69
+normal! zo
+72
+normal! zo
+75
+normal! zo
+78
+normal! zo
+81
+normal! zo
+87
+normal! zo
+88
+normal! zo
+90
+normal! zo
+98
+normal! zo
+101
+normal! zo
+102
+normal! zo
+105
+normal! zo
+108
+normal! zo
+111
+normal! zo
+114
+normal! zo
+127
+normal! zo
+121
+normal! zo
+122
+normal! zo
+124
+normal! zo
+let s:l = 111 - ((23 * winheight(0) + 24) / 48)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+111
+normal! 027|
+wincmd w
+argglobal
+edit core/src/com/mygdx/taranfighters/Levels/LevelSalon.java
 inoreabbr <buffer> logger logger=eclim#java#logging#LoggingInit("logger")
 inoreabbr <buffer> log log=eclim#java#logging#LoggingInit("log")
 setlocal keymap=
@@ -530,18 +586,21 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-let s:l = 124 - ((21 * winheight(0) + 21) / 43)
+8
+normal! zo
+let s:l = 10 - ((9 * winheight(0) + 24) / 48)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-124
-normal! 019|
+10
+normal! 031|
 wincmd w
-exe 'vert 1resize ' . ((&columns * 82 + 89) / 179)
-exe '2resize ' . ((&lines * 4 + 25) / 50)
-exe 'vert 2resize ' . ((&columns * 96 + 89) / 179)
-exe '3resize ' . ((&lines * 43 + 25) / 50)
-exe 'vert 3resize ' . ((&columns * 96 + 89) / 179)
+2wincmd w
+exe '1resize ' . ((&lines * 4 + 27) / 55)
+exe '2resize ' . ((&lines * 48 + 27) / 55)
+exe 'vert 2resize ' . ((&columns * 92 + 92) / 185)
+exe '3resize ' . ((&lines * 48 + 27) / 55)
+exe 'vert 3resize ' . ((&columns * 92 + 92) / 185)
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

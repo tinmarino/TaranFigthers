@@ -15,9 +15,10 @@ public class Roz extends Character {
 
 
 	public void init(){
-		G.log("Fix comes in the fight");
+		G.log("Roz comes in the fight");
 		x = 2;
 		y = 3f;
+		music_name = G.music("music/char/roz_sound.mp3");
 
 		size = 1.6f;
 		defaultMaxSpeed = new Vector2(4f, 9f);

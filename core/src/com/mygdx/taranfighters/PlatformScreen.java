@@ -1,8 +1,14 @@
 package com.mygdx.taranfighters;
 
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Music.OnCompletionListener;
+
 public class PlatformScreen extends TaranScreen{
 	G.CHAR charEnum;
 	G.LEVEL levelEnum;
+
+	// disposable
+	public Music music1, music2, music3;
 
 
 
@@ -16,49 +22,83 @@ public class PlatformScreen extends TaranScreen{
 		super.show();
 
 		G.log("PlatformScreen will create level " + levelEnum);
-
-		switch (levelEnum){
-			case L1:
-				level = Level.createLevel("platformer1", world);
-				break;
-			case L2:
-				level = Level.createLevel("platformer2", world);
-				break;
-			case L3:
-				level = Level.createLevel("salon", world);
-				break;
-			case L4:
-				level = Level.createLevel("plage", world);
-				break;
-			default:
-				level = Level.createLevel("platformer1", world);
-		}
-		G.level = level;
+		level = Level.createLevel(levelEnum, world);
 
 		G.log("PlatformScreen will create Character " + charEnum);
-		switch (charEnum){
-			case JAK:
-				char1 = new Jak(world);
-				break;
-			case ROZ:
-				char1 = new Roz(world);
-				break;
-			case IUL:
-				char1 = new Iul(world);
-				break;
-			case FIX:
-				char1 = new Fix(world);
-				break;
-			default:
-				char1 = new Iul(world);
-		}
+		char1 = Character.createCharacter(charEnum, world);
+
+		// Callbacks
 		char1.setPosition(level.initialPosition.x, level.initialPosition.y);
 
+		// Music 
+		music1 = G.music("music/sound/welcome_to_level.mp3");
+		music2 = G.music("music/sound/with.mp3");
+		music3 = G.music("music/sound/remember_that.mp3");
+
+		// Music Chain 
+		if (null != level.music_num){
+			music1.setOnCompletionListener(new OnCompletionListener() {
+				public void onCompletion(Music music) {
+						level.music_num.play();
+				}
+			});
+		}
+		if (null != music2){
+			level.music_num.setOnCompletionListener(new OnCompletionListener() {
+				public void onCompletion(Music music) {
+					music2.play();
+				}
+			});
+		}
+		if (null != char1.music_name){
+			music2.setOnCompletionListener(new OnCompletionListener() {
+				public void onCompletion(Music music) {
+					char1.music_name.play();
+				}
+			});
+		}
+		if (null != music3){
+			char1.music_name.setOnCompletionListener(new OnCompletionListener() {
+				public void onCompletion(Music music) {
+					music3.play();
+				}
+			});
+		}
+		if (null != level.music_quote){
+			music3.setOnCompletionListener(new OnCompletionListener() {
+				public void onCompletion(Music music) {
+					level.music_quote.play();
+				}
+			});
+		}
+		if (null != level.music){
+			level.music_quote.setOnCompletionListener(new OnCompletionListener() {
+				public void onCompletion(Music music) {
+					level.music.play();
+				}
+			});
+		}
+
+
+
+		// Play 
+		music1.play();
+
+		
 	}
 
 	@Override 
 	public void render(float delta){
 		super.render(delta);
+	}
+
+
+	@Override
+	public void dispose(){
+		super.dispose();
+		music1.dispose();
+		music2.dispose();
+		music3.dispose();
 	}
 
 

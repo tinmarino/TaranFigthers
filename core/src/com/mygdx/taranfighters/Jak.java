@@ -14,6 +14,7 @@ public class Jak extends Character {
 
 	public void init(){
 		G.log("Jak comes in the fight");
+		music_name = G.music("music/char/jak_sound.mp3");
 		x = 2;
 		y = 3f;
 

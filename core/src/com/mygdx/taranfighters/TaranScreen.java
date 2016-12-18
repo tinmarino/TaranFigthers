@@ -26,6 +26,15 @@ public class TaranScreen implements Screen, InputProcessor {
 	Stage stage;
 	EscapeDialog escapeDialog;
 
+	@Override
+	public void dispose(){ 
+		G.disposeW(escapeDialog);
+		G.disposeW(stage);
+		G.disposeW(level);
+		G.disposeW(char1);
+		G.disposeW(char2);
+		G.disposeW(world);
+	}
 
 
 	public TaranScreen(){
@@ -113,8 +122,6 @@ public class TaranScreen implements Screen, InputProcessor {
 	}
 
 
-	@Override
-	public void dispose() { }
 
 	@Override
 	public void hide() { }

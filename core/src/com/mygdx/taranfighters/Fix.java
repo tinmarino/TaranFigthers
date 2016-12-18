@@ -15,6 +15,7 @@ public class Fix extends Character {
 
 	public void init(){
 		G.log("Fix comes in the fight");
+		music_name = G.music("music/char/fix_sound.mp3");
 		x = 2;
 		y = 3f;
 

@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -24,10 +23,20 @@ public class ChooseScreen implements Screen {
 	ArrayList<Disposable> disposableList = new ArrayList<Disposable>();
 	Stage stage;
 	Table table;
-	Dialog escapeDialog;
+	EscapeDialog escapeDialog;
 
 	G.CHAR[] arr = {G.CHAR.JAK, G.CHAR.ROZ, G.CHAR.IUL, G.CHAR.FIX}; 
 	FitViewport fitViewport;
+
+
+	@Override
+	public void dispose(){
+		G.disposeW(escapeDialog);
+		G.disposeW(stage);
+		for (Disposable i : disposableList){
+			G.disposeW(i);
+		}
+	}
 
 
 	@Override
@@ -87,8 +96,25 @@ public class ChooseScreen implements Screen {
 
 			for (G.LEVEL i : G.LEVEL.values()){
 				final G.LEVEL levelEnum = i;
-				//Drawable drawable2 = PixmapFactory.drawableFromFile("img/hud/hud_" +  i + ".png", disposableList);
-				Drawable drawable2 = PixmapFactory.drawableFromFile("img/door/door_closed.png", disposableList);
+				String levelString;
+				switch (levelEnum){
+					case L1:
+						levelString = "map/screenshot/platformer1.png";
+						break;
+					case L2:
+						levelString = "map/screenshot/platformer2.png";
+						break;
+					case L3:
+						levelString = "map/screenshot/salon1.png";
+						break;
+					case L4:
+						levelString = "map/screenshot/plage1.png";
+						break;
+					default:
+						levelString = "img/door/door_closed.png";
+						break;
+				}
+				Drawable drawable2 = PixmapFactory.drawableFromFile(levelString, disposableList);
 				ImageButton imageButton2 = new ImageButton(drawable2);
 				imageButton2.setSize(140, 180);
 				imageButton2.addListener(
@@ -129,8 +155,6 @@ public class ChooseScreen implements Screen {
 	}
 
 
-	@Override
-	public void dispose() { }
 
 	@Override
 	public void hide() { }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -26,6 +27,7 @@ public class Character implements Disposable{
 	// To be setted
 	public SpriteChanging spriteChanging;
 	public World world;
+	public Music music_name;
 
 	ArrayList<TextureTime> walkList;
 	ArrayList<TextureTime> punchList;
@@ -74,6 +76,21 @@ public class Character implements Disposable{
 		font = new BitmapFont();
 	}
 
+
+	public static Character createCharacter(G.CHAR charEnum, World world){
+		switch (charEnum){
+			case JAK:
+				return new Jak(world);
+			case ROZ:
+				return new Roz(world);
+			case IUL:
+				return new Iul(world);
+			case FIX:
+				return new Fix(world);
+			default:
+				return new Iul(world);
+		}
+	}
 
 	public void draw(SpriteBatch batch, float delta){
 		// Dye ?
@@ -492,6 +509,8 @@ public class Character implements Disposable{
 		kick();
 		return true;
 	}
+
+	
 
 	@Override
 	public void dispose() {

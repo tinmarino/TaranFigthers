@@ -44,6 +44,7 @@ public class Iul extends Character{
 	public void init(){
 		G.log("Iul Initing");
 		// variables 
+		music_name = G.music("music/char/iul_sound.mp3");
 		x = 2;
 		y = 3f; 
 		size = 1.6f;
