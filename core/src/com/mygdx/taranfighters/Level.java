@@ -17,6 +17,7 @@ import com.mygdx.taranfighters.Levels.LevelPlage;
 import com.mygdx.taranfighters.Levels.LevelPlatform1;
 import com.mygdx.taranfighters.Levels.LevelPlatform2;
 import com.mygdx.taranfighters.Levels.LevelSalon;
+import com.mygdx.taranfighters.Levels.LevelSinai;
 
 
 public class Level implements Disposable{
@@ -61,6 +62,10 @@ public class Level implements Disposable{
 			case L5:
 				level = new LevelFreefall(world);
 				level.music_num = G.music("music/num/5five.mp3");
+				return level;
+			case L6:
+				level = new LevelSinai(world);
+				level.music_num = G.music("music/num/6six.mp3");
 				return level;
 			default:
 				level = new LevelPlatform1(world);

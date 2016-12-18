@@ -171,6 +171,8 @@ public class Character implements Disposable{
 				return new Iul(world);
 			case FIX:
 				return new Fix(world);
+			case TIN:
+				return new Tin(world);
 			default:
 				return new Iul(world);
 		}
