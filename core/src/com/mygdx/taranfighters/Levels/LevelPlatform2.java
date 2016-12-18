@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.taranfighters.G;
 import com.mygdx.taranfighters.Level;
 import com.mygdx.taranfighters.Platform;
 
@@ -11,6 +12,7 @@ public class LevelPlatform2 extends Level {
 
 	public LevelPlatform2(World world) {
 		super("map/platformer2.tmx", world);
+
 
 
 

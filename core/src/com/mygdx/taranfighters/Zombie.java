@@ -2,6 +2,7 @@ package com.mygdx.taranfighters;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -12,7 +13,9 @@ public class Zombie extends Character {
 	public static ArrayList<TextureTime> kickListS;
 
 	public ArrayList<TextureTime> dieList;
+	public float xmin = -100, xmax = 100000; 
 
+	public int direction =1;
 
 
 
@@ -22,6 +25,20 @@ public class Zombie extends Character {
 	}
 
 
+	@Override
+	public void draw(SpriteBatch batch, float delta){
+		super.draw(batch, delta);
+
+		if (this.x < this.xmin){
+			direction = 1;
+			walk(direction);
+		}
+		else if (this.x > this.xmax){
+			direction = -1;
+			walk(direction);
+		}
+	}
+
 	public void init(){
 		G.log("Zombie : Zombie created");
 		this.kind = KIND.ZOMBIE;
@@ -30,6 +47,12 @@ public class Zombie extends Character {
 		spriteOffset = new Vector2(-size, -size * 0.65f);
 		createBody();
 		loadTexture();
+		walk(1);
+	}
+
+	public void fromTo(float xmin, float xmax){
+		this.xmin = xmin;
+		this.xmax = xmax;
 	}
 
 
@@ -39,8 +62,7 @@ public class Zombie extends Character {
 		// Sprite 
 		spriteChanging.setList(dieList);
 		willChangeSprite = true;
-		timeLeftChangeSprite = (dieList.size()) *  0.2f;
-
+		timeLeftChangeSprite = TextureTime.getTime(dieList);
 		this.isDying = true;
 	}
 
@@ -51,25 +73,25 @@ public class Zombie extends Character {
 
 			// Walk 
 			walkListS = new ArrayList<TextureTime>();
-			walkListS.add(new TextureTime( "zombie/go_1_800.png" , 0.3f ));
-			walkListS.add(new TextureTime( "zombie/go_2_800.png" , 0.3f ));
-			walkListS.add(new TextureTime( "zombie/go_3_800.png" , 0.3f ));
-			walkListS.add(new TextureTime( "zombie/go_4_800.png" , 0.3f ));
-			walkListS.add(new TextureTime( "zombie/go_5_800.png" , 0.3f ));
-			walkListS.add(new TextureTime( "zombie/go_6_800.png" , 0.3f ));
-			walkListS.add(new TextureTime( "zombie/go_7_800.png" , 0.3f ));
-			walkListS.add(new TextureTime( "zombie/go_8_800.png" , 0.3f ));
-			walkListS.add(new TextureTime( "zombie/go_9_800.png" , 0.3f ));
+			walkListS.add(new TextureTime( "zombie/go_1_800.png" , 0.1f ));
+			walkListS.add(new TextureTime( "zombie/go_2_800.png" , 0.1f ));
+			walkListS.add(new TextureTime( "zombie/go_3_800.png" , 0.1f ));
+			walkListS.add(new TextureTime( "zombie/go_4_800.png" , 0.1f ));
+			walkListS.add(new TextureTime( "zombie/go_5_800.png" , 0.1f ));
+			walkListS.add(new TextureTime( "zombie/go_6_800.png" , 0.1f ));
+			walkListS.add(new TextureTime( "zombie/go_7_800.png" , 0.1f ));
+			walkListS.add(new TextureTime( "zombie/go_8_800.png" , 0.1f ));
+			walkListS.add(new TextureTime( "zombie/go_9_800.png" , 0.1f ));
 
 			// Kick
 			kickListS = new ArrayList<TextureTime>();
-			kickListS.add(new TextureTime( "zombie/hit_1_800.png" , 0.3f ));
-			kickListS.add(new TextureTime( "zombie/hit_2_800.png" , 0.3f ));
-			kickListS.add(new TextureTime( "zombie/hit_3_800.png" , 0.3f ));
-			kickListS.add(new TextureTime( "zombie/hit_4_800.png" , 0.3f ));
-			kickListS.add(new TextureTime( "zombie/hit_5_800.png" , 0.3f ));
-			kickListS.add(new TextureTime( "zombie/hit_6_800.png" , 0.3f ));
-			kickListS.add(new TextureTime( "zombie/hit_7_800.png" , 0.3f ));
+			kickListS.add(new TextureTime( "zombie/hit_1_800.png" , 0.2f ));
+			kickListS.add(new TextureTime( "zombie/hit_2_800.png" , 0.2f ));
+			kickListS.add(new TextureTime( "zombie/hit_3_800.png" , 0.2f ));
+			kickListS.add(new TextureTime( "zombie/hit_4_800.png" , 0.2f ));
+			kickListS.add(new TextureTime( "zombie/hit_5_800.png" , 0.2f ));
+			kickListS.add(new TextureTime( "zombie/hit_6_800.png" , 0.2f ));
+			kickListS.add(new TextureTime( "zombie/hit_7_800.png" , 0.2f ));
 
 			// Die
 			dieListS = new ArrayList<TextureTime>();

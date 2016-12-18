@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -25,6 +26,7 @@ public class TaranScreen implements Screen, InputProcessor {
 	public int levelInt = 0;
 	Stage stage;
 	EscapeDialog escapeDialog;
+	Matrix4 HUDMatrix;
 
 	@Override
 	public void dispose(){ 
@@ -50,6 +52,9 @@ public class TaranScreen implements Screen, InputProcessor {
 		camera.position.y = 0;
 		camera.viewportWidth = 12 * G.world2pixel;
 		camera.viewportHeight = 8 * G.world2pixel;
+
+		HUDMatrix = new Matrix4();
+ 	  	HUDMatrix.setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         Gdx.input.setInputProcessor(this);
 		setContactListener();
@@ -94,12 +99,26 @@ public class TaranScreen implements Screen, InputProcessor {
 		batch.begin();
 			level.draw(batch, delta);
 			char1.draw(batch, delta);
+			// HUD debug
 		batch.end();
 
 		// Debug render 
 		if (G.debug){
 			level.debugRenderer.render(world, camera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
 		}
+
+
+		// HUD debug 
+		if (G.debug){
+			batch.setProjectionMatrix(HUDMatrix);
+			batch.begin();
+				G.debugFont.draw(batch,
+							"FPS :" + 1/delta,
+							0.5f * G.world2pixel,
+							0.5f * G.world2pixel);
+			batch.end();
+		}
+
 	}
 
 
@@ -130,7 +149,9 @@ public class TaranScreen implements Screen, InputProcessor {
 	public void pause() { }
 
 	@Override
-	public void resize(int arg0, int arg1) { }
+	public void resize(int arg0, int arg1) {
+ 	  	HUDMatrix.setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+	}
 
 	@Override
 	public void resume() { }
@@ -140,29 +161,42 @@ public class TaranScreen implements Screen, InputProcessor {
 
 	@Override
 	public boolean keyDown(int keycode) {
+		G.log("TaranScreen : keydown" + " " +  char1.spriteChanging.getY() +" " +   char1.spriteChanging.getX());
 		if (char1.keyDown(keycode)){return true;}
 
-        if(keycode == Input.Keys.NUM_1)
-            level.tiledMap.getLayers().get(0).setVisible(!level.tiledMap.getLayers().get(0).isVisible());
-        if(keycode == Input.Keys.NUM_2)
-            level.tiledMap.getLayers().get(1).setVisible(!level.tiledMap.getLayers().get(1).isVisible());
-        if(keycode == Input.Keys.A){
-			G.log("CombatScreen Changing to JacOverScreen");
-			G.game.setScreen(new JakOverScreen());
+		switch(keycode){
+			case Input.Keys.NUMPAD_8:
+				level.tiledMap.getLayers().get(0).setVisible(!level.tiledMap.getLayers().get(0).isVisible());
+				return true;
+			case Input.Keys.NUMPAD_9:
+				level.tiledMap.getLayers().get(1).setVisible(!level.tiledMap.getLayers().get(1).isVisible());
+				return true;
+			case Input.Keys.A:
+				G.log("CombatScreen Changing to JacOverScreen");
+				G.game.setScreen(new JakOverScreen());
+				return true;
+			case Input.Keys.NUMPAD_0:
+				G.debug = !G.debug;
+				return true;
+			case Input.Keys.NUMPAD_1:
+				this.char1.maxSpeed = new Vector2(100, 20);
+				return true;
+			case Input.Keys.NUMPAD_2:
+				this.char1.maxSpeed = this.char1.defaultMaxSpeed;
+				return true;
+
+			case Input.Keys.ESCAPE:
+				G.log("TaranScreen : escape dialog called");
+
+				FitViewport fitViewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+				stage = new Stage(fitViewport);
+				Gdx.input.setInputProcessor(stage);
+				escapeDialog = new EscapeDialog();
+				escapeDialog.show(stage);
+				return true;
+			default:
+				return false;
 		}
-
-		if (keycode == Input.Keys.ESCAPE){
-			G.log("TaranScreen : escape dialog called");
-
-			FitViewport fitViewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-			stage = new Stage(fitViewport);
-			Gdx.input.setInputProcessor(stage);
-			escapeDialog = new EscapeDialog();
-			escapeDialog.show(stage);
-		}
-
-		G.log("TaranScreen :" + " " +  char1.spriteChanging.getY() +" " +   char1.spriteChanging.getX());
-		return false;
 	}
 
 	@Override

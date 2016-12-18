@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -60,37 +59,12 @@ public class Character implements Disposable{
 	Body body;
 	Fixture bottomFixture;
 
-	BitmapFont font;
-
 	public enum KIND{CHAR, ZOMBIE, RAT}
 
 	public KIND kind = KIND.CHAR;
 
 	Shape toDisposeShape;
 
-
-
-	public Character(World world){
-		G.log("New Character created;");
-		this.world = world;
-		font = new BitmapFont();
-	}
-
-
-	public static Character createCharacter(G.CHAR charEnum, World world){
-		switch (charEnum){
-			case JAK:
-				return new Jak(world);
-			case ROZ:
-				return new Roz(world);
-			case IUL:
-				return new Iul(world);
-			case FIX:
-				return new Fix(world);
-			default:
-				return new Iul(world);
-		}
-	}
 
 	public void draw(SpriteBatch batch, float delta){
 		// Dye ?
@@ -122,23 +96,39 @@ public class Character implements Disposable{
 		{
 			// Body Velocity  + defreezze
 			scaleVelocity(maxSpeed);
+			// Not for zombie
 			Vector2 vel = this.body.getLinearVelocity();
-			if (Gdx.input.isKeyPressed(Keys.LEFT)  && vel.x > -0.99f* maxSpeed.x){
-				body.setLinearVelocity(-maxSpeed.x, body.getLinearVelocity().y);
-				spriteChanging.play();
+			if (playerNumber == 1){
+				if (Gdx.input.isKeyPressed(Keys.LEFT)  && vel.x > -0.99f* maxSpeed.x){
+					body.setLinearVelocity(-maxSpeed.x, body.getLinearVelocity().y);
+					spriteChanging.play();
+				}
+
+				if (Gdx.input.isKeyPressed(Keys.RIGHT)  && vel.x < 0.99f * maxSpeed.x){
+					body.setLinearVelocity(maxSpeed.x, body.getLinearVelocity().y);
+					spriteChanging.play();
+				}
+			}
+			if (playerNumber == 10){
+				if (((Zombie) this).direction == -1  && vel.x > -0.99f* maxSpeed.x){
+					body.setLinearVelocity(-maxSpeed.x, body.getLinearVelocity().y);
+					spriteChanging.play();
+				}
+
+				if (((Zombie) this).direction == 1  && vel.x < 0.99f * maxSpeed.x){
+					body.setLinearVelocity(maxSpeed.x, body.getLinearVelocity().y);
+					spriteChanging.play();
+				}
 			}
 
-			if (Gdx.input.isKeyPressed(Keys.RIGHT)  && vel.x < 0.99f * maxSpeed.x){
-				body.setLinearVelocity(maxSpeed.x, body.getLinearVelocity().y);
-				spriteChanging.play();
-			}
 
 			// Debug 
 			if (G.debug){
-				font.draw(batch, 
+				G.debugFont.draw(batch, 
 						"grounded: " + this.isPlayerGrounded() +
 						"\nMaxSpeeed: " + this.maxSpeed +
-						"\nSpeed: " + this.body.getLinearVelocity(),
+						"\nSpeed: " + this.body.getLinearVelocity() +
+						"\nPos: " + this.body.getPosition(),
 						(x+0.5f) * G.world2pixel, (y+0.5f) * G.world2pixel);
 			}
 		}
@@ -165,6 +155,28 @@ public class Character implements Disposable{
 
 	}
 
+	public Character(World world){
+		G.log("New Character created;");
+		this.world = world;
+	}
+
+
+	public static Character createCharacter(G.CHAR charEnum, World world){
+		switch (charEnum){
+			case JAK:
+				return new Jak(world);
+			case ROZ:
+				return new Roz(world);
+			case IUL:
+				return new Iul(world);
+			case FIX:
+				return new Fix(world);
+			default:
+				return new Iul(world);
+		}
+	}
+
+
 
 	public void die(){
 	}
@@ -176,7 +188,7 @@ public class Character implements Disposable{
 		// Sprite 
 		spriteChanging.setList(punchList);
 		willChangeSprite = true;
-		timeLeftChangeSprite = punchList.size() * 0.1f;
+		timeLeftChangeSprite = TextureTime.getTime(punchList);
 		
 		// Body 
 		if (spriteChanging.isFlipX()){
@@ -192,7 +204,7 @@ public class Character implements Disposable{
 		// Sprite 
 		spriteChanging.setList(kickList);
 		willChangeSprite = true;
-		timeLeftChangeSprite = kickList.size() *  0.1f;
+		timeLeftChangeSprite = TextureTime.getTime(kickList);
 
 		// Body 
 		if (spriteChanging.isFlipX()){
@@ -466,12 +478,6 @@ public class Character implements Disposable{
 			punch();
 			return true;
 		}
-
-		if (keycode == Input.Keys.NUM_0){
-			G.debug = !G.debug;
-			return true;
-		}
-
 		return false; 
 	}
 

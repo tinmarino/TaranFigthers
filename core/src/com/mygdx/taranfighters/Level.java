@@ -117,10 +117,11 @@ public class Level implements Disposable{
 		charList.add(rat);
 	}
 
-	public void makeZombie(float x, float y){
+	public Zombie makeZombie(float x, float y){
 		Zombie zombie = new Zombie(world);
 		zombie.setPosition(x, y);
 		charList.add(zombie);
+		return zombie;
 	}
 
 

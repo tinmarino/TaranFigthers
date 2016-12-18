@@ -9,9 +9,10 @@ public class MainGdx extends Game {
 	@Override
 	public void create (){
 		Gdx.app.log("MainGdx:", "TaranFigthers Starting");
+		G.init();
 		G.game = this;
 		// screen = new ChooseScreen();
-		screen = new PlatformScreen(G.CHAR.IUL, G.LEVEL.L5);
+		screen = new PlatformScreen(G.CHAR.ROZ, G.LEVEL.L4);
 		screen.show();
 	}
 

@@ -28,6 +28,8 @@ public class G{
 
 
 	public static BitmapFont overFont;
+	public static BitmapFont debugFont;
+
 
 	public static void init(){
 		// OVER FONT 
@@ -35,6 +37,9 @@ public class G{
 		overFont.getData().setScale(1,1);
 		overFont.setColor(new Color(0x8A0707ff));
 
+		// DEBUG FONT
+		debugFont = new BitmapFont();
+		debugFont.setColor(Color.RED);
 	}
 
 	public static void dispose(){
