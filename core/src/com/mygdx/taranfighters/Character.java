@@ -49,7 +49,8 @@ public class Character implements Disposable{
 
 	boolean isKicking=false;
 	boolean isPunching=false;
-	boolean isJumping=false;
+	boolean isJumping=true;
+	boolean isDoubleJumping=false;
 	boolean isWalking=false;
 	boolean isDying = false, isDead = false;
 
@@ -128,8 +129,15 @@ public class Character implements Disposable{
 						"grounded: " + this.isPlayerGrounded() +
 						"\nMaxSpeeed: " + this.maxSpeed +
 						"\nSpeed: " + this.body.getLinearVelocity() +
+						"\nJump: " + this.isJumping +
+						"\nDJump: " + this.isDoubleJumping +
 						"\nPos: " + this.body.getPosition(),
 						(x+0.5f) * G.world2pixel, (y+0.5f) * G.world2pixel);
+			}
+
+			// MAnage double jump 
+			if (isPlayerGrounded()){
+				isDoubleJumping = false;
 			}
 		}
 
@@ -231,6 +239,11 @@ public class Character implements Disposable{
 	}
 
 	public void jump(){
+		if (this.isJumping){
+			if (this.isDoubleJumping){return;}
+			this.isDoubleJumping = true;
+		}
+		this.isJumping = true;
 		body.applyForceToCenter(0, 1000, true);
 	}
 
@@ -275,7 +288,7 @@ public class Character implements Disposable{
 				return;
 			}
 			G.log("Character : I kick his ass ");
-			otherBody.applyForceToCenter(0 ,1000, true);
+			otherBody.applyForceToCenter(500 , 2000, true);
 			// dye 
 			if (otherBody.getUserData() instanceof Character){
 				((Character) otherBody.getUserData()).die();

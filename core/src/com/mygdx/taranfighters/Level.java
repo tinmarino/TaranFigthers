@@ -109,13 +109,10 @@ public class Level implements Disposable{
 		MapBodyBuilder.buildShapes(tiledMap, tilePixelWidth, world);
 		G.log("Level I loaded map " + mapString + " with tileSize = " + tilePixelWidth);
 		G.world2pixel = tilePixelWidth;
-		
-		// createRat for debug
-		makeRat(3, 2);
-		makeRat(6, 3);
 	}
 
 
+	// TODO use it !!
 	public void makeRat(float x, float y){
 		Rat rat = new Rat(world);
 		rat.setPosition(x, y);

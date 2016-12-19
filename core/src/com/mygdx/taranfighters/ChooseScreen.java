@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -23,9 +24,10 @@ public class ChooseScreen implements Screen {
 	ArrayList<Disposable> disposableList = new ArrayList<Disposable>();
 	Stage stage;
 	Table table;
+	Music music;
 	EscapeDialog escapeDialog;
 
-	G.CHAR[] arr = {G.CHAR.JAK, G.CHAR.ROZ, G.CHAR.IUL, G.CHAR.FIX}; 
+	G.CHAR[] arr = {G.CHAR.JAK, G.CHAR.ROZ, G.CHAR.IUL, G.CHAR.TIN, G.CHAR.FIX}; 
 	FitViewport fitViewport;
 
 
@@ -33,6 +35,7 @@ public class ChooseScreen implements Screen {
 	public void dispose(){
 		G.disposeW(escapeDialog);
 		G.disposeW(stage);
+		G.disposeW(music);
 		for (Disposable i : disposableList){
 			G.disposeW(i);
 		}
@@ -41,6 +44,11 @@ public class ChooseScreen implements Screen {
 
 	@Override
 	public void show() {
+		// Music
+		music = G.music("music/sound/taran_fighters.mp3"); 
+		music.play();
+
+		// Stage
 		fitViewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		stage = new Stage(fitViewport);
 		Gdx.input.setInputProcessor(stage);
@@ -73,6 +81,9 @@ public class ChooseScreen implements Screen {
 					break;
 				case IUL:
 					charString = "iul/iul_id.png";
+					break;
+				case TIN:
+					charString = "tin/tin_id.png";
 					break;
 				case FIX:
 					charString = "fix/fix_id.png";
@@ -109,6 +120,18 @@ public class ChooseScreen implements Screen {
 						break;
 					case L4:
 						levelString = "map/screenshot/plage1.png";
+						break;
+					case L5:
+						levelString = "map/screenshot/freefall2.png";
+						break;
+					case L6:
+						levelString = "map/screenshot/sinai1.png";
+						break;
+					case L7:
+						levelString = "img/door/door_closed.png";
+						break;
+					case L8:
+						levelString = "img/door/door_closed.png";
 						break;
 					default:
 						levelString = "img/door/door_closed.png";

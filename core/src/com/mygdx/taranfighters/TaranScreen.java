@@ -50,8 +50,8 @@ public class TaranScreen implements Screen, InputProcessor {
 		camera = new OrthographicCamera();
 		camera.position.x = 0;
 		camera.position.y = 0;
-		camera.viewportWidth = 12 * G.world2pixel;
-		camera.viewportHeight = 8 * G.world2pixel;
+		camera.viewportWidth = 9 * G.world2pixel;
+		camera.viewportHeight = 6 * G.world2pixel;
 
 		HUDMatrix = new Matrix4();
  	  	HUDMatrix.setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -168,19 +168,24 @@ public class TaranScreen implements Screen, InputProcessor {
 			case Input.Keys.NUMPAD_8:
 				level.tiledMap.getLayers().get(0).setVisible(!level.tiledMap.getLayers().get(0).isVisible());
 				return true;
-			case Input.Keys.NUMPAD_9:
+
+			case Input.Keys.NUMPAD_7:
 				level.tiledMap.getLayers().get(1).setVisible(!level.tiledMap.getLayers().get(1).isVisible());
 				return true;
+
 			case Input.Keys.A:
 				G.log("CombatScreen Changing to JacOverScreen");
 				G.game.setScreen(new JakOverScreen());
 				return true;
-			case Input.Keys.NUMPAD_0:
+
+			case Input.Keys.NUMPAD_9:
 				G.debug = !G.debug;
 				return true;
+
 			case Input.Keys.NUMPAD_1:
-				this.char1.maxSpeed = new Vector2(100, 20);
+				this.char1.maxSpeed = new Vector2(40, 20);
 				return true;
+
 			case Input.Keys.NUMPAD_2:
 				this.char1.maxSpeed = this.char1.defaultMaxSpeed;
 				return true;

@@ -12,7 +12,8 @@ public class LevelPlatform2 extends Level {
 
 	public LevelPlatform2(World world) {
 		super("map/platformer2.tmx", world);
-
+		music_quote = G.music("music/quote/appear.mp3");
+		music = G.music("music/battle_theme_a.mp3");
 
 
 

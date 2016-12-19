@@ -54,18 +54,28 @@ public class Tin extends Character {
 
 		// Kick list 
 		kickList = new ArrayList<TextureTime>();
-		kickList.add(new TextureTime( "tin/tin_kick1.png" , 0.05f ));
-		kickList.add(new TextureTime( "tin/tin_kick2.png" , 0.05f ));
-		kickList.add(new TextureTime( "tin/tin_kick3.png" , 0.05f ));
-		kickList.add(new TextureTime( "tin/tin_kick4.png" , 0.05f ));
-		kickList.add(new TextureTime( "tin/tin_kick5.png" , 0.05f ));
-		kickList.add(new TextureTime( "tin/tin_kick6.png" , 0.05f ));
-		kickList.add(new TextureTime( "tin/tin_kick7.png" , 0.05f ));
-		kickList.add(new TextureTime( "tin/tin_kick8.png" , 0.05f ));
-		kickList.add(new TextureTime( "tin/tin_kick9.png" , 0.05f ));
+		kickList.add(new TextureTime( "tin/tin_kick1.png" , 0.07f ));
+		kickList.add(new TextureTime( "tin/tin_kick2.png" , 0.07f ));
+		kickList.add(new TextureTime( "tin/tin_kick3.png" , 0.07f ));
+		kickList.add(new TextureTime( "tin/tin_kick4.png" , 0.07f ));
+		kickList.add(new TextureTime( "tin/tin_kick5.png" , 0.07f ));
+		kickList.add(new TextureTime( "tin/tin_kick6.png" , 0.07f ));
+		kickList.add(new TextureTime( "tin/tin_kick7.png" , 0.07f ));
+		kickList.add(new TextureTime( "tin/tin_kick8.png" , 0.07f ));
+		kickList.add(new TextureTime( "tin/tin_kick9.png" , 0.07f ));
 
 		// Punch list
 		punchList = new ArrayList<TextureTime>();
+		punchList.add(new TextureTime( "tin/tin_walk1.png" , 0.05f ));
+		punchList.add(new TextureTime( "tin/tin_walk2.png" , 0.05f ));
+		punchList.add(new TextureTime( "tin/tin_walk3.png" , 0.05f ));
+		punchList.add(new TextureTime( "tin/tin_walk4.png" , 0.05f ));
+		punchList.add(new TextureTime( "tin/tin_walk5.png" , 0.05f ));
+		punchList.add(new TextureTime( "tin/tin_walk5.png" , 0.05f ));
+		punchList.add(new TextureTime( "tin/tin_walk4.png" , 0.05f ));
+		punchList.add(new TextureTime( "tin/tin_walk3.png" , 0.05f ));
+		punchList.add(new TextureTime( "tin/tin_walk2.png" , 0.05f ));
+		punchList.add(new TextureTime( "tin/tin_walk1.png" , 0.05f ));
 
 
 		spriteChanging = new SpriteChanging(size);
