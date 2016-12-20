@@ -39,7 +39,7 @@ public class Character implements Disposable{
 	// Optional
 	public float x=2 ,y=0;
 	public float size = 1.6f; 
-	public Vector2 maxSpeed = new Vector2(4f, 9f); // WRNING DEfault values
+	public Vector2 maxSpeed = new Vector2(4f, 13f); // WRNING DEfault values
 	public Vector2 defaultMaxSpeed = maxSpeed;
 	public Vector2 spriteOffset = new Vector2(-size, -size * 0.65f);
 

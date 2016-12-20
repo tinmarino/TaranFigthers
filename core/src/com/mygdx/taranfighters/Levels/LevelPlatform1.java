@@ -15,7 +15,7 @@ public class LevelPlatform1 extends Level {
 
 	public boolean isLevelFinished(Character char1){
 		// Victory 
-		boolean victory = char1.x > 30;
+		boolean victory = char1.x > 1000;
 		if (victory){
 			this.finishedEnum = FINISHED.VICTORY;
 			return true;
@@ -29,6 +29,7 @@ public class LevelPlatform1 extends Level {
 		}
 		return false;
 	}
+
 
 	public LevelPlatform1(World world) {
 		super("map/platformer1.tmx", world);
