@@ -19,8 +19,6 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.WorldManifold;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
 public class Character implements Disposable{
@@ -40,10 +38,10 @@ public class Character implements Disposable{
 
 	// Optional
 	public float x=2 ,y=0;
-	public float size=2; 
-	public Vector2 maxSpeed = new Vector2(1f, 6f); // WRNING DEfault values
+	public float size = 1.6f; 
+	public Vector2 maxSpeed = new Vector2(4f, 9f); // WRNING DEfault values
 	public Vector2 defaultMaxSpeed = maxSpeed;
-	public Vector2 spriteOffset = new Vector2(-size/2, -1f/4 *size);	// WARNING default values 
+	public Vector2 spriteOffset = new Vector2(-size, -size * 0.65f);
 
 	public boolean willChangeSprite;
 	public float timeLeftChangeSprite;
@@ -105,14 +103,18 @@ public class Character implements Disposable{
 			// For humans 
 			Vector2 vel = this.body.getLinearVelocity();
 			if (playerNumber == 1){
-				if (this.isPressingLeft()  && vel.x > -0.99f* maxSpeed.x){
-					body.setLinearVelocity(-maxSpeed.x, body.getLinearVelocity().y);
+				if (this.isPressingLeft()){
 					spriteChanging.play();
+					if (vel.x > -0.99f* maxSpeed.x){
+						body.setLinearVelocity(-maxSpeed.x, body.getLinearVelocity().y);
+					}
 				}
 
-				if (this.isPressingRight() && vel.x < 0.99f * maxSpeed.x){
-					body.setLinearVelocity(maxSpeed.x, body.getLinearVelocity().y);
+				if (this.isPressingRight()){
 					spriteChanging.play();
+					if (vel.x < 0.99f * maxSpeed.x){
+						body.setLinearVelocity(maxSpeed.x, body.getLinearVelocity().y);
+					}
 				}
 			}
 			// For zombie
@@ -428,7 +430,10 @@ public class Character implements Disposable{
 	public boolean keyUp(int keycode){
         if(keycode == Input.Keys.RIGHT || keycode == Input.Keys.LEFT)
 		{
-			this.isWalking = false;
+			// if no both buttons
+			if ((!isPressingLeft()) && (!isPressingRight())){
+				stopWalking();
+			}
 
 			Vector2 vel = body.getLinearVelocity();
 			vel.x = 0;
@@ -437,14 +442,21 @@ public class Character implements Disposable{
 			if (isJumping || isKicking || isPunching){
 				return true;
 			}
+			stopWalking();
 
-			spriteChanging.pause();
 			return true;
 		}
 
 		return false;
 
 
+	}
+
+	public void stopWalking(){
+		if (spriteChanging.currentList == walkList){
+			spriteChanging.pause();
+		}
+		this.isWalking = false;
 	}
 
 

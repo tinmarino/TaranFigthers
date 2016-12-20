@@ -6,7 +6,6 @@ package com.mygdx.taranfighters;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Tin extends Character {
@@ -20,14 +19,7 @@ public class Tin extends Character {
 
 	public void init(){
 		G.log("Tin comes in the fight");
-		x = 2;
-		y = 3f;
 		music_name = G.music("music/char/tin_sound.mp3");
-
-		size = 1.6f;
-		defaultMaxSpeed = new Vector2(4f, 9f);
-		maxSpeed = defaultMaxSpeed;
-		spriteOffset = new Vector2(-size, -size * 0.65f);
 
 		// Body and fixtures 
 		createBody();
@@ -66,16 +58,16 @@ public class Tin extends Character {
 
 		// Punch list
 		punchList = new ArrayList<TextureTime>();
-		punchList.add(new TextureTime( "tin/tin_walk1.png" , 0.05f ));
-		punchList.add(new TextureTime( "tin/tin_walk2.png" , 0.05f ));
-		punchList.add(new TextureTime( "tin/tin_walk3.png" , 0.05f ));
-		punchList.add(new TextureTime( "tin/tin_walk4.png" , 0.05f ));
-		punchList.add(new TextureTime( "tin/tin_walk5.png" , 0.05f ));
-		punchList.add(new TextureTime( "tin/tin_walk5.png" , 0.05f ));
-		punchList.add(new TextureTime( "tin/tin_walk4.png" , 0.05f ));
-		punchList.add(new TextureTime( "tin/tin_walk3.png" , 0.05f ));
-		punchList.add(new TextureTime( "tin/tin_walk2.png" , 0.05f ));
-		punchList.add(new TextureTime( "tin/tin_walk1.png" , 0.05f ));
+		punchList.add(new TextureTime( "tin/tin_punch1.png" , 0.05f ));
+		punchList.add(new TextureTime( "tin/tin_punch2.png" , 0.05f ));
+		punchList.add(new TextureTime( "tin/tin_punch3.png" , 0.05f ));
+		punchList.add(new TextureTime( "tin/tin_punch4.png" , 0.05f ));
+		punchList.add(new TextureTime( "tin/tin_punch5.png" , 0.05f ));
+		punchList.add(new TextureTime( "tin/tin_punch5.png" , 0.05f ));
+		punchList.add(new TextureTime( "tin/tin_punch4.png" , 0.05f ));
+		punchList.add(new TextureTime( "tin/tin_punch3.png" , 0.05f ));
+		punchList.add(new TextureTime( "tin/tin_punch2.png" , 0.05f ));
+		punchList.add(new TextureTime( "tin/tin_punch1.png" , 0.05f ));
 
 
 		spriteChanging = new SpriteChanging(size);

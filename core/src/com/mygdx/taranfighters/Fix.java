@@ -2,7 +2,6 @@ package com.mygdx.taranfighters;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Fix extends Character {
@@ -16,13 +15,6 @@ public class Fix extends Character {
 	public void init(){
 		G.log("Fix comes in the fight");
 		music_name = G.music("music/char/fix_sound.mp3");
-		x = 2;
-		y = 3f;
-
-		size = 1.6f;
-		defaultMaxSpeed = new Vector2(4f, 9f);
-		maxSpeed = defaultMaxSpeed;
-		spriteOffset = new Vector2(-size, -size * 0.65f);
 
 		// Body and fixtures 
 		createBody();

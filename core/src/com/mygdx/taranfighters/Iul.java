@@ -26,31 +26,36 @@ public class Iul extends Character{
 	public void draw(SpriteBatch batch, float delta){
 		super.draw(batch, delta);
 
+		Vector2 vel = this.body.getLinearVelocity();
 		if (isPunching){
+
+			// force key pushed 
+			if (vel.x > -0.99f* maxSpeed.x){
+				body.setLinearVelocity(-maxSpeed.x, body.getLinearVelocity().y);
+				spriteChanging.play();
+			}
+			if (vel.x < 0.99f * maxSpeed.x){
+				body.setLinearVelocity(maxSpeed.x, body.getLinearVelocity().y);
+				spriteChanging.play();
+			}
+
+			// accelerate like bitch
 			if (spriteChanging.isFlipX()){
 				if(body.getLinearVelocity().x > -0.8f * maxSpeed.x){
 					body.applyForceToCenter(-1000, 0, true);
 				}
 			}
-			else{ 
-				if ( body.getLinearVelocity().x < 0.8f * maxSpeed.x){
-					body.applyForceToCenter(1000, 0, true);
-				}
+			else if ( body.getLinearVelocity().x < 0.8f * maxSpeed.x){
+				body.applyForceToCenter(1000, 0, true);
 			}
-		}
 
+		}
 	}
 
 	public void init(){
 		G.log("Iul Initing");
 		// variables 
 		music_name = G.music("music/char/iul_sound.mp3");
-		x = 2;
-		y = 3f; 
-		size = 1.6f;
-		defaultMaxSpeed = new Vector2(4f, 9f);
-		maxSpeed = defaultMaxSpeed;
-		spriteOffset = new Vector2(-size, -size * 0.65f);
 	
 		// Body 
 		createBody();
@@ -98,6 +103,12 @@ public class Iul extends Character{
 	public void punch(){
 		super.punch();
 		maxSpeed = new Vector2(1.7f * defaultMaxSpeed.x, defaultMaxSpeed.y);
+	}
+
+	@Override 
+	public void walk(int side){
+		if (isPunching){return;}
+		super.walk(side);
 	}
 
 

@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SpriteChanging extends Sprite{
-	private ArrayList<TextureTime> currentList = new ArrayList<TextureTime>();
+	public ArrayList<TextureTime> currentList = new ArrayList<TextureTime>();
 	public int currentIndex = 0;
 	public float time = 0;
 	public boolean onPause = false;

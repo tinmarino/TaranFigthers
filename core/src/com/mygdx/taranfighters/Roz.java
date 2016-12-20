@@ -2,7 +2,6 @@ package com.mygdx.taranfighters;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Roz extends Character {
@@ -16,14 +15,7 @@ public class Roz extends Character {
 
 	public void init(){
 		G.log("Roz comes in the fight");
-		x = 2;
-		y = 3f;
 		music_name = G.music("music/char/roz_sound.mp3");
-
-		size = 1.6f;
-		defaultMaxSpeed = new Vector2(4f, 9f);
-		maxSpeed = defaultMaxSpeed;
-		spriteOffset = new Vector2(-size, -size * 0.65f);
 
 		// Body and fixtures 
 		createBody();
