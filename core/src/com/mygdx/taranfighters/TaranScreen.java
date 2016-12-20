@@ -191,6 +191,7 @@ public class TaranScreen implements Screen, InputProcessor {
 				return true;
 
 			case Input.Keys.ESCAPE:
+			case Input.Keys.BACK:
 				G.log("TaranScreen : escape dialog called");
 
 				FitViewport fitViewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

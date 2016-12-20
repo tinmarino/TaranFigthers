@@ -11,6 +11,7 @@ public class MainGdx extends Game {
 		Gdx.app.log("MainGdx:", "TaranFigthers Starting");
 		G.init();
 		G.game = this;
+		Gdx.input.setCatchBackKey(true);
 		screen = new ChooseScreen();
 		//screen = new PlatformScreen(G.CHAR.TIN, G.LEVEL.L6);
 		screen.show();

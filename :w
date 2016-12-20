@@ -1,5 +1,6 @@
 package com.mygdx.taranfighters;
 
+import java.util.ArrayList;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Json;
 
@@ -22,7 +24,7 @@ public class G{
 	public static int velocity_iterations = 8;
 	public static int position_iterations = 3;
 	public static float world2pixel = 128;
-	public static boolean debug = false;
+	public static boolean debug = true;
 
 
 	public enum CHAR{JAK, ROZ, IUL, FIX, TIN}
@@ -93,17 +95,20 @@ public class G{
      	Preferences preferences = Gdx.app.getPreferences("v1"); // v1 for version 1 
 		if (preferences.get().containsKey("jsonKey1")) {
 			String sToLoad = preferences.getString("jsonKey1");
-			preferenceSaved = json.fromJson(PreferenceSaved.class, sToLoad );
+			preferenceSaved = json.fromJson(G.PreferenceSaved.class, sToLoad );
 			G.log("TBF Global.readPref : " + json.prettyPrint(preferenceSaved));
 		}
 		else{
 			G.log("TBF Global.readPref : NULL !!! ");
-			preferenceSaved = new PreferenceSaved();
+			preferenceSaved = G.new PreferenceSaved();
 		}
 	}
 
 
+	public class PreferenceSaved{
+		ArrayList<ArrayList<String>> charLevelList = new ArrayList<ArrayList<String>>();
+	}
+
 
 }
-
 

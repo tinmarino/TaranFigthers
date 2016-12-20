@@ -67,6 +67,10 @@ public class Character implements Disposable{
 	Shape toDisposeShape;
 
 
+
+
+
+
 	public void draw(SpriteBatch batch, float delta){
 		// Dye ?
 		if (isDying){
@@ -97,19 +101,20 @@ public class Character implements Disposable{
 		{
 			// Body Velocity  + defreezze
 			scaleVelocity(maxSpeed);
-			// Not for zombie
+			// For humans 
 			Vector2 vel = this.body.getLinearVelocity();
 			if (playerNumber == 1){
-				if (Gdx.input.isKeyPressed(Keys.LEFT)  && vel.x > -0.99f* maxSpeed.x){
+				if (this.isPressingLeft()  && vel.x > -0.99f* maxSpeed.x){
 					body.setLinearVelocity(-maxSpeed.x, body.getLinearVelocity().y);
 					spriteChanging.play();
 				}
 
-				if (Gdx.input.isKeyPressed(Keys.RIGHT)  && vel.x < 0.99f * maxSpeed.x){
+				if (this.isPressingRight() && vel.x < 0.99f * maxSpeed.x){
 					body.setLinearVelocity(maxSpeed.x, body.getLinearVelocity().y);
 					spriteChanging.play();
 				}
 			}
+			// For zombie
 			if (playerNumber == 10){
 				if (((Zombie) this).direction == -1  && vel.x > -0.99f* maxSpeed.x){
 					body.setLinearVelocity(-maxSpeed.x, body.getLinearVelocity().y);
@@ -496,7 +501,8 @@ public class Character implements Disposable{
 		return false; 
 	}
 
-	// Currently just for one player
+	// Currently just for one player,
+	// Warning change also isPressingLeft 
 	public boolean touchDown (int screenX, int screenY, int pointer, int button){
 		int width = Gdx.graphics.getWidth();
 		int height = Gdx.graphics.getHeight();
@@ -531,7 +537,35 @@ public class Character implements Disposable{
 		return true;
 	}
 
-	
+	public boolean isPressingLeft(){
+		int width = Gdx.graphics.getWidth();
+		
+		if (Gdx.input.isKeyPressed(Keys.LEFT)){
+			return true;
+		}
+		if (Gdx.input.isTouched()){
+			int screenX = Gdx.input.getX();
+			if (screenX < width / 4){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isPressingRight(){
+		int width = Gdx.graphics.getWidth();
+		
+		if (Gdx.input.isKeyPressed(Keys.RIGHT)){
+			return true;
+		}
+		if (Gdx.input.isTouched()){
+			int screenX = Gdx.input.getX();
+			if (screenX < width / 2 && screenX > width/4){
+				return true;
+			}
+		}
+		return false;
+	}
 
 	@Override
 	public void dispose() {

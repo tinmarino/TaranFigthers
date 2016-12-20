@@ -6,7 +6,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -48,8 +50,9 @@ public class ChooseScreen implements Screen {
 		music = G.music("music/sound/taran_fighters.mp3"); 
 		music.play();
 
-		// Stage
-		fitViewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		// Stage in pixel units so constant on any screen 
+		// The viewport is the size of the object not the screen
+		fitViewport = new FitViewport(3*480, 3*320);
 		stage = new Stage(fitViewport);
 		Gdx.input.setInputProcessor(stage);
 
@@ -59,7 +62,7 @@ public class ChooseScreen implements Screen {
 			public boolean keyDown (InputEvent event, int keycode) {
 				super.keyDown(event, keycode);
 				G.log("Choose screen press " + keycode);
-				if (keycode != Input.Keys.ESCAPE){return false;}
+				if (keycode != Input.Keys.ESCAPE && keycode != Input.Keys.BACK){return false;}
 				escapeDialog = new EscapeDialog();
 				escapeDialog.show(stage);
 				G.log("Choose screen press esc ");
@@ -68,6 +71,7 @@ public class ChooseScreen implements Screen {
 		});
 
 		table = new Table();
+		table.setHeight(Math.max(500, Gdx.graphics.getWidth()));
 
 
 		for (final G.CHAR charEnum : arr){
