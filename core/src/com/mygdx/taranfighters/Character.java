@@ -252,34 +252,6 @@ public class Character implements Disposable{
 	}
 
 
-	// Stolen from Mario 
-	// TODO remove 
-	private boolean isPlayerGrounded() {				
-		Array<Contact> contactList = world.getContactList();
-		for(int i = 0; i < contactList.size; i++) {
-			Contact contact = contactList.get(i);
-			if(contact.isTouching()){
-			    if (contact.getFixtureA().getBody() == body ||
-			  	contact.getFixtureB().getBody() == body) {				
-					G.log("Contact " + contact.getFixtureA() + " " + contact.getFixtureB());
-					G.log("player fixture " + bottomFixture);
-					Vector2 pos = body.getPosition();
-					WorldManifold manifold = contact.getWorldManifold();
-					boolean below = true;
-					for (int j = 0; j < manifold.getNumberOfContactPoints(); j++) {
-						below &= (manifold.getPoints()[j].y < pos.y - 1.5f);
-					}
-					if (contact.getFixtureA() == this.bottomFixture
-					|| contact.getFixtureB() == this.bottomFixture){
-						return true;
-					}
-					return false;
-				}
-			}
-		}
-		return false;
-	}
-
 
 	public void manageContact(Contact contact){
 		Body otherBody;
