@@ -119,15 +119,6 @@ public class TaranScreen implements Screen, InputProcessor {
 			batch.end();
 		}
 
-		// isFinished ?
-		if (level.isLevelFinished(char1)){
-			if (level.finishedEnum == Level.FINISHED.GAMEOVER){
-				G.game.setScreen(new JakOverScreen());
-			}
-			if (level.finishedEnum == Level.FINISHED.VICTORY){
-				G.game.setScreen(new ChooseScreen());
-			}
-		}
 
 	}
 

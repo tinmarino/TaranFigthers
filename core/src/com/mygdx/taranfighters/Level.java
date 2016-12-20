@@ -70,13 +70,19 @@ public class Level implements Disposable{
 				level.music_num = G.music("music/num/6six.mp3");
 				return level;
 			default:
-				level = new LevelPlatform1(world);
-				level.music_num = G.music("music/num/1one.mp3");
-				return level;
+				//level = new LevelPlatform1(world);
+				//level.music_num = G.music("music/num/1one.mp3");
+				return null;
 		}
 	}
 
 	public boolean isLevelFinished(Character char1){
+		// Victory 
+		boolean victory = char1.x > 10;
+		if (victory){
+			this.finishedEnum = FINISHED.VICTORY;
+			return true;
+		}
 		return false;
 	}
 

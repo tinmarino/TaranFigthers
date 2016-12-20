@@ -90,6 +90,11 @@ public class PlatformScreen extends TaranScreen{
 	@Override 
 	public void render(float delta){
 		super.render(delta);
+
+		// isFinished ?
+		if (level.isLevelFinished(char1)){
+			G.finish(level.finishedEnum, charEnum, levelEnum);
+		}
 	}
 
 

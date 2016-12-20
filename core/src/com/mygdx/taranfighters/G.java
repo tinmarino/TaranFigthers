@@ -1,6 +1,9 @@
 package com.mygdx.taranfighters;
 
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
@@ -27,7 +30,8 @@ public class G{
 
 	public enum CHAR{JAK, ROZ, IUL, FIX, TIN}
 
-	public enum LEVEL{L1, L2, L3, L4, L5, L6, L7, L8, L9, L10}
+	// ChooseScreen + Level + create new file ThisLevel
+	public enum LEVEL{L1, L2, L3, L4, L5, L6}
 
 
 	public static BitmapFont overFont;
@@ -101,6 +105,44 @@ public class G{
 		else{
 			G.log("TBF Global.readPref : NULL !!! ");
 			preferenceSaved = new PreferenceSaved();
+		}
+	}
+
+
+	// locked, open, finished, prefered
+	public static void finish(Level.FINISHED eFinish, CHAR eChar, LEVEL eLevel){
+		if (eFinish == Level.FINISHED.GAMEOVER){
+			G.game.setScreen(new JakOverScreen());
+		}
+		if (eFinish == Level.FINISHED.VICTORY){
+			G.preferenceSaved.charLevelList.get(eChar.ordinal()).set(eLevel.ordinal(), "finished");
+
+			// Open all current level 
+			for (ArrayList<String> equiChar : G.preferenceSaved.charLevelList){
+				if (equiChar.get(eLevel.ordinal()) == "locked"){
+					equiChar.set(eLevel.ordinal(), "open");
+				}
+			}
+
+			// If not opened yet, 
+			if (eLevel.ordinal()+2 < G.preferenceSaved.charLevelList.get(0).size()){
+				boolean isOtherLevelOpened = false;
+				for (ArrayList<String> equiChar : G.preferenceSaved.charLevelList){
+					if (equiChar.get(eLevel.ordinal()+1) != "locked"){
+						isOtherLevelOpened=true;
+					}
+				}
+				// open a random one 
+				if(!isOtherLevelOpened){
+					G.log("is taht open " + isOtherLevelOpened);
+					Random random = new Random();
+					int iChar = random.nextInt(CHAR.values().length);
+					G.preferenceSaved.charLevelList.get(iChar).set(eLevel.ordinal()+1, "open");
+				}
+			}
+
+			// Change screen 
+			G.game.setScreen(new ChooseScreen());
 		}
 	}
 

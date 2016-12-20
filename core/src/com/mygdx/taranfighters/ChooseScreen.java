@@ -6,9 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,7 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 
 public class ChooseScreen implements Screen {
@@ -30,7 +29,7 @@ public class ChooseScreen implements Screen {
 	EscapeDialog escapeDialog;
 
 	G.CHAR[] arr = {G.CHAR.JAK, G.CHAR.ROZ, G.CHAR.IUL, G.CHAR.TIN, G.CHAR.FIX}; 
-	FitViewport fitViewport;
+	Viewport fitViewport;
 
 
 	@Override
@@ -52,7 +51,7 @@ public class ChooseScreen implements Screen {
 
 		// Stage in pixel units so constant on any screen 
 		// The viewport is the size of the object not the screen
-		fitViewport = new FitViewport(3*480, 3*320);
+		fitViewport = new FillViewport(3*480, 3*320);
 		stage = new Stage(fitViewport);
 		Gdx.input.setInputProcessor(stage);
 
@@ -130,12 +129,6 @@ public class ChooseScreen implements Screen {
 						break;
 					case L6:
 						levelString = "map/screenshot/sinai1.png";
-						break;
-					case L7:
-						levelString = "img/door/door_closed.png";
-						break;
-					case L8:
-						levelString = "img/door/door_closed.png";
 						break;
 					default:
 						levelString = "img/door/door_closed.png";

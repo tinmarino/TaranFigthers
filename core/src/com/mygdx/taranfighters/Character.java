@@ -268,6 +268,7 @@ public class Character implements Disposable{
 			return; 
 		}
 
+		// Reset jumps
 		if (thisFixture == bottomFixture){
 			isDoubleJumping = false;
 			isJumping = false;
