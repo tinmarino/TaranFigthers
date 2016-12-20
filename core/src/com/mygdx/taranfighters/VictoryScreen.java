@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 
 
-public class JakOverScreen implements Screen, InputProcessor {
+public class VictoryScreen implements Screen, InputProcessor {
 	TextureAtlas atlas;
 	Animation animation;
 	float elapsedTime;
@@ -28,14 +28,14 @@ public class JakOverScreen implements Screen, InputProcessor {
         batch = new SpriteBatch();
 
 		// Video 
-		atlas = new TextureAtlas(Gdx.files.internal("video/over/jac_over360_4.atlas"));
-		animation = new Animation(0.05f, atlas.getRegions());
+		atlas = new TextureAtlas(Gdx.files.internal("video/victory/victory.atlas"));
+		animation = new Animation(0.1f, atlas.getRegions());
 
 		// Blood
 		texture = new Texture(Gdx.files.internal("img/blood1.png"));
 
 		// Music
-		music = G.music("music/sound/game_over.mp3");
+		music = G.music("music/sound/victory.mp3");
 		music.setLooping(false);
 	}
 
@@ -52,9 +52,9 @@ public class JakOverScreen implements Screen, InputProcessor {
 			TextureRegion region = animation.getKeyFrame(elapsedTime);
 			batch.draw(region, 0, 0 ,width, height);
 			// Animation finished ?
-			if (elapsedTime > 2.1f/ 2){
-				G.overFont.draw(batch, "Game Over!" , 1f/4  * width, 1f/2 * height);
-				batch.draw(texture, 0, 0, width, height);
+			if (elapsedTime > 1.4){
+				G.victoryFont.draw(batch, "Victory!" , 1.3f/4  * width, 1f/2 * height);
+				//batch.draw(texture, 0, 0, width, height);
 				if (!isMusicPlaying){
 					isMusicPlaying = true;
 					music.play();

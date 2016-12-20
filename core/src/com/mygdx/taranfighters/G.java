@@ -36,6 +36,7 @@ public class G{
 
 	public static BitmapFont overFont;
 	public static BitmapFont debugFont;
+	public static BitmapFont victoryFont;
 
 	public static PreferenceSaved preferenceSaved;
 
@@ -43,10 +44,16 @@ public class G{
 	public static void init(){
 		// PREF 
 		preferenceSaved = new PreferenceSaved();
+		
 		// OVER FONT 
 		overFont = new BitmapFont(Gdx.files.internal("font/zreak-nfi.fnt"));
 		overFont.getData().setScale(1,1);
 		overFont.setColor(new Color(0x8A0707ff));
+
+		// VICTORY FONT 
+		victoryFont = new BitmapFont(Gdx.files.internal("font/zreak-nfi.fnt"));
+		victoryFont.getData().setScale(1,1);
+		victoryFont.setColor(new Color(0x078A07FF));
 
 		// DEBUG FONT
 		debugFont = new BitmapFont();
@@ -55,6 +62,8 @@ public class G{
 
 	public static void dispose(){
 		overFont.dispose();
+		debugFont.dispose();
+		victoryFont.dispose();
 	}
 
 	public static boolean isBodyContact(Body body, Contact contact){
@@ -141,8 +150,10 @@ public class G{
 				}
 			}
 
+			// Save pref 
+			G.writePref();
 			// Change screen 
-			G.game.setScreen(new ChooseScreen());
+			G.game.setScreen(new VictoryScreen());
 		}
 	}
 
