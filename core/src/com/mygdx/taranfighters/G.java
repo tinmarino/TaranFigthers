@@ -37,6 +37,8 @@ public class G{
 
 
 	public static void init(){
+		// PREF 
+		preferenceSaved = new PreferenceSaved();
 		// OVER FONT 
 		overFont = new BitmapFont(Gdx.files.internal("font/zreak-nfi.fnt"));
 		overFont.getData().setScale(1,1);

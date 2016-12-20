@@ -21,7 +21,7 @@ import com.mygdx.taranfighters.Levels.LevelSinai;
 
 
 public class Level implements Disposable{
-	// To set 
+	// To set  + function isLevelFinished;
 	public Vector2 initialPosition = new Vector2(2, 5);
 	public G.LEVEL levelEnum = G.LEVEL.L1;
 	
@@ -29,6 +29,8 @@ public class Level implements Disposable{
 	public ArrayList<Character> charList = new ArrayList<Character>();
 	public ArrayList<Platform> platformList = new ArrayList<Platform>();
 	public ArrayList<Character> deadCharacter = new ArrayList<Character>();
+	public enum FINISHED{GAMEOVER, VICTORY, NO}
+	public FINISHED finishedEnum = FINISHED.NO;
 
 	// Disposables
 	World world;
@@ -72,6 +74,10 @@ public class Level implements Disposable{
 				level.music_num = G.music("music/num/1one.mp3");
 				return level;
 		}
+	}
+
+	public boolean isLevelFinished(Character char1){
+		return false;
 	}
 
 	public void draw(SpriteBatch batch, float delta){

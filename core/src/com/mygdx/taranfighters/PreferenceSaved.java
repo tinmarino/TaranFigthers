@@ -2,7 +2,7 @@ package com.mygdx.taranfighters;
 
 import java.util.ArrayList;
 
-// locked, open, finished
+// locked, open, finished, prefered
 public class PreferenceSaved{
 	ArrayList<ArrayList<String>> charLevelList = new ArrayList<ArrayList<String>>();
 

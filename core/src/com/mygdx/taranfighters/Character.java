@@ -19,6 +19,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -131,18 +132,12 @@ public class Character implements Disposable{
 			// Debug 
 			if (G.debug){
 				G.debugFont.draw(batch, 
-						"grounded: " + this.isPlayerGrounded() +
 						"\nMaxSpeeed: " + this.maxSpeed +
 						"\nSpeed: " + this.body.getLinearVelocity() +
 						"\nJump: " + this.isJumping +
 						"\nDJump: " + this.isDoubleJumping +
 						"\nPos: " + this.body.getPosition(),
 						(x+0.5f) * G.world2pixel, (y+0.5f) * G.world2pixel);
-			}
-
-			// MAnage double jump 
-			if (isPlayerGrounded()){
-				isDoubleJumping = false;
 			}
 		}
 
@@ -257,21 +252,6 @@ public class Character implements Disposable{
 	}
 
 
-	// Stolen from Mario 
-	private boolean isPlayerGrounded() {				
-		Array<Contact> contactList = world.getContactList();
-		for(int i = 0; i < contactList.size; i++) {
-			Contact contact = contactList.get(i);
-			if(contact.isTouching()){
-			    if (contact.getFixtureA().getBody() == body ||
-			   			contact.getFixtureB().getBody() == body) {				
-						return true;
-				}
-			}
-		}
-		return false;
-	}
-
 
 	public void manageContact(Contact contact){
 		Body otherBody;
@@ -286,6 +266,11 @@ public class Character implements Disposable{
 		}
 		else{
 			return; 
+		}
+
+		if (thisFixture == bottomFixture){
+			isDoubleJumping = false;
+			isJumping = false;
 		}
 
 		if (this.isKicking){
@@ -329,7 +314,7 @@ public class Character implements Disposable{
 
 	public Fixture createBottom(){
 		CircleShape circleShape = new CircleShape();
-		circleShape.setRadius(0.2f *size);
+		circleShape.setRadius(0.17f *size);
 		circleShape.setPosition(new Vector2(0, -0.4f *size));
 
 		FixtureDef fix = new FixtureDef();
@@ -337,9 +322,9 @@ public class Character implements Disposable{
 		fix.restitution = 0;
 		fix.friction = 1;
 
-		body.createFixture(fix);
+		Fixture fixture = body.createFixture(fix);
 		circleShape.dispose();
-		return null;
+		return fixture;
 	}
 
 	// BODY Utils calls createBottom

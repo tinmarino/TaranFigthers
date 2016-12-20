@@ -8,8 +8,27 @@ import com.mygdx.taranfighters.G;
 import com.mygdx.taranfighters.Level;
 import com.mygdx.taranfighters.Platform;
 import com.mygdx.taranfighters.Zombie;
+import com.mygdx.taranfighters.Character;
 
 public class LevelPlatform1 extends Level {
+
+
+	public boolean isLevelFinished(Character char1){
+		// Victory 
+		boolean victory = char1.x > 30;
+		if (victory){
+			this.finishedEnum = FINISHED.VICTORY;
+			return true;
+		}
+		// Defeat 
+		boolean defeat = false;
+		defeat |= char1.y < 0;
+		if (defeat){
+			this.finishedEnum = FINISHED.GAMEOVER;
+			return true;
+		}
+		return false;
+	}
 
 	public LevelPlatform1(World world) {
 		super("map/platformer1.tmx", world);
@@ -33,8 +52,6 @@ public class LevelPlatform1 extends Level {
 
 		Zombie zombie3 = makeZombie(272 + 0.5f, 7 + 7.75f);
 		zombie3.fromTo(267 + 0.5f, 276 + 0.5f);
-
-		
 	}
 
 }

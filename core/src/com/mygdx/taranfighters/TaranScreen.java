@@ -50,8 +50,8 @@ public class TaranScreen implements Screen, InputProcessor {
 		camera = new OrthographicCamera();
 		camera.position.x = 0;
 		camera.position.y = 0;
-		camera.viewportWidth = 9 * G.world2pixel;
-		camera.viewportHeight = 6 * G.world2pixel;
+		camera.viewportWidth =  480 * 3;
+		camera.viewportHeight = 320 * 3;
 
 		HUDMatrix = new Matrix4();
  	  	HUDMatrix.setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -117,6 +117,16 @@ public class TaranScreen implements Screen, InputProcessor {
 							0.5f * G.world2pixel,
 							0.5f * G.world2pixel);
 			batch.end();
+		}
+
+		// isFinished ?
+		if (level.isLevelFinished(char1)){
+			if (level.finishedEnum == Level.FINISHED.GAMEOVER){
+				G.game.setScreen(new JakOverScreen());
+			}
+			if (level.finishedEnum == Level.FINISHED.VICTORY){
+				G.game.setScreen(new ChooseScreen());
+			}
 		}
 
 	}

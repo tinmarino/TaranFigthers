@@ -141,6 +141,13 @@ public class ChooseScreen implements Screen {
 						levelString = "img/door/door_closed.png";
 						break;
 				}
+				String levelStateString = G.preferenceSaved.charLevelList.get(charEnum.ordinal()).get(levelEnum.ordinal());
+				if ("locked" == levelStateString){
+					levelString = "img/door/door_closed.png";
+				}
+				if ("open" == levelStateString){
+					levelString = "img/door/door_open.png";
+				}
 				Drawable drawable2 = PixmapFactory.drawableFromFile(levelString, disposableList);
 				ImageButton imageButton2 = new ImageButton(drawable2);
 				imageButton2.setSize(140, 180);
