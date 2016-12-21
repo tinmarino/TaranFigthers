@@ -13,6 +13,7 @@ import com.mygdx.taranfighters.Character;
 public class LevelPlatform1 extends Level {
 
 
+	@Override
 	public boolean isLevelFinished(Character char1){
 		// Victory 
 		boolean victory = char1.x > 296;

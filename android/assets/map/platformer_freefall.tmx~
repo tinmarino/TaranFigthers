@@ -4,7 +4,7 @@
   <image source="Atlas/platformer_deluxe_2space.png" width="916" height="938"/>
  </tileset>
  <tileset firstgid="157" name="night2100" tilewidth="70" tileheight="70" tilecount="330" columns="30">
-  <image source="Bck/night2100.png" width="2100" height="770"/>
+  <image source="../../../../../../../Res/TaranFighters/Background/night2100.png" width="2100" height="770"/>
  </tileset>
  <layer name="bck" width="30" height="1000">
   <data encoding="csv">

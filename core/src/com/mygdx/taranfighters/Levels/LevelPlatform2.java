@@ -7,9 +7,23 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.taranfighters.G;
 import com.mygdx.taranfighters.Level;
 import com.mygdx.taranfighters.Platform;
+import com.mygdx.taranfighters.Character;
 
 public class LevelPlatform2 extends Level {
 
+
+
+	@Override
+	public boolean isLevelFinished(Character char1){
+		// Victory 
+		boolean victory = char1.x > 27 && char1.y > -6 + 99.75f; 
+		if (victory){
+			this.finishedEnum = FINISHED.VICTORY;
+			return true;
+		}
+		return false;
+	}
+	
 	public LevelPlatform2(World world) {
 		super("map/platformer2.tmx", world);
 		music_quote = G.music("music/quote/appear.mp3");
