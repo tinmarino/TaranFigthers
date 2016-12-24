@@ -78,8 +78,7 @@ public class Level implements Disposable{
 
 	public boolean isLevelFinished(Character char1){
 		// Victory 
-		boolean victory = char1.x > 10;
-		victory = false;
+		boolean victory = false;
 		if (victory){
 			this.finishedEnum = FINISHED.VICTORY;
 			return true;

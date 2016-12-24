@@ -27,15 +27,17 @@ public class Zombie extends Character {
 
 	@Override
 	public void draw(SpriteBatch batch, float delta){
-		super.draw(batch, delta);
+		if (!isDead){
+			super.draw(batch, delta);
 
-		if (this.x < this.xmin){
-			direction = 1;
-			walk(direction);
-		}
-		else if (this.x > this.xmax){
-			direction = -1;
-			walk(direction);
+			if (this.x < this.xmin){
+				direction = 1;
+				walk(direction);
+			}
+			else if (this.x > this.xmax){
+				direction = -1;
+				walk(direction);
+			}
 		}
 	}
 

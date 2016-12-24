@@ -68,9 +68,9 @@ public class Iul extends Character{
 
 		// Walk list 
 		walkList = new ArrayList<TextureTime>();
-		walkList.add(new TextureTime( "iul/iul_walk1.png" , 0.3f ));
-		walkList.add(new TextureTime( "iul/iul_walk2.png" , 0.3f ));
-		walkList.add(new TextureTime( "iul/iul_walk3.png" , 0.3f ));
+		walkList.add(new TextureTime( "iul/iul_walk1.png" , 0.1f ));
+		walkList.add(new TextureTime( "iul/iul_walk2.png" , 0.1f ));
+		walkList.add(new TextureTime( "iul/iul_walk3.png" , 0.1f ));
 
 
 		// Kick list 

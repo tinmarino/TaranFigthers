@@ -11,7 +11,7 @@ public class LevelPlage extends Level {
 
 	public LevelPlage(World world) {
 		super("map/plage.tmx", world);
-		initialPosition = new Vector2(2, 13);
+		initialPosition = new Vector2(12, 23);
 	}
 
 	@Override
@@ -21,8 +21,8 @@ public class LevelPlage extends Level {
 		counterTime += delta;
 		if (counterTime > 5){
 			counterTime = 0;
-			Zombie zombie = makeZombie(7, 13);
-			zombie.fromTo(3, 12);
+			Zombie zombie = makeZombie(17, 23);
+			zombie.fromTo(13, 22);
 		}
 	}
 

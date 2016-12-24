@@ -2,10 +2,10 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-inoremap <C-Space> 
-inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
-inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
 inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
+inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
+inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
+inoremap <C-Space> 
 imap <Nul> <C-Space>
 inoremap <S-Down> :let tmp=getpos('.') :m+1 : call cursor(tmp[1]+1,tmp[2]) a
 inoremap <S-Up> :let tmp=getpos('.') :m-2 : call cursor(tmp[1]-1,tmp[2]) a
@@ -123,7 +123,7 @@ set undolevels=100000
 set updatetime=2000
 set wildcharm=26
 set wildmenu
-set window=53
+set window=52
 set nowritebackup
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
@@ -133,47 +133,47 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +15 core/src/com/mygdx/taranfighters/MainGdx.java
+badd +21 core/src/com/mygdx/taranfighters/MainGdx.java
 badd +13 core/src/com/mygdx/taranfighters/CombatScreen.java
 badd +19 .classpath
-badd +47 core/src/com/mygdx/taranfighters/Iul.java
-badd +462 core/src/com/mygdx/taranfighters/Character.java
-badd +23 core/src/com/mygdx/taranfighters/SpriteChanging.java
+badd +119 core/src/com/mygdx/taranfighters/Iul.java
+badd +28 core/src/com/mygdx/taranfighters/Character.java
+badd +22 core/src/com/mygdx/taranfighters/SpriteChanging.java
 badd +17 core/src/com/mygdx/taranfighters/TextureTime.java
 badd +19 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/Sprite.java
 badd +52 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/InputProcessor.java
 badd +85 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/Texture.java
-badd +33 core/src/com/mygdx/taranfighters/G.java
+badd +49 core/src/com/mygdx/taranfighters/G.java
 badd +16 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/TiledMapRenderer.java
 badd +55 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/renderers/OrthogonalTiledMapRenderer.java
 badd +65 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/renderers/BatchTiledMapRenderer.java
-badd +53 core/src/com/mygdx/taranfighters/Level.java
+badd +67 core/src/com/mygdx/taranfighters/Level.java
 badd +27 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/math/Vector2.java
 badd +54 core/src/com/mygdx/taranfighters/MapBodyBuilder.java
 badd +28 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/MapObjects.java
 badd +27 core/src/com/mygdx/taranfighters/Rat.java
 badd +14 todo
-badd +30 core/src/com/mygdx/taranfighters/JakOverScreen.java
+badd +1 core/src/com/mygdx/taranfighters/JakOverScreen.java
 badd +2 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/TextureAtlas.java
 badd +22 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/ApplicationAdapter.java
 badd +21 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/Color.java
-badd +19 desktop/src/com/mygdx/taranfighters/desktop/DesktopLauncher.java
+badd +22 desktop/src/com/mygdx/taranfighters/desktop/DesktopLauncher.java
 badd +15 html/src/com/mygdx/taranfighters/client/HtmlLauncher.java
 badd +98 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/SpriteBatch.java
-badd +13 core/src/com/mygdx/taranfighters/Jak.java
-badd +93 core/src/com/mygdx/taranfighters/PlatformScreen.java
-badd +175 core/src/com/mygdx/taranfighters/TaranScreen.java
+badd +40 core/src/com/mygdx/taranfighters/Jak.java
+badd +88 core/src/com/mygdx/taranfighters/PlatformScreen.java
+badd +30 core/src/com/mygdx/taranfighters/TaranScreen.java
 badd +14 .gitignore
 badd +43 core/src/com/mygdx/taranfighters/PixmapFactory.java
 badd +153 core/src/com/mygdx/taranfighters/Platform.java
-badd +15 core/src/com/mygdx/taranfighters/Levels/LevelPlatform2.java
-badd +34 core/src/com/mygdx/taranfighters/Levels/LevelPlatform1.java
-badd +18 core/src/com/mygdx/taranfighters/Fix.java
-badd +32 core/src/com/mygdx/taranfighters/ChooseScreen.java
+badd +20 core/src/com/mygdx/taranfighters/Levels/LevelPlatform2.java
+badd +22 core/src/com/mygdx/taranfighters/Levels/LevelPlatform1.java
+badd +29 core/src/com/mygdx/taranfighters/Fix.java
+badd +55 core/src/com/mygdx/taranfighters/ChooseScreen.java
 badd +101 core/src/com/mygdx/taranfighters/EscapeDialog.java
 badd +23 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/scenes/scene2d/utils/ClickListener.java
 badd +136 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/scenes/scene2d/InputListener.java
-badd +1 core/src/com/mygdx/taranfighters/Roz.java
+badd +20 core/src/com/mygdx/taranfighters/Roz.java
 badd +24 android/assets/skin/escape/escape.json
 badd +26 android/AndroidManifest.xml
 badd +2 android/res/values/strings.xml
@@ -183,11 +183,13 @@ badd +122 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/
 badd +70 core/src/com/mygdx/taranfighters/Zombie.java
 badd +110 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/scenes/scene2d/actions/Actions.java
 badd +14 core/src/com/mygdx/taranfighters/Levels/LevelSalon.java
-badd +20 core/src/com/mygdx/taranfighters/Levels/LevelPlage.java
+badd +17 core/src/com/mygdx/taranfighters/Levels/LevelPlage.java
 badd +57 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/Game.java
-badd +1 core/src/com/mygdx/taranfighters/Levels/LevelFreefall.java
-badd +0 ~/Software/Java/Libgdx/TaranFigthers/core/src/com/mygdx/taranfighters/Levels/LevelSinai.java
-badd +13 ~/Software/Java/Libgdx/TaranFigthers/core/src/com/mygdx/taranfighters/Tin.java
+badd +27 core/src/com/mygdx/taranfighters/Levels/LevelFreefall.java
+badd +16 ~/Software/Java/Libgdx/TaranFigthers/core/src/com/mygdx/taranfighters/Levels/LevelSinai.java
+badd +64 ~/Software/Java/Libgdx/TaranFigthers/core/src/com/mygdx/taranfighters/Tin.java
+badd +23 ~/Software/Java/Libgdx/TaranFigthers/core/src/com/mygdx/taranfighters/PreferenceSaved.java
+badd +58 ~/Software/Java/Libgdx/TaranFigthers/core/src/com/mygdx/taranfighters/VictoryScreen.java
 args core/src/com/mygdx/taranfighters/MainGdx.java
 edit core/src/com/mygdx/taranfighters/Character.java
 set splitbelow splitright
@@ -203,11 +205,11 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe '1resize ' . ((&lines * 2 + 27) / 54)
-exe '2resize ' . ((&lines * 49 + 27) / 54)
-exe 'vert 2resize ' . ((&columns * 93 + 92) / 184)
-exe '3resize ' . ((&lines * 49 + 27) / 54)
-exe 'vert 3resize ' . ((&columns * 90 + 92) / 184)
+exe '1resize ' . ((&lines * 4 + 26) / 53)
+exe '2resize ' . ((&lines * 46 + 26) / 53)
+exe 'vert 2resize ' . ((&columns * 87 + 92) / 184)
+exe '3resize ' . ((&lines * 46 + 26) / 53)
+exe 'vert 3resize ' . ((&columns * 96 + 92) / 184)
 argglobal
 enew
 setlocal keymap=
@@ -358,7 +360,7 @@ set foldexpr=FoldMethod(v:lnum)
 setlocal foldexpr=FoldMethod(v:lnum)
 setlocal foldignore=#
 set foldlevel=1
-setlocal foldlevel=1
+setlocal foldlevel=30
 setlocal foldmarker={{{,}}}
 set foldmethod=expr
 setlocal foldmethod=expr
@@ -423,33 +425,43 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
-26
+25
 normal! zo
-165
+74
 normal! zo
-166
+101
 normal! zo
-167
+106
 normal! zo
-169
+107
 normal! zo
-171
+114
 normal! zo
-173
+231
 normal! zo
-175
+244
 normal! zo
-177
+259
 normal! zo
-let s:l = 176 - ((109 * winheight(0) + 24) / 49)
+304
+normal! zo
+335
+normal! zo
+431
+normal! zo
+433
+normal! zo
+456
+normal! zo
+let s:l = 333 - ((17 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-176
-normal! 020|
+333
+normal! 035|
 wincmd w
 argglobal
-edit ~/Software/Java/Libgdx/TaranFigthers/core/src/com/mygdx/taranfighters/Levels/LevelSinai.java
+edit core/src/com/mygdx/taranfighters/Zombie.java
 inoreabbr <buffer> logger logger=eclim#java#logging#LoggingInit("logger")
 inoreabbr <buffer> log log=eclim#java#logging#LoggingInit("log")
 setlocal keymap=
@@ -491,7 +503,7 @@ setlocal foldenable
 set foldexpr=FoldMethod(v:lnum)
 setlocal foldexpr=FoldMethod(v:lnum)
 setlocal foldignore=#
-set foldlevel=1
+set foldlevel=9
 setlocal foldlevel=30
 setlocal foldmarker={{{,}}}
 set foldmethod=expr
@@ -559,19 +571,23 @@ setlocal wrap
 setlocal wrapmargin=0
 10
 normal! zo
-let s:l = 14 - ((13 * winheight(0) + 24) / 49)
+30
+normal! zo
+31
+normal! zo
+let s:l = 31 - ((30 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-14
+31
 normal! 013|
 wincmd w
 2wincmd w
-exe '1resize ' . ((&lines * 2 + 27) / 54)
-exe '2resize ' . ((&lines * 49 + 27) / 54)
-exe 'vert 2resize ' . ((&columns * 93 + 92) / 184)
-exe '3resize ' . ((&lines * 49 + 27) / 54)
-exe 'vert 3resize ' . ((&columns * 90 + 92) / 184)
+exe '1resize ' . ((&lines * 4 + 26) / 53)
+exe '2resize ' . ((&lines * 46 + 26) / 53)
+exe 'vert 2resize ' . ((&columns * 87 + 92) / 184)
+exe '3resize ' . ((&lines * 46 + 26) / 53)
+exe 'vert 3resize ' . ((&columns * 96 + 92) / 184)
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
