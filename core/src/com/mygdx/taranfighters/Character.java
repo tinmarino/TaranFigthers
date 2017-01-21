@@ -27,37 +27,37 @@ public class Character implements Disposable{
 	public World world;
 	public Music music_name;
 
-	ArrayList<TextureTime> walkList;
-	ArrayList<TextureTime> punchList;
-	ArrayList<TextureTime> kickList;
+	public ArrayList<TextureTime> walkList;
+	public ArrayList<TextureTime> punchList;
+	public ArrayList<TextureTime> kickList;
 
-	Fixture rightLegFixture;
-	Fixture leftLegFixture;
-	Fixture leftArmFixture;
-	Fixture rightArmFixture;
+	public Fixture rightLegFixture;
+	public Fixture leftLegFixture;
+	public Fixture leftArmFixture;
+	public Fixture rightArmFixture;
 
 	// Optional
 	public float x=2 ,y=0;
 	public float size = 1.6f; 
 	public Vector2 maxSpeed = new Vector2(6f, 13f); // WRNING DEfault values
 	public Vector2 defaultMaxSpeed = maxSpeed;
-	public Vector2 spriteOffset = new Vector2(-size, -size * 0.65f);
+	public Vector2 spriteOffset = new Vector2(-size, -size * 0.85f);
 
 	public boolean willChangeSprite;
 	public float timeLeftChangeSprite;
 
-	boolean isKicking=false;
-	boolean isPunching=false;
-	boolean isJumping=true;
-	boolean isDoubleJumping=false;
-	boolean isWalking=false;
-	boolean isDying = false, isDead = false;
+	public boolean isKicking=false;
+	public boolean isPunching=false;
+	public boolean isJumping=true;
+	public boolean isDoubleJumping=false;
+	public boolean isWalking=false;
+	public boolean isDying = false, isDead = false;
 
-	int playerNumber = 1;
+	public int playerNumber = 1;
 
-	ArrayList<Fixture> fixtureList;
-	Body body;
-	Fixture bottomFixture;
+	public ArrayList<Fixture> fixtureList;
+	public Body body;
+	public Fixture bottomFixture;
 
 	public enum KIND{CHAR, ZOMBIE, RAT}
 

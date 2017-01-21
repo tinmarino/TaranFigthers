@@ -106,7 +106,7 @@ public class G{
 	public static void readPref(){
 		Json json = new Json(); 
      	Preferences preferences = Gdx.app.getPreferences("v1"); // v1 for version 1 
-		if (preferences.get().containsKey("jsonKey1")) {
+		if (preferences != null && preferences.get().containsKey("jsonKey1")) {
 			String sToLoad = preferences.getString("jsonKey1");
 			preferenceSaved = json.fromJson(PreferenceSaved.class, sToLoad );
 			G.log("TBF Global.readPref : " + json.prettyPrint(preferenceSaved));

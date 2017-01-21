@@ -17,7 +17,6 @@ public class LevelPlatform1 extends Level {
 	public boolean isLevelFinished(Character char1){
 		// Victory 
 		boolean victory = char1.x > 296;
-		victory |= char1.x > 10;
 		if (victory){
 			this.finishedEnum = FINISHED.VICTORY;
 			return true;

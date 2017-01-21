@@ -27,6 +27,7 @@ public class TaranScreen implements Screen, InputProcessor {
 	Stage stage;
 	EscapeDialog escapeDialog;
 	Matrix4 HUDMatrix;
+	public float age = 0;
 
 	@Override
 	public void dispose(){ 
@@ -48,10 +49,6 @@ public class TaranScreen implements Screen, InputProcessor {
 		world = new World(new Vector2(0f, -20f), true);
 
 		camera = new OrthographicCamera();
-		camera.position.x = 0;
-		camera.position.y = 0;
-		camera.viewportWidth =  480 * 3;
-		camera.viewportHeight = 320 * 3;
 
 		HUDMatrix = new Matrix4();
  	  	HUDMatrix.setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -64,6 +61,7 @@ public class TaranScreen implements Screen, InputProcessor {
 
 	@Override
 	public void render(float delta){
+		age += delta;
 		// Escape ??
 		if (null != stage){
 			if (escapeDialog.isDestroyed){
@@ -113,9 +111,11 @@ public class TaranScreen implements Screen, InputProcessor {
 			batch.setProjectionMatrix(HUDMatrix);
 			batch.begin();
 				G.debugFont.draw(batch,
-							"FPS :" + 1/delta,
+							"FPS :" + 1/delta + "\n" +
+							"TIME :" + age + "\n" +
+							"ENEMY :" + level.charList.size(),
 							0.5f * G.world2pixel,
-							0.5f * G.world2pixel);
+							2f * G.world2pixel);
 			batch.end();
 		}
 

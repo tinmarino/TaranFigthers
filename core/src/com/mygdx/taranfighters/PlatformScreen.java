@@ -1,7 +1,6 @@
 package com.mygdx.taranfighters;
 
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Music.OnCompletionListener;
 
 public class PlatformScreen extends TaranScreen{
 	G.CHAR charEnum;
@@ -30,6 +29,12 @@ public class PlatformScreen extends TaranScreen{
 		// Callbacks
 		char1.setPosition(level.initialPosition.x, level.initialPosition.y);
 
+		// Camera
+		camera.viewportWidth =  18 * G.world2pixel;
+		camera.viewportHeight = 12 * G.world2pixel;
+		camera.position.y = char1.x;
+		camera.position.x = char1.y;
+
 		// Music 
 		music1 = G.music("music/sound/welcome_to_level.mp3");
 		music2 = G.music("music/sound/with.mp3");
@@ -37,42 +42,42 @@ public class PlatformScreen extends TaranScreen{
 
 		// Music Chain 
 		if (null != level.music_num){
-			music1.setOnCompletionListener(new OnCompletionListener() {
+			music1.setOnCompletionListener(new Music.OnCompletionListener() {
 				public void onCompletion(Music music) {
 						level.music_num.play();
 				}
 			});
 		}
 		if (null != music2){
-			level.music_num.setOnCompletionListener(new OnCompletionListener() {
+			level.music_num.setOnCompletionListener(new Music.OnCompletionListener() {
 				public void onCompletion(Music music) {
 					music2.play();
 				}
 			});
 		}
 		if (null != char1.music_name){
-			music2.setOnCompletionListener(new OnCompletionListener() {
+			music2.setOnCompletionListener(new Music.OnCompletionListener() {
 				public void onCompletion(Music music) {
 					char1.music_name.play();
 				}
 			});
 		}
 		if (null != music3){
-			char1.music_name.setOnCompletionListener(new OnCompletionListener() {
+			char1.music_name.setOnCompletionListener(new Music.OnCompletionListener() {
 				public void onCompletion(Music music) {
 					music3.play();
 				}
 			});
 		}
 		if (null != level.music_quote){
-			music3.setOnCompletionListener(new OnCompletionListener() {
+			music3.setOnCompletionListener(new Music.OnCompletionListener() {
 				public void onCompletion(Music music) {
 					level.music_quote.play();
 				}
 			});
 		}
 		if (null != level.music){
-			level.music_quote.setOnCompletionListener(new OnCompletionListener() {
+			level.music_quote.setOnCompletionListener(new Music.OnCompletionListener() {
 				public void onCompletion(Music music) {
 					level.music.play();
 				}
@@ -90,13 +95,10 @@ public class PlatformScreen extends TaranScreen{
 	@Override 
 	public void render(float delta){
 		super.render(delta);
-
-		// isFinished ?
 		if (level.isLevelFinished(char1)){
 			G.finish(level.finishedEnum, charEnum, levelEnum);
 		}
 	}
-
 
 	@Override
 	public void dispose(){

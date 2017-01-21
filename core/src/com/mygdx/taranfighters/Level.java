@@ -1,4 +1,12 @@
 package com.mygdx.taranfighters;
+/*
+ 1  Initiation Platformer, Mario like
+ 2  Rising Platformer, with dynamic platforms
+ 3  In the living room, LevelSalon 
+ 4  Beach, Arcade Zombie Killer. Just put 30 zombie and a score
+ 5  Free Fall with manuel rodriguez zik
+ 6  Sinaii With volleyBall 
+*/   
 
 import java.util.ArrayList;
 
@@ -21,9 +29,8 @@ import com.mygdx.taranfighters.Levels.LevelSinai;
 
 
 public class Level implements Disposable{
-	// To set  + function isLevelFinished;
-	public Vector2 initialPosition = new Vector2(2, 5);
 	public G.LEVEL levelEnum = G.LEVEL.L1;
+	public Vector2 initialPosition = new Vector2(2, 5);
 	
 	// Used 
 	public ArrayList<Character> charList = new ArrayList<Character>();
@@ -33,10 +40,10 @@ public class Level implements Disposable{
 	public FINISHED finishedEnum = FINISHED.NO;
 
 	// Disposables
-	World world;
-    OrthogonalTiledMapRenderer tiledMapRenderer;
-	Box2DDebugRenderer debugRenderer;
-    TiledMap tiledMap;
+	public World world;
+    public OrthogonalTiledMapRenderer tiledMapRenderer;
+	public Box2DDebugRenderer debugRenderer;
+    public TiledMap tiledMap;
 	public Music music;
 	public Music music_quote;
 	public Music music_num;
@@ -102,8 +109,6 @@ public class Level implements Disposable{
 		deadCharacter.clear();
 	}
 
-	public Level(World world){
-	}
 
 	public Level(String mapString, World world){
 		this.world = world;
