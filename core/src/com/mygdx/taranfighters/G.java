@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Json;
+import com.mygdx.taranfighters.PreferenceSaved.CharLevelState;
 
 public class G{
 	// 0/ must be initiated a null pointer exception
@@ -43,7 +44,7 @@ public class G{
 
 	public static void init(){
 		// PREF 
-		preferenceSaved = new PreferenceSaved();
+		readPref();
 		
 		// OVER FONT 
 		overFont = new BitmapFont(Gdx.files.internal("font/zreak-nfi.fnt"));
@@ -109,12 +110,20 @@ public class G{
 		if (preferences != null && preferences.get().containsKey("jsonKey1")) {
 			String sToLoad = preferences.getString("jsonKey1");
 			preferenceSaved = json.fromJson(PreferenceSaved.class, sToLoad );
-			G.log("TBF Global.readPref : " + json.prettyPrint(preferenceSaved));
+			G.log("Global.readPref : " + json.prettyPrint(preferenceSaved));
 		}
 		else{
-			G.log("TBF Global.readPref : NULL !!! ");
+			G.log("Global.readPref : NULL !!! ");
 			preferenceSaved = new PreferenceSaved();
 		}
+	}
+
+	public static void resetPref(){
+		Json json = new Json();
+		String sTosave = json.toJson(new PreferenceSaved());
+     	Preferences preferences = Gdx.app.getPreferences("v1"); // v1 for version 1 
+		preferences.putString("jsonKey1", sTosave);
+		preferences.flush();
 	}
 
 
@@ -124,29 +133,29 @@ public class G{
 			G.game.setScreen(new JakOverScreen());
 		}
 		if (eFinish == Level.FINISHED.VICTORY){
-			G.preferenceSaved.charLevelList.get(eChar.ordinal()).set(eLevel.ordinal(), "finished");
+			G.preferenceSaved.charLevelList.get(eChar.ordinal()).set(eLevel.ordinal(), CharLevelState.FINISHED);
 
 			// Open all current level 
-			for (ArrayList<String> equiChar : G.preferenceSaved.charLevelList){
-				if (equiChar.get(eLevel.ordinal()) == "locked"){
-					equiChar.set(eLevel.ordinal(), "open");
+			for (ArrayList<CharLevelState> equiChar : G.preferenceSaved.charLevelList){
+				if (equiChar.get(eLevel.ordinal()) == CharLevelState.LOCKED){
+					equiChar.set(eLevel.ordinal(), CharLevelState.OPEN);
 				}
 			}
 
 			// If not opened yet, 
 			if (eLevel.ordinal()+2 < G.preferenceSaved.charLevelList.get(0).size()){
 				boolean isOtherLevelOpened = false;
-				for (ArrayList<String> equiChar : G.preferenceSaved.charLevelList){
-					if (equiChar.get(eLevel.ordinal()+1) != "locked"){
+				for (ArrayList<CharLevelState> equiChar : G.preferenceSaved.charLevelList){
+					if (equiChar.get(eLevel.ordinal()+1) != CharLevelState.LOCKED){
 						isOtherLevelOpened=true;
 					}
 				}
 				// open a random one 
 				if(!isOtherLevelOpened){
-					G.log("is taht open " + isOtherLevelOpened);
+					G.log("G: is taht open " + isOtherLevelOpened);
 					Random random = new Random();
 					int iChar = random.nextInt(CHAR.values().length);
-					G.preferenceSaved.charLevelList.get(iChar).set(eLevel.ordinal()+1, "open");
+					G.preferenceSaved.charLevelList.get(iChar).set(eLevel.ordinal()+1, CharLevelState.OPEN);
 				}
 			}
 

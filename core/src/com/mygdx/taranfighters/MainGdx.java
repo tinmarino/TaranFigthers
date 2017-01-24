@@ -13,7 +13,6 @@ public class MainGdx extends Game {
 		G.game = this;
 		Gdx.input.setCatchBackKey(true);
 		screen = new ChooseScreen();
-		//screen = new PlatformScreen(G.CHAR.TIN, G.LEVEL.L6);
 		screen.show();
 	}
 

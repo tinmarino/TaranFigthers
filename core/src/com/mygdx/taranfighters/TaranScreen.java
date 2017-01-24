@@ -28,6 +28,7 @@ public class TaranScreen implements Screen, InputProcessor {
 	EscapeDialog escapeDialog;
 	Matrix4 HUDMatrix;
 	public float age = 0;
+	private SpriteBatch batch;
 
 	@Override
 	public void dispose(){ 
@@ -49,6 +50,7 @@ public class TaranScreen implements Screen, InputProcessor {
 		world = new World(new Vector2(0f, -20f), true);
 
 		camera = new OrthographicCamera();
+		batch = new SpriteBatch();
 
 		HUDMatrix = new Matrix4();
  	  	HUDMatrix.setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -76,7 +78,7 @@ public class TaranScreen implements Screen, InputProcessor {
 		}
 
 		// Clear screen 
-      	Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+      	Gdx.gl.glClearColor(0, 0, 0f, 0);
       	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		// World step 
@@ -90,10 +92,12 @@ public class TaranScreen implements Screen, InputProcessor {
 
 		// Render Level and get its batch
 		level.tiledMapRenderer.setView(camera);
+		//SpriteBatch batch = (SpriteBatch) level.tiledMapRenderer.getBatch();
 		level.tiledMapRenderer.render();
-		SpriteBatch batch = (SpriteBatch) level.tiledMapRenderer.getBatch();
+
 
 		// Render char 
+		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 			level.draw(batch, delta);
 			char1.draw(batch, delta);

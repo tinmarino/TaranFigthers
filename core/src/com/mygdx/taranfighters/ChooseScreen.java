@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.taranfighters.PreferenceSaved.CharLevelState;
 
 
 public class ChooseScreen implements Screen {
@@ -102,7 +103,7 @@ public class ChooseScreen implements Screen {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
 						super.clicked(event,x,y); 
-						click(charEnum , G.LEVEL.L1); 
+						click(charEnum , G.LEVEL.L1, CharLevelState.OPEN); 
 					} 
 				}
 			);
@@ -134,13 +135,14 @@ public class ChooseScreen implements Screen {
 						levelString = "img/door/door_closed.png";
 						break;
 				}
-				String levelStateString = G.preferenceSaved.charLevelList.get(charEnum.ordinal()).get(levelEnum.ordinal());
-				if ("locked" == levelStateString){
+				final CharLevelState charLevelState = G.preferenceSaved.charLevelList.get(charEnum.ordinal()).get(levelEnum.ordinal());
+				if (CharLevelState.LOCKED == charLevelState){
 					levelString = "img/door/door_closed.png";
 				}
-				if ("open" == levelStateString){
+				if (CharLevelState.OPEN == charLevelState){
 					levelString = "img/door/door_open.png";
 				}
+				G.log("Choose : " + charEnum + levelEnum + " " + charLevelState + levelString) ;
 				Drawable drawable2 = PixmapFactory.drawableFromFile(levelString, disposableList);
 				ImageButton imageButton2 = new ImageButton(drawable2);
 				imageButton2.setSize(140, 180);
@@ -149,7 +151,7 @@ public class ChooseScreen implements Screen {
 						@Override
 						public void clicked(InputEvent event, float x, float y) {
 							super.clicked(event,x,y); 
-							click(charEnum, levelEnum); 
+							click(charEnum, levelEnum, charLevelState); 
 						} 
 					}
 				);
@@ -167,9 +169,17 @@ public class ChooseScreen implements Screen {
 
 
 	// TODO : -1 must be the infoScreen "?"
-	void click(G.CHAR  charEnum, G.LEVEL levelEnum){
-		G.log("ChooseScreen clicking chose char : " + charEnum + " with level : "  + levelEnum ); 
-		G.game.setScreen(new PlatformScreen(charEnum, levelEnum));
+	void click(G.CHAR  charEnum, G.LEVEL levelEnum, CharLevelState charLevelState){
+		G.log("ChooseScreen clicking chose char : " + charEnum + " with level : "  + levelEnum + "which is " + charLevelState); 
+		switch (charLevelState){
+			case LOCKED:
+				Music music = G.music("music/sound/locked.mp3");
+				music.play();
+				break;
+			default:
+				G.game.setScreen(new PlatformScreen(charEnum, levelEnum));
+		}
+
 	}
 
 

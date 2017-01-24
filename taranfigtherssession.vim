@@ -1,11 +1,10 @@
-let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
-inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
-inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
 inoremap <C-Space> 
+inoremap <expr> <Up> pumvisible() ? "\" : "\<Up>"
+inoremap <expr> <S-Tab> pumvisible() ? "\" : "\<S-Tab>"
+inoremap <expr> <Down> pumvisible() ? "\" : "\<Down>"
 imap <Nul> <C-Space>
 inoremap <S-Down> :let tmp=getpos('.') :m+1 : call cursor(tmp[1]+1,tmp[2]) a
 inoremap <S-Up> :let tmp=getpos('.') :m-2 : call cursor(tmp[1]-1,tmp[2]) a
@@ -49,6 +48,7 @@ map [1;5C <C-Right>
 map [1;5D <C-Left>
 map [1;5B <C-Down>
 map [1;5A <C-Up>
+vmap gx <Plug>NetrwBrowseXVis
 nmap gx <Plug>NetrwBrowseX
 map xy :s/x/y/g
 map yx :s/y/x/g
@@ -62,6 +62,7 @@ map z3 :set foldlevel=3
 map z2 :set foldlevel=2
 map z1 :set foldlevel=1
 map z0 :set foldlevel=0
+vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
 nnoremap <SNR>63_: :=v:count ? v:count : ''
 nnoremap <silent> <Plug>(CommandTJump) :CommandTJump
@@ -93,6 +94,7 @@ let &cpo=s:cpo_save
 unlet s:cpo_save
 set autoindent
 set autoread
+set background=dark
 set backspace=2
 set backupdir=~/.vim/backup//
 set balloonexpr=eclim#util#Balloon(eclim#util#GetLineError(line('.')))
@@ -103,7 +105,7 @@ set directory=~/.vim/backup//
 set fileencodings=ucs-bom,utf-8,default,latin1
 set foldlevelstart=30
 set helplang=en
-set history=100000
+set history=10000
 set hlsearch
 set incsearch
 set mouse=a
@@ -123,482 +125,5 @@ set undolevels=100000
 set updatetime=2000
 set wildcharm=26
 set wildmenu
-set window=52
 set nowritebackup
-let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
-let v:this_session=expand("<sfile>:p")
-silent only
-cd ~/Software/Java/Libgdx/TaranFigthers
-if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
-  let s:wipebuf = bufnr('%')
-endif
-set shortmess=aoO
-badd +21 core/src/com/mygdx/taranfighters/MainGdx.java
-badd +13 core/src/com/mygdx/taranfighters/CombatScreen.java
-badd +19 .classpath
-badd +119 core/src/com/mygdx/taranfighters/Iul.java
-badd +28 core/src/com/mygdx/taranfighters/Character.java
-badd +22 core/src/com/mygdx/taranfighters/SpriteChanging.java
-badd +17 core/src/com/mygdx/taranfighters/TextureTime.java
-badd +19 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/Sprite.java
-badd +52 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/InputProcessor.java
-badd +85 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/Texture.java
-badd +49 core/src/com/mygdx/taranfighters/G.java
-badd +16 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/TiledMapRenderer.java
-badd +55 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/renderers/OrthogonalTiledMapRenderer.java
-badd +65 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/tiled/renderers/BatchTiledMapRenderer.java
-badd +67 core/src/com/mygdx/taranfighters/Level.java
-badd +27 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/math/Vector2.java
-badd +54 core/src/com/mygdx/taranfighters/MapBodyBuilder.java
-badd +28 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/maps/MapObjects.java
-badd +27 core/src/com/mygdx/taranfighters/Rat.java
-badd +14 todo
-badd +1 core/src/com/mygdx/taranfighters/JakOverScreen.java
-badd +2 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/TextureAtlas.java
-badd +22 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/ApplicationAdapter.java
-badd +21 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/Color.java
-badd +22 desktop/src/com/mygdx/taranfighters/desktop/DesktopLauncher.java
-badd +15 html/src/com/mygdx/taranfighters/client/HtmlLauncher.java
-badd +98 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/g2d/SpriteBatch.java
-badd +40 core/src/com/mygdx/taranfighters/Jak.java
-badd +88 core/src/com/mygdx/taranfighters/PlatformScreen.java
-badd +30 core/src/com/mygdx/taranfighters/TaranScreen.java
-badd +14 .gitignore
-badd +43 core/src/com/mygdx/taranfighters/PixmapFactory.java
-badd +153 core/src/com/mygdx/taranfighters/Platform.java
-badd +20 core/src/com/mygdx/taranfighters/Levels/LevelPlatform2.java
-badd +22 core/src/com/mygdx/taranfighters/Levels/LevelPlatform1.java
-badd +29 core/src/com/mygdx/taranfighters/Fix.java
-badd +55 core/src/com/mygdx/taranfighters/ChooseScreen.java
-badd +101 core/src/com/mygdx/taranfighters/EscapeDialog.java
-badd +23 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/scenes/scene2d/utils/ClickListener.java
-badd +136 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/scenes/scene2d/InputListener.java
-badd +20 core/src/com/mygdx/taranfighters/Roz.java
-badd +24 android/assets/skin/escape/escape.json
-badd +26 android/AndroidManifest.xml
-badd +2 android/res/values/strings.xml
-badd +7 android/res/values/styles.xml
-badd +1 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/OrthographicCamera.java
-badd +122 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/graphics/Camera.java
-badd +70 core/src/com/mygdx/taranfighters/Zombie.java
-badd +110 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/scenes/scene2d/actions/Actions.java
-badd +14 core/src/com/mygdx/taranfighters/Levels/LevelSalon.java
-badd +17 core/src/com/mygdx/taranfighters/Levels/LevelPlage.java
-badd +57 ~/Software/Java/Libgdx/Jar/Source/libgdx-nightly-20160329/sources/com/badlogic/gdx/Game.java
-badd +27 core/src/com/mygdx/taranfighters/Levels/LevelFreefall.java
-badd +16 ~/Software/Java/Libgdx/TaranFigthers/core/src/com/mygdx/taranfighters/Levels/LevelSinai.java
-badd +64 ~/Software/Java/Libgdx/TaranFigthers/core/src/com/mygdx/taranfighters/Tin.java
-badd +23 ~/Software/Java/Libgdx/TaranFigthers/core/src/com/mygdx/taranfighters/PreferenceSaved.java
-badd +58 ~/Software/Java/Libgdx/TaranFigthers/core/src/com/mygdx/taranfighters/VictoryScreen.java
-args core/src/com/mygdx/taranfighters/MainGdx.java
-edit core/src/com/mygdx/taranfighters/Character.java
-set splitbelow splitright
-wincmd _ | wincmd |
-split
-1wincmd k
-wincmd w
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
-set nosplitbelow
-set nosplitright
-wincmd t
-set winheight=1 winwidth=1
-exe '1resize ' . ((&lines * 4 + 26) / 53)
-exe '2resize ' . ((&lines * 46 + 26) / 53)
-exe 'vert 2resize ' . ((&columns * 87 + 92) / 184)
-exe '3resize ' . ((&lines * 46 + 26) / 53)
-exe 'vert 3resize ' . ((&columns * 96 + 92) / 184)
-argglobal
-enew
-setlocal keymap=
-setlocal noarabic
-setlocal autoindent
-setlocal balloonexpr=
-setlocal nobinary
-setlocal bufhidden=wipe
-setlocal buflisted
-setlocal buftype=nofile
-setlocal nocindent
-setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
-setlocal cinoptions=
-setlocal cinwords=if,else,while,do,for,switch
-setlocal colorcolumn=
-setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
-setlocal commentstring=/*%s*/
-setlocal complete=.,w,b,u,t,i
-setlocal concealcursor=
-setlocal conceallevel=0
-setlocal completefunc=youcompleteme#Complete
-setlocal nocopyindent
-setlocal cryptmethod=
-setlocal nocursorbind
-setlocal nocursorcolumn
-set cursorline
-setlocal cursorline
-setlocal define=
-setlocal dictionary=
-setlocal nodiff
-setlocal equalprg=
-setlocal errorformat=
-setlocal noexpandtab
-if &filetype != ''
-setlocal filetype=
-endif
-setlocal foldcolumn=0
-setlocal foldenable
-set foldexpr=FoldMethod(v:lnum)
-setlocal foldexpr=FoldMethod(v:lnum)
-setlocal foldignore=#
-setlocal foldlevel=30
-setlocal foldmarker={{{,}}}
-set foldmethod=expr
-setlocal foldmethod=expr
-setlocal foldminlines=1
-setlocal foldnestmax=20
-setlocal foldtext=foldtext()
-setlocal formatexpr=
-setlocal formatoptions=tcq
-setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-setlocal grepprg=
-setlocal iminsert=2
-setlocal imsearch=2
-setlocal include=
-setlocal includeexpr=
-setlocal indentexpr=
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
-setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=
-setlocal nolinebreak
-setlocal nolisp
-setlocal nolist
-setlocal makeprg=
-setlocal matchpairs=(:),{:},[:]
-setlocal modeline
-setlocal nomodifiable
-setlocal nrformats=octal,hex
-set number
-setlocal number
-setlocal numberwidth=4
-setlocal omnifunc=
-setlocal path=
-setlocal nopreserveindent
-setlocal previewwindow
-setlocal quoteescape=\\
-setlocal noreadonly
-setlocal norelativenumber
-setlocal norightleft
-setlocal rightleftcmd=search
-setlocal noscrollbind
-setlocal shiftwidth=4
-setlocal noshortname
-setlocal nosmartindent
-setlocal softtabstop=0
-setlocal nospell
-setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
-setlocal spelllang=en
-setlocal statusline=
-setlocal suffixesadd=
-setlocal noswapfile
-setlocal synmaxcol=3000
-if &syntax != ''
-setlocal syntax=
-endif
-setlocal tabstop=4
-setlocal tags=
-setlocal textwidth=0
-setlocal thesaurus=
-setlocal undofile
-setlocal winfixheight
-setlocal nowinfixwidth
-setlocal wrap
-setlocal wrapmargin=0
-wincmd w
-argglobal
-inoreabbr <buffer> logger logger=eclim#java#logging#LoggingInit("logger")
-inoreabbr <buffer> log log=eclim#java#logging#LoggingInit("log")
-setlocal keymap=
-setlocal noarabic
-setlocal autoindent
-setlocal balloonexpr=
-setlocal nobinary
-setlocal bufhidden=
-setlocal buflisted
-setlocal buftype=
-setlocal cindent
-setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
-setlocal cinoptions=j1
-setlocal cinwords=if,else,while,do,for,switch
-setlocal colorcolumn=
-setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
-setlocal commentstring=//%s
-setlocal complete=.,w,b,u,t,i
-setlocal concealcursor=
-setlocal conceallevel=0
-setlocal completefunc=youcompleteme#Complete
-setlocal nocopyindent
-setlocal cryptmethod=
-setlocal nocursorbind
-setlocal nocursorcolumn
-set cursorline
-setlocal cursorline
-setlocal define=
-setlocal dictionary=
-setlocal nodiff
-setlocal equalprg=
-setlocal errorformat=%E%f:%l:\ %m,%-Z%p^,%-C%.%#,%-G%.%#
-setlocal noexpandtab
-if &filetype != 'java'
-setlocal filetype=java
-endif
-setlocal foldcolumn=0
-setlocal foldenable
-set foldexpr=FoldMethod(v:lnum)
-setlocal foldexpr=FoldMethod(v:lnum)
-setlocal foldignore=#
-set foldlevel=1
-setlocal foldlevel=30
-setlocal foldmarker={{{,}}}
-set foldmethod=expr
-setlocal foldmethod=expr
-setlocal foldminlines=1
-setlocal foldnestmax=20
-setlocal foldtext=foldtext()
-setlocal formatexpr=
-setlocal formatoptions=croql
-setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-setlocal grepprg=
-setlocal iminsert=2
-setlocal imsearch=2
-setlocal include=^s*import
-setlocal includeexpr=substitute(v:fname,'\\.','/','g')
-setlocal indentexpr=GetJavaIndent()
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e,0=extends,0=implements
-setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=
-setlocal nolinebreak
-setlocal nolisp
-setlocal nolist
-setlocal makeprg=javac
-setlocal matchpairs=(:),{:},[:]
-setlocal modeline
-setlocal modifiable
-setlocal nrformats=octal,hex
-set number
-setlocal number
-setlocal numberwidth=4
-setlocal omnifunc=eclim#java#complete#CodeComplete
-setlocal path=
-setlocal nopreserveindent
-setlocal nopreviewwindow
-setlocal quoteescape=\\
-setlocal noreadonly
-setlocal norelativenumber
-setlocal norightleft
-setlocal rightleftcmd=search
-setlocal noscrollbind
-setlocal shiftwidth=4
-setlocal noshortname
-setlocal nosmartindent
-setlocal softtabstop=0
-setlocal nospell
-setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
-setlocal spelllang=en
-setlocal statusline=
-setlocal suffixesadd=.java
-setlocal noswapfile
-setlocal synmaxcol=3000
-if &syntax != 'java'
-setlocal syntax=java
-endif
-setlocal tabstop=4
-setlocal tags=
-setlocal textwidth=0
-setlocal thesaurus=
-setlocal undofile
-setlocal nowinfixheight
-setlocal nowinfixwidth
-setlocal wrap
-setlocal wrapmargin=0
-25
-normal! zo
-74
-normal! zo
-101
-normal! zo
-106
-normal! zo
-107
-normal! zo
-114
-normal! zo
-231
-normal! zo
-244
-normal! zo
-259
-normal! zo
-304
-normal! zo
-335
-normal! zo
-431
-normal! zo
-433
-normal! zo
-456
-normal! zo
-let s:l = 333 - ((17 * winheight(0) + 23) / 46)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-333
-normal! 035|
-wincmd w
-argglobal
-edit core/src/com/mygdx/taranfighters/Zombie.java
-inoreabbr <buffer> logger logger=eclim#java#logging#LoggingInit("logger")
-inoreabbr <buffer> log log=eclim#java#logging#LoggingInit("log")
-setlocal keymap=
-setlocal noarabic
-setlocal autoindent
-setlocal balloonexpr=
-setlocal nobinary
-setlocal bufhidden=
-setlocal buflisted
-setlocal buftype=
-setlocal cindent
-setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
-setlocal cinoptions=j1
-setlocal cinwords=if,else,while,do,for,switch
-setlocal colorcolumn=
-setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
-setlocal commentstring=//%s
-setlocal complete=.,w,b,u,t,i
-setlocal concealcursor=
-setlocal conceallevel=0
-setlocal completefunc=youcompleteme#Complete
-setlocal nocopyindent
-setlocal cryptmethod=
-setlocal nocursorbind
-setlocal nocursorcolumn
-set cursorline
-setlocal cursorline
-setlocal define=
-setlocal dictionary=
-setlocal nodiff
-setlocal equalprg=
-setlocal errorformat=%E%f:%l:\ %m,%-Z%p^,%-C%.%#,%-G%.%#
-setlocal noexpandtab
-if &filetype != 'java'
-setlocal filetype=java
-endif
-setlocal foldcolumn=0
-setlocal foldenable
-set foldexpr=FoldMethod(v:lnum)
-setlocal foldexpr=FoldMethod(v:lnum)
-setlocal foldignore=#
-set foldlevel=9
-setlocal foldlevel=30
-setlocal foldmarker={{{,}}}
-set foldmethod=expr
-setlocal foldmethod=expr
-setlocal foldminlines=1
-setlocal foldnestmax=20
-setlocal foldtext=foldtext()
-setlocal formatexpr=
-setlocal formatoptions=croql
-setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-setlocal grepprg=
-setlocal iminsert=2
-setlocal imsearch=2
-setlocal include=^s*import
-setlocal includeexpr=substitute(v:fname,'\\.','/','g')
-setlocal indentexpr=GetJavaIndent()
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e,0=extends,0=implements
-setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=
-setlocal nolinebreak
-setlocal nolisp
-setlocal nolist
-setlocal makeprg=javac
-setlocal matchpairs=(:),{:},[:]
-setlocal modeline
-setlocal modifiable
-setlocal nrformats=octal,hex
-set number
-setlocal number
-setlocal numberwidth=4
-setlocal omnifunc=eclim#java#complete#CodeComplete
-setlocal path=
-setlocal nopreserveindent
-setlocal nopreviewwindow
-setlocal quoteescape=\\
-setlocal noreadonly
-setlocal norelativenumber
-setlocal norightleft
-setlocal rightleftcmd=search
-setlocal noscrollbind
-setlocal shiftwidth=4
-setlocal noshortname
-setlocal nosmartindent
-setlocal softtabstop=0
-setlocal nospell
-setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
-setlocal spelllang=en
-setlocal statusline=
-setlocal suffixesadd=.java
-setlocal noswapfile
-setlocal synmaxcol=3000
-if &syntax != 'java'
-setlocal syntax=java
-endif
-setlocal tabstop=4
-setlocal tags=
-setlocal textwidth=0
-setlocal thesaurus=
-setlocal undofile
-setlocal nowinfixheight
-setlocal nowinfixwidth
-setlocal wrap
-setlocal wrapmargin=0
-10
-normal! zo
-30
-normal! zo
-31
-normal! zo
-let s:l = 31 - ((30 * winheight(0) + 23) / 46)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-31
-normal! 013|
-wincmd w
-2wincmd w
-exe '1resize ' . ((&lines * 4 + 26) / 53)
-exe '2resize ' . ((&lines * 46 + 26) / 53)
-exe 'vert 2resize ' . ((&columns * 87 + 92) / 184)
-exe '3resize ' . ((&lines * 46 + 26) / 53)
-exe 'vert 3resize ' . ((&columns * 96 + 92) / 184)
-tabnext 1
-if exists('s:wipebuf')
-  silent exe 'bwipe ' . s:wipebuf
-endif
-unlet! s:wipebuf
-set winheight=1 winwidth=20 shortmess=filnxtToO
-let s:sx = expand("<sfile>:p:r")."x.vim"
-if file_readable(s:sx)
-  exe "source " . fnameescape(s:sx)
-endif
-let &so = s:so_save | let &siso = s:siso_save
-doautoall SessionLoadPost
-unlet SessionLoad
 " vim: set ft=vim :
