@@ -1,5 +1,8 @@
 
 PROJECT 
+estoy texture, recycle for zombie and volleyball amkers.
+
+
 be able to zoom better, have better debug tools -> better graphics later
 make some choosing screens 
 
@@ -11,6 +14,7 @@ Combat screen :clean all code before extending
 			keep calculating width 
 
 Character size and some settings are to prepare in Level (gravity, doubleJup..)
+Make zombies kill 
 
 
 IDEA:
