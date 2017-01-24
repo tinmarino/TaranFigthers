@@ -14,15 +14,17 @@ Combat screen :clean all code before extending
 			keep calculating width 
 
 Character size and some settings are to prepare in Level (gravity, doubleJup..)
-Make zombies kill 
 Make preferences with a version. To relaod when new version.
 is debug, can access hidden levels.
 
 Multi player with split screen nice and explore fast a labyrinth, try to join each other.  
-Lock The locked levels.
-Dispose the texture. 
 Make a small tutorial for each player.  
 Just 6 levels but finishe the levels, gameplay!!
+Change isDying + isDead, redondant.
+
+NOW:
+Make zombies kill 
+
 
 
 IDEA:

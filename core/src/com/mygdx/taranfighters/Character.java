@@ -191,6 +191,7 @@ public class Character implements Disposable{
 
 
 	public void die(){
+		isDead = true;
 	}
 
 	public void punch(){
@@ -268,6 +269,17 @@ public class Character implements Disposable{
 		}
 		else{
 			return; 
+		}
+
+
+		// Make Zombies kick me
+		if (playerNumber == 1){
+			if (otherBody.getUserData() instanceof Zombie){
+				//Character otherCharacter = ((Character) otherBody.getUserData());
+				if (!isKicking && !isPunching){
+					die();
+				}
+			}
 		}
 
 		// Reset jumps

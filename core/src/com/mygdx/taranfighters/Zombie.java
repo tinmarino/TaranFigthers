@@ -68,6 +68,12 @@ public class Zombie extends Character {
 		this.isDying = true;
 	}
 
+	@Override
+	public void kick(){
+		super.kick();
+	}
+
+
 
 	// Level don't forget to call me
 	public static void disposeTexture(){
@@ -127,6 +133,7 @@ public class Zombie extends Character {
 		spriteChanging.setList(walkList);
 		spriteChanging.pause();
 	}
+
 
 
 

@@ -97,6 +97,11 @@ public class PlatformScreen extends TaranScreen{
 		super.render(delta);
 		if (level.isLevelFinished(char1)){
 			G.finish(level.finishedEnum, charEnum, levelEnum);
+			return;
+		}
+		if (char1.isDead){
+			G.finish(Level.FINISHED.GAMEOVER, charEnum, levelEnum);
+			return;
 		}
 	}
 

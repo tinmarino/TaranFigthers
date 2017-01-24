@@ -170,6 +170,7 @@ public class ChooseScreen implements Screen {
 
 	// TODO : -1 must be the infoScreen "?"
 	void click(G.CHAR  charEnum, G.LEVEL levelEnum, CharLevelState charLevelState){
+		if (G.debug){charLevelState = CharLevelState.OPEN;}
 		G.log("ChooseScreen clicking chose char : " + charEnum + " with level : "  + levelEnum + "which is " + charLevelState); 
 		switch (charLevelState){
 			case LOCKED:
