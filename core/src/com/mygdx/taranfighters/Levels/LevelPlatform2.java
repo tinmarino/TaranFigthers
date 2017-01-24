@@ -21,6 +21,11 @@ public class LevelPlatform2 extends Level {
 			this.finishedEnum = FINISHED.VICTORY;
 			return true;
 		}
+		// Defeat 
+		if (char1.y < -5){
+			this.finishedEnum = FINISHED.GAMEOVER;
+			return true;
+		}
 		return false;
 	}
 	

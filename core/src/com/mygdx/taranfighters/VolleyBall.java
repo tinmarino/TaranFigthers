@@ -22,6 +22,7 @@ public class VolleyBall extends Character{
 	@Override
 	public void draw(SpriteBatch batch, float delta){
 		super.draw(batch, delta);
+		spriteChanging.setRotation(body.getAngle()*57); // 360/2pi
 		if (y < 0){ isDead = true; }
 	}
 
@@ -58,12 +59,13 @@ public class VolleyBall extends Character{
 		FixtureDef bodyFix = new FixtureDef();
 		bodyFix.shape = bodyShape;
 		bodyFix.restitution = 0.8f;
-		bodyFix.friction = 0;
+		bodyFix.friction = 1;
 		bodyFix.density = 0.05f;
 
 		// Create Body 
 		body = world.createBody(bodyDef);
 		body.createFixture(bodyFix);
+		body.setFixedRotation(false);
 		bodyShape.dispose();
 		
 		// Add Ref to me to Dye and staff 

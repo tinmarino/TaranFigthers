@@ -68,6 +68,19 @@ public class Zombie extends Character {
 		this.isDying = true;
 	}
 
+
+	// Level don't forget to call me
+	public static void disposeTexture(){
+		if (!areTextureLoaded){return;}
+		areTextureLoaded = false;
+		for (TextureTime t :  walkListS){ t.texture.dispose(); }
+		for (TextureTime t :  kickListS){ t.texture.dispose(); }
+		for (TextureTime t :  dieListS){ t.texture.dispose(); }
+		dieListS = null;
+		walkListS = null;
+		kickListS = null;
+	}
+
 	public void loadTexture(){
 		if (!areTextureLoaded){
 			areTextureLoaded = true;

@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.taranfighters.G;
 import com.mygdx.taranfighters.Level;
 import com.mygdx.taranfighters.Platform;
-import com.mygdx.taranfighters.Zombie;
 import com.mygdx.taranfighters.Character;
 
 public class LevelPlatform1 extends Level {
@@ -46,14 +45,9 @@ public class LevelPlatform1 extends Level {
 		platformList.add(new Platform(world, new Vector2(3f, 0.5f), new Vector2(181.5f, 13.75f), new Vector2(181.5f, 4.75f), 10));
 
 		// Zombie from [49,6] to [61,6]
-		Zombie zombie = makeZombie(49 + 0.5f, 6 + 7.75f);
-		zombie.fromTo(49 + 0.5f, 61 + 0.5f); 
-
-		Zombie zombie2 = makeZombie(145 + 0.5f, 15 + 7.75f);
-		zombie2.fromTo(140 + 0.5f, 154 + 0.5f);
-
-		Zombie zombie3 = makeZombie(272 + 0.5f, 7 + 7.75f);
-		zombie3.fromTo(267 + 0.5f, 276 + 0.5f);
+		makeZombie(49 + 0.5f, 6 + 7.75f).fromTo(49 + 0.5f, 61 + 0.5f); 
+		makeZombie(145 + 0.5f, 15 + 7.75f).fromTo(140 + 0.5f, 154 + 0.5f);
+		makeZombie(272 + 0.5f, 7 + 7.75f).fromTo(267 + 0.5f, 276 + 0.5f);
 	}
 
 }

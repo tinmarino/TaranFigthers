@@ -17,6 +17,10 @@ public class LevelSinai extends Level {
 			this.finishedEnum = FINISHED.VICTORY;
 			return true;
 		}
+		if (char1.y < -5){
+			this.finishedEnum = FINISHED.GAMEOVER;
+			return true;
+		}
 		return false;
 	}
 
