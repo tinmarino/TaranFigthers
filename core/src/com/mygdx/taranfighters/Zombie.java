@@ -74,7 +74,7 @@ public class Zombie extends Character {
 		// Sprite 
 		spriteChanging.setList(dieList);
 		willChangeSprite = true;
-		timeLeftChangeSprite = TextureTime.getTime(dieList) + 1.1f;
+		timeLeftChangeSprite = TextureTime.getTime(dieList) + 0.9f;
 		isDying = true;
 	}
 

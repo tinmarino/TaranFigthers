@@ -108,9 +108,9 @@ public class PlatformScreen extends TaranScreen{
 	@Override
 	public void dispose(){
 		super.dispose();
-		music1.dispose();
-		music2.dispose();
-		music3.dispose();
+		G.disposeW(music1);
+		G.disposeW(music2);
+		G.disposeW(music3);
 	}
 
 

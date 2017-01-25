@@ -85,7 +85,12 @@ public class G{
 	}
 
 	public static void disposeW(Disposable disposable){
-		if ( null != disposable ){disposable.dispose();}
+		if ( null != disposable ){
+			if (disposable instanceof Music){
+				((Music) disposable).stop();
+			}
+			disposable.dispose();
+		}
 	}
 
 	public static void log(String string){

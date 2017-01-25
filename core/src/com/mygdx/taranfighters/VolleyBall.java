@@ -32,6 +32,7 @@ public class VolleyBall extends Character{
 	// Level don't forget to call me
 	public static void disposeTexture(){
 		if (!isTextureLoaded){return;}
+		if (walkListS == null){return;}
 		for (TextureTime t :  walkListS){ t.texture.dispose(); }
 		walkListS = null;
 	}
@@ -41,7 +42,7 @@ public class VolleyBall extends Character{
 		size = 1.4f;
 		spriteOffset = new Vector2(-size / 2, -size / 2);
 		
-		if (!isTextureLoaded){
+		if (walkListS == null || walkListS.size() == 0){
 			isTextureLoaded = true;
 			walkListS = new ArrayList<TextureTime>();
 			walkListS.add(new TextureTime("img/volley200.png" , Float.MAX_VALUE));
