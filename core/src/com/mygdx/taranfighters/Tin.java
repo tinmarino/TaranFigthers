@@ -70,7 +70,7 @@ public class Tin extends Character {
 		punchList.add(new TextureTime( "tin/tin_punch1.png" , 0.05f ));
 
 
-		spriteChanging = new SpriteChanging(size);
+		spriteChanging = new SpriteChanging(walkList.get(0).texture, size);
 		spriteChanging.setList(walkList);
 		spriteChanging.pause();
 	}

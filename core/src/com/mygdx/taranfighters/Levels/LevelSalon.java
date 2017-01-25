@@ -18,11 +18,11 @@ public class LevelSalon extends Level {
 
 
 		makeZombie(7, 30).fromTo(5f, 9f); 
-		makeZombie(33, 20).fromTo(26, 42); 
+		makeZombie(33, 22).fromTo(26, 42); 
 		makeZombie(27, 14).fromTo(25, 28); 
 		makeZombie(78, 30).fromTo(76, 84); 
 		makeZombie(65, 10).fromTo(65, 83); 
-		makeZombie(88, 07).fromTo(88, 117); 
+		makeZombie(90, 11).fromTo(88, 117); 
 		makeZombie(110, 25).fromTo(99, 110); 
 	}
 

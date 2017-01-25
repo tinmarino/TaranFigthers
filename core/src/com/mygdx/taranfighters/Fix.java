@@ -61,7 +61,7 @@ public class Fix extends Character {
 		punchList.add(new TextureTime( "fix/fix_punch2.png" , 0.1f ));
 
 
-		spriteChanging = new SpriteChanging(size);
+		spriteChanging = new SpriteChanging(walkList.get(0).texture, size);
 		spriteChanging.setList(walkList);
 		spriteChanging.pause();
 	}

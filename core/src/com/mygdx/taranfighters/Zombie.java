@@ -129,7 +129,7 @@ public class Zombie extends Character {
 		kickList = kickListS;
 		dieList  = dieListS;
 
-		spriteChanging = new SpriteChanging(size);
+		spriteChanging = new SpriteChanging(walkList.get(0).texture, size);
 		spriteChanging.setList(walkList);
 		spriteChanging.pause();
 	}

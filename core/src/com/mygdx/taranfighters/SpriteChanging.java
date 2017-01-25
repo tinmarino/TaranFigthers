@@ -1,3 +1,6 @@
+/*
+ *  I did not use g2d.Animation because too late + I want textures with a different time for each one (maybe);
+ */
 package com.mygdx.taranfighters;
 
 import java.util.ArrayList;
@@ -13,15 +16,26 @@ public class SpriteChanging extends Sprite{
 	public boolean onPause = false;
 	
 
-	SpriteChanging(float size){
-		super(new Texture("iul/iul_walk1.png"));
-		this.setSize(2 * size * G.world2pixel, 2* size * G.world2pixel);
-		this.setOrigin(this.getWidth()/2 * G.world2pixel/2, this.getHeight()/2); // to resize and rotate around the origin, here center of the sprite
-	}
 
 	SpriteChanging(String string){
 		super(new Texture(string));
 	}
+
+	SpriteChanging(Texture texture){
+		super(texture);
+	}
+
+	SpriteChanging(Texture texture, float size){
+		super(texture);
+		scaleM(size);
+	}
+
+	// In meters
+	public void scaleM(float size){
+		this.setSize(2 * size * G.world2pixel, 2* size * G.world2pixel);
+		this.setOrigin(this.getWidth()/2 * G.world2pixel/2, this.getHeight()/2); 
+	}
+
 
 	public void pause(){
 		this.onPause = true;

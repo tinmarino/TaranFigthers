@@ -56,9 +56,7 @@ public class Jak extends Character {
 		punchList.add(new TextureTime( "jak/jak_punch1.png" , 0.07f ));
 
 
-		spriteChanging = new SpriteChanging("iul/iul_walk1.png");
-		spriteChanging.setSize(2 * size * G.world2pixel, 2* size * G.world2pixel);
-		spriteChanging.setOrigin(spriteChanging.getWidth()/2 * G.world2pixel/2, spriteChanging.getHeight()/2); // to resize and rotate around the origin, here center of the sprite
+		spriteChanging = new SpriteChanging(walkList.get(0).texture, size);
 		spriteChanging.setList(walkList);
 		spriteChanging.pause();
 	}

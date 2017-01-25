@@ -25,30 +25,29 @@ public class Iul extends Character{
 	@Override
 	public void draw(SpriteBatch batch, float delta){
 		super.draw(batch, delta);
+		if (!isPunching){
+			return;
+		}
 
 		Vector2 vel = this.body.getLinearVelocity();
-		if (isPunching){
+		// force key pushed 
+		if (vel.x > -0.99f* maxSpeed.x){
+			body.setLinearVelocity(-maxSpeed.x, body.getLinearVelocity().y);
+			spriteChanging.play();
+		}
+		if (vel.x < 0.99f * maxSpeed.x){
+			body.setLinearVelocity(maxSpeed.x, body.getLinearVelocity().y);
+			spriteChanging.play();
+		}
 
-			// force key pushed 
-			if (vel.x > -0.99f* maxSpeed.x){
-				body.setLinearVelocity(-maxSpeed.x, body.getLinearVelocity().y);
-				spriteChanging.play();
+		// accelerate like bitch
+		if (spriteChanging.isFlipX()){
+			if(body.getLinearVelocity().x > -0.8f * maxSpeed.x){
+				body.applyForceToCenter(-1000, 0, true);
 			}
-			if (vel.x < 0.99f * maxSpeed.x){
-				body.setLinearVelocity(maxSpeed.x, body.getLinearVelocity().y);
-				spriteChanging.play();
-			}
-
-			// accelerate like bitch
-			if (spriteChanging.isFlipX()){
-				if(body.getLinearVelocity().x > -0.8f * maxSpeed.x){
-					body.applyForceToCenter(-1000, 0, true);
-				}
-			}
-			else if ( body.getLinearVelocity().x < 0.8f * maxSpeed.x){
-				body.applyForceToCenter(1000, 0, true);
-			}
-
+		}
+		else if ( body.getLinearVelocity().x < 0.8f * maxSpeed.x){
+			body.applyForceToCenter(1000, 0, true);
 		}
 	}
 
@@ -92,9 +91,7 @@ public class Iul extends Character{
 		punchList.add(new TextureTime( "iul/iul_punch6.png" , 0.1f ));
 		punchList.add(new TextureTime( "iul/iul_punch7.png" , 0.1f ));
 
-		spriteChanging = new SpriteChanging("iul/iul_walk1.png");
-		spriteChanging.setSize(2 * size * G.world2pixel, 2* size * G.world2pixel);
-		spriteChanging.setOrigin(spriteChanging.getWidth()/2 * G.world2pixel/2, spriteChanging.getHeight()/2); // to resize and rotate around the origin, here center of the sprite
+		spriteChanging = new SpriteChanging(walkList.get(0).texture, size);
 		spriteChanging.setList(walkList);
 		spriteChanging.pause();
 	}

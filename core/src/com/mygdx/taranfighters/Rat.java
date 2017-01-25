@@ -49,9 +49,7 @@ public class Rat extends Character{
 		walkList.add(new TextureTime( "rat/rat4.png" , 0.1f ));
 		walkList.add(new TextureTime( "rat/rat5.png" , 0.1f ));
 
-		spriteChanging = new SpriteChanging("rat/rat1.png");
-		spriteChanging.setSize(size*G.world2pixel, size*G.world2pixel);
-		spriteChanging.setOrigin(size*G.world2pixel/2, size*G.world2pixel/2);
+		spriteChanging = new SpriteChanging(walkList.get(0).texture, size);
 		spriteChanging.setList(walkList);
 	}
 

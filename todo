@@ -1,40 +1,38 @@
 
 PROJECT 
-estoy texture, recycle for zombie and volleyball amkers.
 
 
-be able to zoom better, have better debug tools -> better graphics later
-make some choosing screens 
 
-change willChangeList by  isKicking
-
-
-Combat screen :clean all code before extending 
-			make offset and width, :b Gheight as vector2
-			keep calculating width 
-
-Character size and some settings are to prepare in Level (gravity, doubleJup..)
-Make preferences with a version. To relaod when new version.
-is debug, can access hidden levels.
-
-Multi player with split screen nice and explore fast a labyrinth, try to join each other.  
-Make a small tutorial for each player.  
-Just 6 levels but finishe the levels, gameplay!!
-Change isDying + isDead, redondant.
+destoy texture, for volleyball 
+WARNING change spritechangeing by animation ? Because it is alocating all the time a defautl Iul and for each Char. 
+Shut music down 
 
 NOW:
-Make zombies kill 
+Make a small tutorial for each player.  
 
 
 
 IDEA:
-   Tutorail screen.
-   prettry bck
+	Just 6 levels but finishe the levels, gameplay!!
+   	Tutorail screen.
+   	prettry bck
+	Make zombies kill better
+	Change isDying + isDead, redondant.
+	Multi player with split screen nice and explore fast a labyrinth, try to join each other.  
+	change willChangeList by  isKicking
+	Make preferences with a version. To relaod when new version.
+	Character size and some settings are to prepare in Level (gravity, doubleJup..)
+	Combat screen :clean all code before extending 
+			make offset and width, :b Gheight as vector2
+			keep calculating width 
+	resize well
+	be able to zoom better, have better debug tools -> better graphics later
 
 
 
 LEVEL 
-levle where we must push oject to climb 
+level where we must push oject to climb 
+See 3D stuff (entertain)
 
 
 

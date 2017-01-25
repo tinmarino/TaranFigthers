@@ -37,9 +37,7 @@ public class VolleyBall extends Character{
 		walkList = new ArrayList<TextureTime>();
 		walkList.add(new TextureTime( "img/volley200.png" , Float.MAX_VALUE));
 
-		spriteChanging = new SpriteChanging("img/volley200.png");
-		spriteChanging.setSize(size*G.world2pixel, size*G.world2pixel);
-		spriteChanging.setOrigin(size*G.world2pixel/2, size*G.world2pixel/2);
+		spriteChanging = new SpriteChanging(walkList.get(0).texture, size/2);
 		spriteChanging.setList(walkList);
 
 		createBodyVolleyBall();
