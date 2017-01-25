@@ -157,6 +157,7 @@ public class Level implements Disposable{
 		G.disposeW(music_num);
 		G.disposeW(music_quote);
 		Zombie.disposeTexture();
+		VolleyBall.disposeTexture();
 	}
 
 

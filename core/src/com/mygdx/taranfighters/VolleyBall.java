@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class VolleyBall extends Character{
 	ArrayList<TextureTime> walkList;
 	static ArrayList<TextureTime> walkListS;
+	static boolean isTextureLoaded = false;
 
 	public VolleyBall(World world){
 		super(world);
@@ -28,17 +29,28 @@ public class VolleyBall extends Character{
 	}
 
 
+	// Level don't forget to call me
+	public static void disposeTexture(){
+		if (!isTextureLoaded){return;}
+		for (TextureTime t :  walkListS){ t.texture.dispose(); }
+		walkListS = null;
+	}
 
 	public void init(){
 		playerNumber = -1;
 		size = 1.4f;
 		spriteOffset = new Vector2(-size / 2, -size / 2);
 		
-		walkList.add(new TextureTime("img/volley200.png" , Float.MAX_VALUE));
-
-		walkList = new ArrayList<TextureTime>();
+		if (!isTextureLoaded){
+			isTextureLoaded = true;
+			walkListS = new ArrayList<TextureTime>();
+			walkListS.add(new TextureTime("img/volley200.png" , Float.MAX_VALUE));
+		}
+		walkList = walkListS;
 
 		spriteChanging = new SpriteChanging(walkList.get(0).texture, size/2);
+		spriteChanging.setOrigin(size*G.world2pixel/2, size*G.world2pixel/2);
+
 		spriteChanging.setList(walkList);
 
 		createBodyVolleyBall();
