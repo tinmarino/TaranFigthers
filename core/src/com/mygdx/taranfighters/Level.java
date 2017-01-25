@@ -147,12 +147,12 @@ public class Level implements Disposable{
 
 	public void dispose(){
 		G.log("Level dispose");
-		G.disposeW((Disposable) music);
 		if (debugRenderer!= null){
 			debugRenderer.dispose();
 		}
 		G.disposeW((Disposable) tiledMap);
 		G.disposeW((Disposable) tiledMapRenderer);
+		G.disposeW(music);
 		G.disposeW(music_num);
 		G.disposeW(music_quote);
 		Zombie.disposeTexture();

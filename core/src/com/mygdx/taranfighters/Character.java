@@ -51,7 +51,7 @@ public class Character implements Disposable{
 	public boolean isJumping=true;
 	public boolean isDoubleJumping=false;
 	public boolean isWalking=false;
-	public boolean isDying = false, isDead = false;
+	public boolean isDead = false;
 
 	public int playerNumber = 1;
 
@@ -83,7 +83,7 @@ public class Character implements Disposable{
 		}
 
 
-		if (!isDying){
+		if (!isDead){
 			x = body.getPosition().x;
 			y = body.getPosition().y;
 		}

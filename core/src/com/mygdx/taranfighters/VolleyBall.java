@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class VolleyBall extends Character{
 	ArrayList<TextureTime> walkList;
+	static ArrayList<TextureTime> walkListS;
 
 	public VolleyBall(World world){
 		super(world);
@@ -33,9 +34,9 @@ public class VolleyBall extends Character{
 		size = 1.4f;
 		spriteOffset = new Vector2(-size / 2, -size / 2);
 		
+		walkList.add(new TextureTime("img/volley200.png" , Float.MAX_VALUE));
 
 		walkList = new ArrayList<TextureTime>();
-		walkList.add(new TextureTime( "img/volley200.png" , Float.MAX_VALUE));
 
 		spriteChanging = new SpriteChanging(walkList.get(0).texture, size/2);
 		spriteChanging.setList(walkList);
