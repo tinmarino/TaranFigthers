@@ -16,6 +16,7 @@ public class Zombie extends Character {
 	public float xmin = -100, xmax = 100000; 
 
 	public int direction =1;
+	public boolean isDying;
 
 
 
@@ -27,17 +28,26 @@ public class Zombie extends Character {
 
 	@Override
 	public void draw(SpriteBatch batch, float delta){
-		if (!isDead){
-			super.draw(batch, delta);
+		// Dye ?
+		if (isDying){
+			if (null != body){
+				world.destroyBody(body);
+				body = null;
+			}
+			if (timeLeftChangeSprite < 1f){
+				isDead = true;
+			}
+		}
 
-			if (this.x < this.xmin){
-				direction = 1;
-				walk(direction);
-			}
-			else if (this.x > this.xmax){
-				direction = -1;
-				walk(direction);
-			}
+		super.draw(batch, delta);
+
+		if (this.x < this.xmin){
+			direction = 1;
+			walk(direction);
+		}
+		else if (this.x > this.xmax){
+			direction = -1;
+			walk(direction);
 		}
 	}
 
@@ -64,8 +74,8 @@ public class Zombie extends Character {
 		// Sprite 
 		spriteChanging.setList(dieList);
 		willChangeSprite = true;
-		timeLeftChangeSprite = TextureTime.getTime(dieList);
-		this.isDying = true;
+		timeLeftChangeSprite = TextureTime.getTime(dieList) + 1.1f;
+		isDying = true;
 	}
 
 	@Override

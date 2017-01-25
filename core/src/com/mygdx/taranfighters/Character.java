@@ -67,80 +67,23 @@ public class Character implements Disposable{
 
 
 
+	private void drawSprite(SpriteBatch batch, float delta){
+		spriteChanging.setX( (x+spriteOffset.x) * G.world2pixel);
+		spriteChanging.setY( (y+spriteOffset.y) * G.world2pixel);
+		spriteChanging.draw(batch, delta);
 
 
-
-	public void draw(SpriteBatch batch, float delta){
-		// Dye ?
-		if (isDying){
-			if (null != body){
-				world.destroyBody(body);
-				body = null;
-			}
-			if (timeLeftChangeSprite < 0.1f){
-				isDead = true;
-			}
-		}
-
-
-		if (!isDead){
-			x = body.getPosition().x;
-			y = body.getPosition().y;
-		}
-			
-		if (!isDead){
-			// SPRITE 
-			spriteChanging.setX( (x+spriteOffset.x) * G.world2pixel);
-			spriteChanging.setY( (y+spriteOffset.y) * G.world2pixel);
-			spriteChanging.draw(batch, delta);
-		}
-
-
-		if (!isDying)
-		{
-			// Body Velocity  + defreezze
-			scaleVelocity(maxSpeed);
-			// For humans 
-			Vector2 vel = this.body.getLinearVelocity();
-			if (playerNumber == 1){
-				if (this.isPressingLeft()){
-					spriteChanging.play();
-					if (vel.x > -0.99f* maxSpeed.x){
-						body.setLinearVelocity(-maxSpeed.x, body.getLinearVelocity().y);
-					}
-				}
-
-				if (this.isPressingRight()){
-					spriteChanging.play();
-					if (vel.x < 0.99f * maxSpeed.x){
-						body.setLinearVelocity(maxSpeed.x, body.getLinearVelocity().y);
-					}
-				}
-			}
-			// For zombie
-			if (playerNumber == 10){
-				if (((Zombie) this).direction == -1  && vel.x > -0.99f* maxSpeed.x){
-					body.setLinearVelocity(-maxSpeed.x, body.getLinearVelocity().y);
-					spriteChanging.play();
-				}
-
-				if (((Zombie) this).direction == 1  && vel.x < 0.99f * maxSpeed.x){
-					body.setLinearVelocity(maxSpeed.x, body.getLinearVelocity().y);
-					spriteChanging.play();
-				}
-			}
-
-
-			// Debug 
-			if (G.debug){
-				G.debugFont.draw(batch, 
-						"\nMaxSpeeed: " + this.maxSpeed +
-						"\nSpeed: " + this.body.getLinearVelocity() +
+		// Debug 
+		if (G.debug){
+			String s = "\nMaxSpeeed: " + this.maxSpeed +
 						"\nJump: " + this.isJumping +
 						"\nDJump: " + this.isDoubleJumping +
-						"\nPos: " + this.body.getPosition(),
-						(x+0.5f) * G.world2pixel, (y+0.5f) * G.world2pixel);
+						"\nPos: " + x  + ", " + y;
+			if (body != null){ 
+				s += "\nSpeed: " + this.body.getLinearVelocity();
 			}
+			G.debugFont.draw(batch, s,
+					(x+0.5f) * G.world2pixel, (y+0.5f) * G.world2pixel);
 		}
 
 		// Sprite Changes 
@@ -153,13 +96,54 @@ public class Character implements Disposable{
 				isKicking = false;
 				isPunching = false;
 
-				setFixtureMask(leftLegFixture, 0);
-				setFixtureMask(rightLegFixture, 0);
-				setFixtureMask(leftArmFixture, 0);
-				setFixtureMask(rightArmFixture, 0);
+				if ( body != null){
+					setFixtureMask(leftLegFixture, 0);
+					setFixtureMask(rightLegFixture, 0);
+					setFixtureMask(leftArmFixture, 0);
+					setFixtureMask(rightArmFixture, 0);
+				}
 				maxSpeed = defaultMaxSpeed;
 			}
+		}
+	}
 
+
+	public void draw(SpriteBatch batch, float delta){
+		drawSprite(batch, delta);
+		if (body == null){return;}
+		x = body.getPosition().x;
+		y = body.getPosition().y;
+
+		// Body Velocity  + defreezze
+		scaleVelocity(maxSpeed);
+		// For humans 
+		Vector2 vel = this.body.getLinearVelocity();
+		if (playerNumber == 1){
+			if (this.isPressingLeft()){
+				spriteChanging.play();
+				if (vel.x > -0.99f* maxSpeed.x){
+					body.setLinearVelocity(-maxSpeed.x, body.getLinearVelocity().y);
+				}
+			}
+
+			if (this.isPressingRight()){
+				spriteChanging.play();
+				if (vel.x < 0.99f * maxSpeed.x){
+					body.setLinearVelocity(maxSpeed.x, body.getLinearVelocity().y);
+				}
+			}
+		}
+		// For zombie
+		if (playerNumber == 10){
+			if (((Zombie) this).direction == -1  && vel.x > -0.99f* maxSpeed.x){
+				body.setLinearVelocity(-maxSpeed.x, body.getLinearVelocity().y);
+				spriteChanging.play();
+			}
+
+			if (((Zombie) this).direction == 1  && vel.x < 0.99f * maxSpeed.x){
+				body.setLinearVelocity(maxSpeed.x, body.getLinearVelocity().y);
+				spriteChanging.play();
+			}
 		}
 
 
@@ -277,7 +261,9 @@ public class Character implements Disposable{
 			if (otherBody.getUserData() instanceof Zombie){
 				//Character otherCharacter = ((Character) otherBody.getUserData());
 				if (!isKicking && !isPunching){
-					die();
+					if (! ((Zombie) otherBody.getUserData()).isDead){
+						die();
+					}
 				}
 			}
 		}

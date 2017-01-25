@@ -26,6 +26,7 @@ import com.mygdx.taranfighters.Levels.LevelPlatform1;
 import com.mygdx.taranfighters.Levels.LevelPlatform2;
 import com.mygdx.taranfighters.Levels.LevelSalon;
 import com.mygdx.taranfighters.Levels.LevelSinai;
+import com.mygdx.taranfighters.Character;
 
 
 public class Level implements Disposable{
