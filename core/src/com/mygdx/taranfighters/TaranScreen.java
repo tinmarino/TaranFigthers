@@ -60,6 +60,9 @@ public class TaranScreen implements Screen, InputProcessor {
 	}
 
 
+	float Round(float floatA,float floatB){
+		return Math.round(floatA / floatB) * floatB;
+	}
 
 	@Override
 	public void render(float delta){
@@ -78,7 +81,7 @@ public class TaranScreen implements Screen, InputProcessor {
 		}
 
 		// Clear screen 
-      	Gdx.gl.glClearColor(0, 0, 0f, 0);
+      	Gdx.gl.glClearColor(0, 0, 0f, 0.2f);
       	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		// World step 
@@ -86,13 +89,12 @@ public class TaranScreen implements Screen, InputProcessor {
 
 
 		// Center Camera 
-		camera.position.x = char1.x * G.world2pixel;
-		camera.position.y = char1.y * G.world2pixel;
+		camera.position.x = Round(char1.x * G.world2pixel, 0.1f);
+		camera.position.y = Round(char1.y * G.world2pixel, 0.1f);
 		camera.update();
 
 		// Render Level and get its batch
 		level.tiledMapRenderer.setView(camera);
-		//SpriteBatch batch = (SpriteBatch) level.tiledMapRenderer.getBatch();
 		level.tiledMapRenderer.render();
 
 
@@ -101,14 +103,12 @@ public class TaranScreen implements Screen, InputProcessor {
 		batch.begin();
 			level.draw(batch, delta);
 			char1.draw(batch, delta);
-			// HUD debug
 		batch.end();
 
 		// Debug render 
 		if (G.debug){
 			level.debugRenderer.render(world, camera.combined.scale(G.world2pixel, G.world2pixel, G.world2pixel) );
 		}
-
 
 		// HUD debug 
 		if (G.debug){
