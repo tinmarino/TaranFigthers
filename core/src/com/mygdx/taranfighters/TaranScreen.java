@@ -49,6 +49,7 @@ public class TaranScreen implements Screen, InputProcessor {
 		world = new World(new Vector2(0f, -20f), true);
 
 		camera = new OrthographicCamera();
+		camera.zoom = 1;
 		batch = new SpriteBatch();
 
 		HUDMatrix = new Matrix4();
@@ -88,8 +89,8 @@ public class TaranScreen implements Screen, InputProcessor {
 
 
 		// Center Camera 
-		camera.position.x = char1.x * G.world2pixel;
-		camera.position.y = char1.y * G.world2pixel;
+		camera.position.x = Round(char1.x * G.world2pixel, 1);
+		camera.position.y = Round(char1.y * G.world2pixel, 1);
 		camera.update();
 
 		// Render Level and get its batch
