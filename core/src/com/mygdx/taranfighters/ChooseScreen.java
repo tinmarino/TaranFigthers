@@ -10,8 +10,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -164,6 +166,12 @@ public class ChooseScreen implements Screen {
 
 		ScrollPane scrollPane = new ScrollPane(table);
 		scrollPane.setFillParent(true);
+
+		Skin skin = EscapeDialog.getSkinPlease();
+		Image image = new Image(skin.getDrawable("taran_icon1"));
+		image.setFillParent(true);
+
+		stage.addActor(image);
 		stage.addActor(scrollPane);
 	}
 
