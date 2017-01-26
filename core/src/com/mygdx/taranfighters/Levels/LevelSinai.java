@@ -28,7 +28,7 @@ public class LevelSinai extends Level {
 		super("map/sinai.tmx", world);
 		initialPosition = new Vector2(18, 20);
 		music_quote = G.music("music/quote/he_who_is_prudent.mp3");
-		//music = G.music("music/el_aparecido.mp3");
+		music = G.music("music/i_will_survive_full.mp3");
 	}
 
 
