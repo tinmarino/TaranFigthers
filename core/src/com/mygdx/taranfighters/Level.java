@@ -39,6 +39,7 @@ public class Level implements Disposable{
 	public ArrayList<Character> deadCharacter = new ArrayList<Character>();
 	public enum FINISHED{GAMEOVER, VICTORY, NO}
 	public FINISHED finishedEnum = FINISHED.NO;
+	public int zombieKilled = 0;
 
 	// Disposables
 	public World world;
@@ -102,6 +103,7 @@ public class Level implements Disposable{
 			character.draw(batch, delta);
 			if (character.isDead){
 		 		deadCharacter.add(character);
+				zombieKilled += 1;
 			}
 		}
 		for (Character dead : deadCharacter){
