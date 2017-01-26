@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -89,8 +88,8 @@ public class TaranScreen implements Screen, InputProcessor {
 
 
 		// Center Camera 
-		camera.position.x = Round(char1.x * G.world2pixel, 0.1f);
-		camera.position.y = Round(char1.y * G.world2pixel, 0.1f);
+		camera.position.x = Round(char1.x * G.world2pixel, 2);
+		camera.position.y = Round(char1.y * G.world2pixel, 2);
 		camera.update();
 
 		// Render Level and get its batch

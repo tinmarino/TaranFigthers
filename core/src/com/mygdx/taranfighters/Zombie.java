@@ -41,13 +41,15 @@ public class Zombie extends Character {
 
 		super.draw(batch, delta);
 
-		if (this.x < this.xmin){
-			direction = 1;
-			walk(direction);
-		}
-		else if (this.x > this.xmax){
-			direction = -1;
-			walk(direction);
+		if (!isDead){
+			if (this.x < this.xmin){
+				direction = 1;
+				walk(direction);
+			}
+			else if (this.x > this.xmax){
+				direction = -1;
+				walk(direction);
+			}
 		}
 	}
 

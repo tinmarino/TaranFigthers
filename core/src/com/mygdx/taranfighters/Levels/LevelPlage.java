@@ -7,11 +7,13 @@ import com.mygdx.taranfighters.Level;
 import com.mygdx.taranfighters.Zombie;
 
 public class LevelPlage extends Level {
-	float counterTime = 5;
+	float counterTime = 0;
+	double random;
 
 	public LevelPlage(World world) {
 		super("map/plage.tmx", world);
 		initialPosition = new Vector2(12, 23);
+		random = Math.random();
 	}
 
 	@Override
@@ -19,7 +21,8 @@ public class LevelPlage extends Level {
 		super.draw(batch, delta);
 
 		counterTime += delta;
-		if (counterTime > 5){
+		if (counterTime > 4 + 2*(random-0.5f)){
+			random = Math.random();
 			counterTime = 0;
 			Zombie zombie = makeZombie(17, 23);
 			zombie.fromTo(13, 22);
