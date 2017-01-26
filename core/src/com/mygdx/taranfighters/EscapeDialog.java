@@ -35,19 +35,19 @@ public class EscapeDialog extends Dialog  implements Disposable{
 		// CONTINUE 
 		TextButton btn1 = new TextButton("Continue of course.", skin.get("iul", TextButtonStyle.class));
 		this.setObject(btn1, WHAT.CONTINUE);
-		this.getButtonTable().add(btn1).height(getPrefHeight()/5);
+		this.getButtonTable().add(btn1).height(getPrefHeight()/5).width(getPrefWidth() * 0.8f);
 		this.getButtonTable().row();
 
 		// LEVEL SWITCH 
 		TextButton btn2 = new TextButton("ChangeLevel, please ...", skin.get("jak", TextButtonStyle.class));
 		this.setObject(btn2, WHAT.LEVEL); 
-		this.getButtonTable().add(btn2).height(getPrefHeight()/5);
+		this.getButtonTable().add(btn2).height(getPrefHeight()/5).width(getPrefWidth() * 0.8f);
 		this.getButtonTable().row();
 
 		// EXIT 
 		TextButton btn3 = new TextButton("Leave you now !", skin.get("roz", TextButtonStyle.class));
 		this.setObject(btn3, WHAT.EXIT);
-		this.getButtonTable().add(btn3).height(getPrefHeight()/5);
+		this.getButtonTable().add(btn3).height(getPrefHeight()/5).width(getPrefWidth() * 0.8f);
 		this.getButtonTable().row();
 	}
 	
@@ -79,12 +79,12 @@ public class EscapeDialog extends Dialog  implements Disposable{
 
     @Override
     public float getPrefWidth() {
-        return Gdx.graphics.getWidth()/2;
+        return Gdx.graphics.getHeight() * 0.8f;
     }
 
     @Override
     public float getPrefHeight() {
-        return Gdx.graphics.getWidth()/2;
+        return Gdx.graphics.getHeight() * 0.8f;
     }
 
 	public enum WHAT{CONTINUE, LEVEL, EXIT};

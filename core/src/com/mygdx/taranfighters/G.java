@@ -26,7 +26,7 @@ public class G{
 	public static int velocity_iterations = 8;
 	public static int position_iterations = 3;
 	public static float world2pixel = 128;
-	public static boolean debug = true;
+	public static boolean debug = false;
 
 
 	public enum CHAR{JAK, ROZ, IUL, FIX, TIN}

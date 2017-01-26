@@ -81,7 +81,7 @@ public class TaranScreen implements Screen, InputProcessor {
 		}
 
 		// Clear screen 
-      	Gdx.gl.glClearColor(0, 0, 0f, 0.2f);
+      	Gdx.gl.glClearColor(0, 0, 0.2f, 1f);
       	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		// World step 
@@ -234,11 +234,6 @@ public class TaranScreen implements Screen, InputProcessor {
 
 	@Override
 	public boolean touchDown (int screenX, int screenY, int pointer, int button){
-		Vector3 screenVect  = new Vector3(screenX, screenY, 0);
-		Vector3 cameraVect = camera.project(screenVect);
-		G.log("TaranScreen TouchDown at screen  " + screenX +","+ screenY );
-		G.log("TaranScreen TouchDown at cam     " + cameraVect.x +","+ cameraVect.y );
-		G.log("TaranScreen Player Position " + char1.x +","+ char1.y);
 		if (char1.touchDown(screenX, screenY, pointer, button)){return true;}
 		return false;
 	}
@@ -249,7 +244,8 @@ public class TaranScreen implements Screen, InputProcessor {
 	}
 
 	@Override
-	public boolean touchUp(int arg0, int arg1, int arg2, int arg3) {
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		if (char1.touchUp(screenX, screenY, pointer, button)){return true;}
 		return false;
 	}
 

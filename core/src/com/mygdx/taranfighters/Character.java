@@ -424,31 +424,6 @@ public class Character implements Disposable{
 		return fixture;
 	}
 
-	// TOUCH 
-	public boolean keyUp(int keycode){
-        if(keycode == Input.Keys.RIGHT || keycode == Input.Keys.LEFT)
-		{
-			// if no both buttons
-			if ((!isPressingLeft()) && (!isPressingRight())){
-				stopWalking();
-			}
-
-			Vector2 vel = body.getLinearVelocity();
-			vel.x = 0;
-			body.setLinearVelocity(vel);
-
-			if (isJumping || isKicking || isPunching){
-				return true;
-			}
-			stopWalking();
-
-			return true;
-		}
-
-		return false;
-
-
-	}
 
 	public void stopWalking(){
 		if (spriteChanging.currentList == walkList){
@@ -497,6 +472,29 @@ public class Character implements Disposable{
 		return false; 
 	}
 
+	// TOUCH 
+	public boolean keyUp(int keycode){
+        if(keycode == Input.Keys.RIGHT || keycode == Input.Keys.LEFT)
+		{
+			// if no both buttons
+			if ((!isPressingLeft()) && (!isPressingRight())){
+				stopWalking();
+			}
+
+			Vector2 vel = body.getLinearVelocity();
+			vel.x = 0;
+			body.setLinearVelocity(vel);
+
+			if (isJumping || isKicking || isPunching){
+				return true;
+			}
+			stopWalking();
+			return true;
+		}
+
+		return false;
+	}
+
 	// Currently just for one player,
 	// Warning change also isPressingLeft 
 	public boolean touchDown (int screenX, int screenY, int pointer, int button){
@@ -531,6 +529,14 @@ public class Character implements Disposable{
 		// KICK
 		kick();
 		return true;
+	}
+
+
+	public boolean touchUp (int screenX, int screenY, int pointer, int button){
+		if (screenX < Gdx.graphics.getWidth()){
+ 			return keyUp(Input.Keys.RIGHT); 
+		}
+		return false;
 	}
 
 	public boolean isPressingLeft(){
