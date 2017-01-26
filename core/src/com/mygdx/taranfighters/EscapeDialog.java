@@ -28,26 +28,29 @@ public class EscapeDialog extends Dialog  implements Disposable{
 		music.setPosition(5);
 
 		G.log("EscapeDialog : called");
-		this.padTop(getPrefHeight()/5);
+		this.padTop(getPrefHeight()/8);
 
 		text("What you wanna do ?");
 
 		// CONTINUE 
 		TextButton btn1 = new TextButton("Continue of course.", skin.get("iul", TextButtonStyle.class));
+		btn1.getLabelCell().padTop(30);
 		this.setObject(btn1, WHAT.CONTINUE);
-		this.getButtonTable().add(btn1).height(getPrefHeight()/5).width(getPrefWidth() * 0.8f);
+		this.getButtonTable().add(btn1).height(getPrefHeight()/4).width(getPrefWidth() * 0.8f);
 		this.getButtonTable().row();
 
 		// LEVEL SWITCH 
 		TextButton btn2 = new TextButton("ChangeLevel, please ...", skin.get("jak", TextButtonStyle.class));
+		btn2.getLabelCell().padTop(-30);
 		this.setObject(btn2, WHAT.LEVEL); 
-		this.getButtonTable().add(btn2).height(getPrefHeight()/5).width(getPrefWidth() * 0.8f);
+		this.getButtonTable().add(btn2).height(getPrefHeight()/4).width(getPrefWidth() * 0.8f);
 		this.getButtonTable().row();
 
 		// EXIT 
 		TextButton btn3 = new TextButton("Leave you now !", skin.get("roz", TextButtonStyle.class));
+		btn3.getLabelCell().padTop(20);
 		this.setObject(btn3, WHAT.EXIT);
-		this.getButtonTable().add(btn3).height(getPrefHeight()/5).width(getPrefWidth() * 0.8f);
+		this.getButtonTable().add(btn3).height(getPrefHeight()/4).width(getPrefWidth() * 0.8f);
 		this.getButtonTable().row();
 	}
 	
