@@ -11,6 +11,7 @@ package com.mygdx.taranfighters;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -26,7 +27,6 @@ import com.mygdx.taranfighters.Levels.LevelPlatform1;
 import com.mygdx.taranfighters.Levels.LevelPlatform2;
 import com.mygdx.taranfighters.Levels.LevelSalon;
 import com.mygdx.taranfighters.Levels.LevelSinai;
-import com.mygdx.taranfighters.Character;
 
 
 public class Level implements Disposable{
@@ -120,7 +120,10 @@ public class Level implements Disposable{
 		debugRenderer = new Box2DDebugRenderer();
 
 		// Load tilemap 
-        tiledMap = new TmxMapLoader().load(mapString);
+		TmxMapLoader.Parameters params = new TmxMapLoader.Parameters();
+      		params.textureMagFilter = TextureFilter.Nearest;
+      		params.textureMinFilter = TextureFilter.Nearest;
+        tiledMap = new TmxMapLoader().load(mapString, params);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 		MapProperties prop = tiledMap.getProperties();
 		int tilePixelWidth = prop.get("tilewidth", Integer.class);

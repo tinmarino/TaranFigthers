@@ -32,16 +32,16 @@ public class LevelPlage extends Level {
 
 	@Override
 	public void draw(SpriteBatch batch, float delta){
-		super.draw(batch, delta);
 
 		counterTime += delta;
-		if (counterTime > random && zombieKilled < zombieToKill){
+		if (counterTime > random){
 			random += 4 + 2 * (Math.random()-0.5);
 			random -= Math.max(2, 2 * (counterTime / 40));
 			G.log("" + zombieKilled);
 			Zombie zombie = makeZombie(17, 23);
 			zombie.fromTo(13, 22);
 		}
+		super.draw(batch, delta);
 	}
 
 

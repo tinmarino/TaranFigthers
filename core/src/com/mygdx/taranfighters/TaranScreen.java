@@ -88,8 +88,8 @@ public class TaranScreen implements Screen, InputProcessor {
 
 
 		// Center Camera 
-		camera.position.x = Round(char1.x * G.world2pixel, 2);
-		camera.position.y = Round(char1.y * G.world2pixel, 2);
+		camera.position.x = char1.x * G.world2pixel;
+		camera.position.y = char1.y * G.world2pixel;
 		camera.update();
 
 		// Render Level and get its batch

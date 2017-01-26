@@ -1,20 +1,18 @@
 package com.mygdx.taranfighters.Levels;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.taranfighters.Level;
 import com.mygdx.taranfighters.Character;
 
 public class LevelSalon extends Level {
-	Music music1, music2;
 
 	public LevelSalon(World world) {
 		super("map/salon.tmx" , world);
 		initialPosition.y = 20;
 
-		music1 = Gdx.audio.newMusic(Gdx.files.internal("music/quote/it_is_always.mp3")); 
-		music1.play();
+		music_quote = Gdx.audio.newMusic(Gdx.files.internal("music/quote/defend.mp3")); 
+		music = Gdx.audio.newMusic(Gdx.files.internal("music/overworld.mp3")); 
 
 
 		makeZombie(7, 30).fromTo(5f, 9f); 
@@ -34,14 +32,6 @@ public class LevelSalon extends Level {
 			return true;
 		}
 		return false;
-	}
-
-
-
-	@Override
-	public void dispose(){
-		super.dispose();
-		music1.dispose();
 	}
 
 }
