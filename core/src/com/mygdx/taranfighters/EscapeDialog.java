@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.utils.Disposable;
 
 
-public class EscapeDialog extends Dialog  implements Disposable{
+public class EscapeDialog extends Dialog implements Disposable{
 	public static Skin skin;
 	public boolean isDestroyed = false;
 	public Music music;
