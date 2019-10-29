@@ -1,0 +1,43 @@
+
+PROJECT 
+
+
+IDEA:
+	Stille bleeding. Still some bug when dye.
+	Just 6 levels but finishe the levels, gameplay!!
+   	Tutorail screen.
+   	prettry bck
+	Make zombies kill better
+	Change isDying + isDead, redondant.
+	Multi player with split screen nice and explore fast a labyrinth, try to join each other.  
+	change willChangeList by  isKicking
+	Make preferences with a version. To relaod when new version.
+	Character size and some settings are to prepare in Level (gravity, doubleJup..)
+	Combat screen :clean all code before extending 
+			make offset and width, :b Gheight as vector2
+			keep calculating width 
+	resize well
+	be able to zoom better, have better debug tools -> better graphics later
++ Put taranImag behind choose menu.
+Make a small tutorial for each player.  
+	Les zombies se repoussent entres eux et te cherche quand tu es proche.
+
+
+
+LEVEL 
+level where we must push oject to climb 
+See 3D stuff (entertain)
+Secret room, in a "secret" of the tileset
+
+
+
+
+VIM 
+ Java syntax for Declaratcion or arralys<>
+
+ELSE 
+add nautilus to the work  script 
+vim cabbrev for ji -> JI because user canno tmap command with lowercase
+cahier de brouillon  needed
+vim z1, z2, z3, + edit vimrc as commands. 
+
